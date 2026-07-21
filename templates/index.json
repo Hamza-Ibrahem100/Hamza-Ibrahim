@@ -8,87 +8,93 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "tisso_announcement_bar": {
+      "type": "tisso-announcement-bar",
+      "settings": {
+        "logo_text": "TISSO VISON",
+        "message": "Find the ideal gift for your loved ones.",
+        "cta_text": "CHOOSE GIFT",
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "cta_bg_color": "#d4e600",
+        "cta_text_color": "#000000"
+      }
+    },
+    "gift_guide_hero": {
+      "type": "gift-guide-hero",
+      "settings": {
+        "bg_color": "#f7f7f5",
+        "heading": "The Gift Guide",
+        "heading_color": "#000000",
+        "description": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "text_color": "#333333",
+        "btn_text": "SHOP NOW",
+        "btn_bg_color": "#000000",
+        "btn_text_color": "#ffffff",
+        "bottom_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL.",
+        "tagline_color": "#666666"
+      }
+    },
+    "tisso_wild_grid": {
+      "type": "tisso-wild-grid",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "wild_image_1": {
+          "type": "image",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "product_name": "Leather Crossbody Bag",
+            "product_price": "$89.00"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "wild_image_2": {
+          "type": "image",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "product_name": "Classic Bow Tie",
+            "product_price": "$35.00"
+          }
+        },
+        "wild_image_3": {
+          "type": "image",
+          "settings": {
+            "product_name": "Plaid Flannel Shirt",
+            "product_price": "$65.00"
+          }
+        },
+        "wild_image_4": {
+          "type": "image",
+          "settings": {
+            "product_name": "Leather Biker Jacket",
+            "product_price": "$199.00"
+          }
+        },
+        "wild_image_5": {
+          "type": "image",
+          "settings": {
+            "product_name": "Varsity Jacket",
+            "product_price": "$120.00"
+          }
+        },
+        "wild_image_6": {
+          "type": "image",
+          "settings": {
+            "product_name": "Denim Utility Jacket",
+            "product_price": "$95.00"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "wild_image_1",
+        "wild_image_2",
+        "wild_image_3",
+        "wild_image_4",
+        "wild_image_5",
+        "wild_image_6"
       ],
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "heading": "Tisso vison in the wild",
+        "heading_color": "#000000",
+        "bg_color": "#ffffff",
+        "grid_gap": 8,
+        "image_ratio": "120"
       }
     },
     "product_list_fa6P9H": {
@@ -279,7 +285,9 @@
     }
   },
   "order": [
-    "hero_jVaWmY",
+    "tisso_announcement_bar",
+    "gift_guide_hero",
+    "tisso_wild_grid",
     "product_list_fa6P9H"
   ]
 }

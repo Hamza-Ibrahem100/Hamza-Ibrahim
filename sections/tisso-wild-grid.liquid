@@ -1,0 +1,364 @@
+<!-- Tisso In The Wild Grid - Matching Figma Design -->
+<section class="tisso-wild" id="tisso-wild-section">
+  <div class="tisso-wild__container">
+    <!-- Section Title -->
+    {% if section.settings.heading != blank %}
+      <h2 class="tisso-wild__title">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <!-- Image Grid -->
+    <div class="tisso-wild__grid">
+      {% for block in section.blocks %}
+        <div class="tisso-wild__item" {{ block.shopify_attributes }}>
+          <div class="tisso-wild__image-wrapper">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                srcset="
+                  {{ block.settings.image | image_url: width: 400 }} 400w,
+                  {{ block.settings.image | image_url: width: 600 }} 600w,
+                  {{ block.settings.image | image_url: width: 800 }} 800w
+                "
+                sizes="(max-width: 749px) 50vw, 33vw"
+                alt="{{ block.settings.image.alt | default: block.settings.product_name | default: 'Lifestyle image' }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                class="tisso-wild__image"
+              >
+            {% else %}
+              <div class="tisso-wild__placeholder">
+                {{ 'lifestyle-' | append: forloop.index | placeholder_svg_tag: 'tisso-wild__placeholder-svg' }}
+              </div>
+            {% endif %}
+
+            <!-- Hotspot / Plus Button -->
+            {% if block.settings.product_link != blank %}
+              <a href="{{ block.settings.product_link }}" class="tisso-wild__hotspot" aria-label="{{ block.settings.product_name | default: 'View product' }}">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </a>
+            {% else %}
+              <button class="tisso-wild__hotspot" aria-label="View details" type="button">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </button>
+            {% endif %}
+
+            <!-- Product tooltip on hover -->
+            {% if block.settings.product_name != blank %}
+              <div class="tisso-wild__tooltip">
+                <span class="tisso-wild__tooltip-name">{{ block.settings.product_name }}</span>
+                {% if block.settings.product_price != blank %}
+                  <span class="tisso-wild__tooltip-price">{{ block.settings.product_price }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tisso-wild {
+    width: 100%;
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    padding: 60px 0 0;
+  }
+
+  .tisso-wild__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .tisso-wild__title {
+    font-size: 28px;
+    font-weight: 400;
+    color: {{ section.settings.heading_color | default: '#000000' }};
+    margin: 0 0 30px 0;
+    line-height: 1.3;
+    font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  }
+
+  /* Grid Layout - 3 columns */
+  .tisso-wild__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ section.settings.grid_gap | default: 8 }}px;
+  }
+
+  .tisso-wild__item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tisso-wild__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ section.settings.image_ratio | default: '120' }}%;
+    overflow: hidden;
+  }
+
+  .tisso-wild__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .tisso-wild__item:hover .tisso-wild__image {
+    transform: scale(1.05);
+  }
+
+  /* Placeholder */
+  .tisso-wild__placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tisso-wild__placeholder-svg {
+    width: 60%;
+    height: auto;
+    opacity: 0.3;
+  }
+
+  /* Hotspot / Plus Button */
+  .tisso-wild__hotspot {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    padding: 0;
+    z-index: 3;
+  }
+
+  .tisso-wild__hotspot:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+    transform: scale(1.15);
+  }
+
+  /* Tooltip */
+  .tisso-wild__tooltip {
+    position: absolute;
+    bottom: 56px;
+    left: 16px;
+    background-color: #fff;
+    color: #000;
+    padding: 8px 14px;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.3s ease;
+    z-index: 4;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .tisso-wild__item:hover .tisso-wild__tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .tisso-wild__tooltip-name {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .tisso-wild__tooltip-price {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .tisso-wild {
+      padding: 48px 0 0;
+    }
+
+    .tisso-wild__container {
+      padding: 0 24px;
+    }
+
+    .tisso-wild__title {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .tisso-wild__grid {
+      gap: 6px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 749px) {
+    .tisso-wild {
+      padding: 36px 0 0;
+    }
+
+    .tisso-wild__container {
+      padding: 0 16px;
+    }
+
+    .tisso-wild__title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tisso-wild__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+
+    .tisso-wild__hotspot {
+      width: 28px;
+      height: 28px;
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .tisso-wild__hotspot svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .tisso-wild__tooltip {
+      display: none;
+    }
+  }
+
+  /* Very small mobile */
+  @media (max-width: 479px) {
+    .tisso-wild__image-wrapper {
+      padding-bottom: 130%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "In The Wild Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tisso vison in the wild"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid Gap",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image Aspect Ratio",
+      "options": [
+        { "value": "100", "label": "Square (1:1)" },
+        { "value": "120", "label": "Portrait (5:6)" },
+        { "value": "133", "label": "Portrait (3:4)" },
+        { "value": "75", "label": "Landscape (4:3)" }
+      ],
+      "default": "120"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Product Price"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Product Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "In The Wild Grid",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
