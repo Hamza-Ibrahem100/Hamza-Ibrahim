@@ -1,4 +1,4 @@
-<!-- Tisso Announcement Bar - Matching Figma Design -->
+<!-- Tisso Announcement Bar - Matching Figma Desktop Design -->
 <section class="tisso-announcement-bar" id="tisso-announcement-bar">
   <div class="tisso-announcement-bar__inner">
     <!-- Logo -->
@@ -8,7 +8,7 @@
           src="{{ section.settings.logo_image | image_url: width: 200 }}"
           alt="{{ section.settings.logo_text | default: shop.name }}"
           width="auto"
-          height="24"
+          height="20"
           loading="eager"
         >
       {% else %}
@@ -25,7 +25,7 @@
     {% if section.settings.cta_text != blank %}
       <a href="{{ section.settings.cta_link | default: '#' }}" class="tisso-announcement-bar__cta">
         {{ section.settings.cta_text }}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
@@ -37,20 +37,20 @@
   .tisso-announcement-bar {
     width: 100%;
     background-color: {{ section.settings.bg_color | default: '#ffffff' }};
-    border-bottom: 1px solid #e5e5e5;
-    padding: 12px 0;
+    padding: 14px 0;
     position: relative;
     z-index: 10;
+    border-bottom: none;
   }
 
   .tisso-announcement-bar__inner {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 24px;
   }
 
   .tisso-announcement-bar__logo {
@@ -58,28 +58,30 @@
   }
 
   .tisso-announcement-bar__logo-text {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: {{ section.settings.text_color | default: '#000000' }};
     white-space: nowrap;
+    font-family: var(--font-heading--family, sans-serif);
   }
 
   .tisso-announcement-bar__logo img {
-    height: 24px;
+    height: 20px;
     width: auto;
     display: block;
   }
 
   .tisso-announcement-bar__message {
-    font-size: 14px;
+    font-size: 13px;
     color: {{ section.settings.text_color | default: '#000000' }};
     text-align: center;
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-style: italic;
   }
 
   .tisso-announcement-bar__cta {
@@ -88,15 +90,15 @@
     gap: 8px;
     background-color: {{ section.settings.cta_bg_color | default: '#d4e600' }};
     color: {{ section.settings.cta_text_color | default: '#000000' }};
-    padding: 10px 20px;
+    padding: 8px 18px;
     text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     white-space: nowrap;
     transition: all 0.3s ease;
-    border: 1px solid transparent;
+    border: none;
     flex-shrink: 0;
   }
 
@@ -120,7 +122,7 @@
     }
 
     .tisso-announcement-bar__message {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
 
@@ -143,12 +145,12 @@
       order: 2;
       width: 100%;
       white-space: normal;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .tisso-announcement-bar__cta {
       order: 3;
-      font-size: 11px;
+      font-size: 10px;
       padding: 8px 16px;
     }
   }

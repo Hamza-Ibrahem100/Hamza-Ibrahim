@@ -1,128 +1,276 @@
-<!-- Gift Guide Hero Banner - Matching Figma Design -->
+<!-- Gift Guide Hero Banner - Matching Figma Design Exactly -->
 <section class="gift-hero" id="gift-hero-section" style="{% if section.settings.bg_image != blank %}background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');{% endif %}">
   
-  <!-- SVG Illustration Background Pattern -->
+  <!-- SVG Illustration Background Pattern - Dense & Detailed like Figma -->
   {% unless section.settings.bg_image != blank %}
   <div class="gift-hero__illustration" aria-hidden="true">
-    <svg class="gift-hero__svg" viewBox="0 0 1400 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <!-- Sunglasses -->
-      <g transform="translate(50, 30) scale(0.9)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <ellipse cx="35" cy="35" rx="30" ry="22"/>
-        <ellipse cx="105" cy="35" rx="30" ry="22"/>
-        <path d="M65 35 C70 30, 70 30, 75 35"/>
-        <line x1="5" y1="28" x2="-10" y2="22"/>
-        <line x1="135" y1="28" x2="150" y2="22"/>
+    <svg class="gift-hero__svg" viewBox="0 0 1440 620" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      
+      <!-- ========== ROW 1: Top Items ========== -->
+      
+      <!-- Sunglasses (top-left) -->
+      <g transform="translate(20, 20) scale(1.1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <ellipse cx="35" cy="30" rx="32" ry="24"/>
+        <ellipse cx="110" cy="30" rx="32" ry="24"/>
+        <path d="M67 30 C72 22, 78 22, 83 30"/>
+        <line x1="3" y1="22" x2="-15" y2="15"/>
+        <line x1="142" y1="22" x2="160" y2="15"/>
+        <!-- Lens details -->
+        <ellipse cx="35" cy="30" rx="18" ry="12" opacity="0.3"/>
+        <ellipse cx="110" cy="30" rx="18" ry="12" opacity="0.3"/>
       </g>
 
-      <!-- Camera (large) -->
-      <g transform="translate(200, 40) scale(1.2)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="10" y="20" width="120" height="80" rx="8"/>
-        <rect x="40" y="5" width="30" height="18" rx="3"/>
-        <circle cx="70" cy="60" r="28"/>
-        <circle cx="70" cy="60" r="18"/>
-        <circle cx="70" cy="60" r="8"/>
-        <rect x="105" y="30" width="15" height="10" rx="2"/>
-        <circle cx="30" cy="35" r="5"/>
+      <!-- Camera (large, center-left) -->
+      <g transform="translate(220, 15) scale(1.3)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="5" y="22" width="130" height="85" rx="8"/>
+        <rect x="40" y="5" width="35" height="20" rx="4"/>
+        <circle cx="70" cy="65" r="30"/>
+        <circle cx="70" cy="65" r="22"/>
+        <circle cx="70" cy="65" r="14"/>
+        <circle cx="70" cy="65" r="6"/>
+        <rect x="110" y="32" width="16" height="12" rx="2"/>
+        <circle cx="28" cy="38" r="6"/>
+        <circle cx="28" cy="38" r="3"/>
+        <!-- Shutter button -->
+        <rect x="55" y="8" width="12" height="8" rx="4"/>
       </g>
 
-      <!-- Compass -->
-      <g transform="translate(500, 20) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <circle cx="50" cy="50" r="45"/>
-        <circle cx="50" cy="50" r="38"/>
-        <polygon points="50,15 54,45 50,55 46,45" stroke="#c8c8c8" fill="none"/>
-        <polygon points="50,85 54,55 50,45 46,55" stroke="#c8c8c8" fill="none"/>
-        <line x1="50" y1="5" x2="50" y2="12"/>
-        <line x1="50" y1="88" x2="50" y2="95"/>
-        <line x1="5" y1="50" x2="12" y2="50"/>
-        <line x1="88" y1="50" x2="95" y2="50"/>
+      <!-- Map / Travel item (below sunglasses) -->
+      <g transform="translate(35, 110) scale(1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="0" width="120" height="85" rx="3"/>
+        <!-- Map contour lines -->
+        <path d="M12 22 Q35 10, 55 28 T108 22" opacity="0.6"/>
+        <path d="M15 42 Q38 30, 60 48 T110 42" opacity="0.6"/>
+        <path d="M18 60 Q42 50, 65 62 T105 58" opacity="0.6"/>
+        <!-- Map dots -->
+        <circle cx="45" cy="35" r="3" opacity="0.4"/>
+        <circle cx="80" cy="50" r="2" opacity="0.4"/>
       </g>
 
-      <!-- Notepad & Pencils -->
-      <g transform="translate(630, 15) scale(0.9)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="0" y="0" width="70" height="100" rx="3"/>
-        <line x1="10" y1="20" x2="60" y2="20"/>
-        <line x1="10" y1="32" x2="60" y2="32"/>
-        <line x1="10" y1="44" x2="60" y2="44"/>
-        <line x1="10" y1="56" x2="60" y2="56"/>
-        <line x1="10" y1="68" x2="60" y2="68"/>
-        <!-- Pencils -->
-        <line x1="85" y1="0" x2="85" y2="100" stroke-width="3"/>
-        <line x1="95" y1="10" x2="95" y2="100" stroke-width="3"/>
+      <!-- Compass (top-center) -->
+      <g transform="translate(520, 10) scale(1.15)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <circle cx="50" cy="50" r="48"/>
+        <circle cx="50" cy="50" r="42"/>
+        <circle cx="50" cy="50" r="36"/>
+        <!-- Cardinal directions -->
+        <polygon points="50,12 54,42 50,50 46,42"/>
+        <polygon points="50,88 54,58 50,50 46,58" opacity="0.4"/>
+        <line x1="50" y1="2" x2="50" y2="8"/>
+        <line x1="50" y1="92" x2="50" y2="98"/>
+        <line x1="2" y1="50" x2="8" y2="50"/>
+        <line x1="92" y1="50" x2="98" y2="50"/>
+        <!-- Tick marks -->
+        <line x1="50" y1="2" x2="50" y2="10" stroke-width="1.5"/>
+        <line x1="50" y1="90" x2="50" y2="98" stroke-width="1.5"/>
+        <line x1="2" y1="50" x2="10" y2="50" stroke-width="1.5"/>
+        <line x1="90" y1="50" x2="98" y2="50" stroke-width="1.5"/>
+        <!-- Ring at top -->
+        <circle cx="50" cy="-5" r="8"/>
       </g>
 
-      <!-- Flash/Camera Accessory (right side) -->
-      <g transform="translate(850, 10) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="10" y="0" width="50" height="35" rx="4"/>
-        <rect x="5" y="35" width="60" height="50" rx="4"/>
-        <rect x="20" y="85" width="30" height="20" rx="2"/>
-        <circle cx="35" cy="55" r="12"/>
+      <!-- Notepad & Pencils (top-right of center) -->
+      <g transform="translate(680, 8) scale(1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="0" width="75" height="110" rx="3"/>
+        <rect x="0" y="0" width="75" height="15" rx="3" opacity="0.2"/>
+        <line x1="12" y1="28" x2="63" y2="28"/>
+        <line x1="12" y1="40" x2="63" y2="40"/>
+        <line x1="12" y1="52" x2="63" y2="52"/>
+        <line x1="12" y1="64" x2="63" y2="64"/>
+        <line x1="12" y1="76" x2="63" y2="76"/>
+        <line x1="12" y1="88" x2="45" y2="88"/>
+        <!-- Pencil 1 -->
+        <line x1="90" y1="0" x2="90" y2="105" stroke-width="4" stroke-linecap="round"/>
+        <line x1="90" y1="100" x2="90" y2="112" stroke-width="2" stroke-linecap="round"/>
+        <!-- Pencil 2 -->
+        <line x1="102" y1="15" x2="102" y2="105" stroke-width="4" stroke-linecap="round"/>
+        <line x1="102" y1="100" x2="102" y2="112" stroke-width="2" stroke-linecap="round"/>
       </g>
 
-      <!-- Watch -->
-      <g transform="translate(350, 200) scale(1.1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+      <!-- Flash / Camera Accessory (top-right) -->
+      <g transform="translate(880, 0) scale(1.1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="8" y="0" width="55" height="38" rx="5"/>
+        <rect x="3" y="38" width="65" height="55" rx="5"/>
+        <rect x="18" y="93" width="35" height="22" rx="3"/>
+        <circle cx="35" cy="62" r="15"/>
+        <circle cx="35" cy="62" r="8"/>
+        <!-- Details -->
+        <line x1="15" y1="15" x2="55" y2="15" opacity="0.3"/>
+        <rect x="22" y="98" width="8" height="12" rx="1" opacity="0.3"/>
+        <rect x="40" y="98" width="8" height="12" rx="1" opacity="0.3"/>
+      </g>
+
+      <!-- Small camera/binocular piece (far top-right) -->
+      <g transform="translate(1050, 25) scale(0.9)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <circle cx="30" cy="35" r="28"/>
+        <circle cx="30" cy="35" r="20"/>
+        <circle cx="30" cy="35" r="10"/>
+        <rect x="-5" y="15" width="10" height="40" rx="3"/>
+        <rect x="55" y="15" width="10" height="40" rx="3"/>
+      </g>
+
+      <!-- ========== ROW 2: Middle Items ========== -->
+      
+      <!-- Belt (left side) -->
+      <g transform="translate(15, 255) scale(1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <path d="M0 15 L280 15 L280 50 L0 50 Z"/>
+        <!-- Buckle -->
+        <rect x="110" y="8" width="48" height="50" rx="4"/>
+        <rect x="120" y="16" width="28" height="34" rx="3"/>
+        <circle cx="134" cy="33" r="4"/>
+        <!-- Belt holes -->
+        <circle cx="72" cy="33" r="3"/>
+        <circle cx="85" cy="33" r="3"/>
+        <circle cx="98" cy="33" r="3"/>
+        <!-- Belt texture -->
+        <line x1="170" y1="20" x2="170" y2="46" opacity="0.15"/>
+        <line x1="200" y1="20" x2="200" y2="46" opacity="0.15"/>
+        <line x1="230" y1="20" x2="230" y2="46" opacity="0.15"/>
+      </g>
+
+      <!-- Watch (center) -->
+      <g transform="translate(380, 210) scale(1.2)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <!-- Strap top -->
+        <rect x="38" y="-20" width="44" height="30" rx="5"/>
+        <line x1="45" y1="-10" x2="75" y2="-10" opacity="0.3"/>
+        <!-- Watch face -->
+        <circle cx="60" cy="50" r="40"/>
         <circle cx="60" cy="50" r="35"/>
-        <circle cx="60" cy="50" r="30"/>
-        <line x1="60" y1="50" x2="60" y2="28"/>
-        <line x1="60" y1="50" x2="78" y2="50"/>
-        <line x1="60" y1="15" x2="60" y2="0"/>
-        <line x1="60" y1="85" x2="60" y2="100"/>
-        <!-- Strap -->
-        <rect x="42" y="-15" width="36" height="20" rx="3"/>
-        <rect x="42" y="95" width="36" height="20" rx="3"/>
+        <circle cx="60" cy="50" r="2"/>
+        <!-- Hour markers -->
+        <line x1="60" y1="15" x2="60" y2="20"/>
+        <line x1="60" y1="80" x2="60" y2="85"/>
+        <line x1="25" y1="50" x2="20" y2="50"/>
+        <line x1="95" y1="50" x2="100" y2="50"/>
+        <!-- Clock hands -->
+        <line x1="60" y1="50" x2="60" y2="24" stroke-width="1.8"/>
+        <line x1="60" y1="50" x2="80" y2="42" stroke-width="1.5"/>
+        <!-- Crown -->
+        <rect x="98" y="45" width="8" height="10" rx="2"/>
+        <!-- Strap bottom -->
+        <rect x="38" y="88" width="44" height="35" rx="5"/>
+        <line x1="45" y1="105" x2="75" y2="105" opacity="0.3"/>
       </g>
 
-      <!-- Belt -->
-      <g transform="translate(50, 220) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <path d="M0 30 L250 30 L250 60 L0 60 Z"/>
-        <rect x="100" y="25" width="40" height="40" rx="3"/>
-        <rect x="110" y="33" width="20" height="24" rx="2"/>
-        <circle cx="120" cy="45" r="3"/>
-        <circle cx="70" cy="45" r="2"/>
-        <circle cx="80" cy="45" r="2"/>
-        <circle cx="90" cy="45" r="2"/>
+      <!-- Bow Tie (center-right) -->
+      <g transform="translate(590, 275) scale(1.4)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <path d="M0 25 Q25 0, 50 25 Q25 50, 0 25"/>
+        <path d="M100 25 Q75 0, 50 25 Q75 50, 100 25"/>
+        <circle cx="50" cy="25" r="6"/>
+        <circle cx="50" cy="25" r="3"/>
+        <!-- Fabric texture lines -->
+        <path d="M12 18 Q25 12, 38 20" opacity="0.2"/>
+        <path d="M62 18 Q75 12, 88 20" opacity="0.2"/>
+        <path d="M12 32 Q25 38, 38 30" opacity="0.2"/>
+        <path d="M62 32 Q75 38, 88 30" opacity="0.2"/>
       </g>
 
-      <!-- Bow Tie (center) -->
-      <g transform="translate(530, 240) scale(1.3)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <path d="M0 25 Q50 0 50 25 Q50 50 0 25"/>
-        <path d="M100 25 Q50 0 50 25 Q50 50 100 25"/>
-        <circle cx="50" cy="25" r="5"/>
+      <!-- Camera Lens / Body (right side) -->
+      <g transform="translate(830, 215) scale(1.1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="8" width="90" height="68" rx="6"/>
+        <circle cx="45" cy="42" r="26"/>
+        <circle cx="45" cy="42" r="19"/>
+        <circle cx="45" cy="42" r="11"/>
+        <circle cx="45" cy="42" r="5"/>
+        <!-- Lens barrel -->
+        <rect x="90" y="18" width="35" height="48" rx="6"/>
+        <line x1="100" y1="22" x2="100" y2="62" opacity="0.3"/>
+        <line x1="110" y1="22" x2="110" y2="62" opacity="0.3"/>
+        <!-- Grip texture -->
+        <line x1="5" y1="18" x2="5" y2="62" opacity="0.2"/>
+        <line x1="10" y1="18" x2="10" y2="62" opacity="0.2"/>
       </g>
 
-      <!-- Camera Lens -->
-      <g transform="translate(800, 200) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="0" y="10" width="80" height="60" rx="6"/>
-        <circle cx="40" cy="40" r="22"/>
-        <circle cx="40" cy="40" r="15"/>
-        <circle cx="40" cy="40" r="8"/>
-        <rect x="80" y="20" width="30" height="40" rx="5"/>
+      <!-- Second Camera (far right) -->
+      <g transform="translate(1060, 180) scale(0.95)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="20" width="115" height="78" rx="7"/>
+        <rect x="35" y="2" width="30" height="22" rx="4"/>
+        <circle cx="58" cy="58" r="26"/>
+        <circle cx="58" cy="58" r="18"/>
+        <circle cx="58" cy="58" r="10"/>
+        <circle cx="58" cy="58" r="4"/>
+        <rect x="95" y="30" width="12" height="10" rx="2"/>
+        <circle cx="22" cy="35" r="5"/>
+        <circle cx="22" cy="35" r="2.5"/>
+        <!-- Shutter -->
+        <rect x="60" y="5" width="14" height="10" rx="5"/>
       </g>
 
-      <!-- Second Camera (bottom right) -->
-      <g transform="translate(1000, 30) scale(0.8)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="0" y="15" width="100" height="70" rx="6"/>
-        <rect x="30" y="0" width="25" height="18" rx="3"/>
-        <circle cx="50" cy="50" r="22"/>
-        <circle cx="50" cy="50" r="14"/>
-        <circle cx="50" cy="50" r="6"/>
+      <!-- ========== ROW 3: Bottom Items (partially visible) ========== -->
+      
+      <!-- Sunglasses bottom-left -->
+      <g transform="translate(10, 430) scale(1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <ellipse cx="38" cy="28" rx="35" ry="25"/>
+        <ellipse cx="118" cy="28" rx="35" ry="25"/>
+        <path d="M73 28 C78 18, 83 18, 88 28"/>
+        <line x1="3" y1="18" x2="-18" y2="10"/>
+        <line x1="153" y1="18" x2="172" y2="10"/>
+        <ellipse cx="38" cy="28" rx="20" ry="14" opacity="0.25"/>
+        <ellipse cx="118" cy="28" rx="20" ry="14" opacity="0.25"/>
       </g>
 
-      <!-- Map/Travel Item -->
-      <g transform="translate(150, 130) scale(0.8)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <rect x="0" y="0" width="100" height="70" rx="2"/>
-        <path d="M10 20 Q30 10, 50 25 T90 20"/>
-        <path d="M15 40 Q35 30, 55 45 T95 40"/>
-        <path d="M20 55 Q40 50, 60 55"/>
+      <!-- Map bottom -->
+      <g transform="translate(200, 410) scale(0.9)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="0" width="130" height="90" rx="3"/>
+        <path d="M12 25 Q40 12, 65 30 T120 25" opacity="0.5"/>
+        <path d="M15 48 Q45 35, 70 52 T118 48" opacity="0.5"/>
+        <path d="M20 68 Q50 58, 75 70" opacity="0.5"/>
+        <circle cx="55" cy="40" r="4" opacity="0.35"/>
+        <circle cx="90" cy="55" r="3" opacity="0.35"/>
       </g>
 
-      <!-- Additional Sunglasses (bottom) -->
-      <g transform="translate(720, 160) scale(0.7)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
-        <ellipse cx="35" cy="25" rx="28" ry="20"/>
-        <ellipse cx="100" cy="25" rx="28" ry="20"/>
-        <path d="M63 25 C68 20, 72 20, 77 25"/>
-        <line x1="7" y1="18" x2="-8" y2="12"/>
-        <line x1="128" y1="18" x2="143" y2="12"/>
+      <!-- Camera bottom-center -->
+      <g transform="translate(450, 420) scale(1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="18" width="110" height="72" rx="6"/>
+        <rect x="30" y="0" width="28" height="22" rx="4"/>
+        <circle cx="55" cy="52" r="24"/>
+        <circle cx="55" cy="52" r="16"/>
+        <circle cx="55" cy="52" r="8"/>
+        <circle cx="18" cy="32" r="5"/>
       </g>
+
+      <!-- Bow Tie bottom -->
+      <g transform="translate(650, 460) scale(1.1)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <path d="M0 22 Q22 0, 45 22 Q22 44, 0 22"/>
+        <path d="M90 22 Q68 0, 45 22 Q68 44, 90 22"/>
+        <circle cx="45" cy="22" r="5"/>
+      </g>
+
+      <!-- Watch bottom-right -->
+      <g transform="translate(830, 440) scale(0.85)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <circle cx="50" cy="45" r="38"/>
+        <circle cx="50" cy="45" r="32"/>
+        <line x1="50" y1="45" x2="50" y2="20" stroke-width="1.6"/>
+        <line x1="50" y1="45" x2="68" y2="38"/>
+        <rect x="34" y="-5" width="32" height="22" rx="4"/>
+        <rect x="34" y="78" width="32" height="22" rx="4"/>
+      </g>
+
+      <!-- Lens bottom far-right -->
+      <g transform="translate(1020, 430) scale(0.8)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="5" width="80" height="60" rx="5"/>
+        <circle cx="40" cy="35" r="22"/>
+        <circle cx="40" cy="35" r="15"/>
+        <circle cx="40" cy="35" r="7"/>
+        <rect x="80" y="15" width="28" height="35" rx="5"/>
+      </g>
+
+      <!-- Additional belt piece top-right area -->
+      <g transform="translate(1200, 80) scale(0.7)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="0" y="0" width="100" height="70" rx="6"/>
+        <circle cx="50" cy="35" r="22"/>
+        <circle cx="50" cy="35" r="14"/>
+        <circle cx="50" cy="35" r="6"/>
+      </g>
+
+      <!-- Flash unit far right middle -->
+      <g transform="translate(1250, 240) scale(0.8)" stroke="#1a1a1a" stroke-width="1.2" fill="none">
+        <rect x="5" y="0" width="50" height="35" rx="4"/>
+        <rect x="0" y="35" width="60" height="50" rx="4"/>
+        <rect x="15" y="85" width="30" height="18" rx="2"/>
+        <circle cx="30" cy="55" r="12"/>
+        <circle cx="30" cy="55" r="6"/>
+      </g>
+
     </svg>
   </div>
   {% endunless %}
@@ -160,8 +308,8 @@
   .gift-hero {
     position: relative;
     width: 100%;
-    min-height: 560px;
-    background-color: {{ section.settings.bg_color | default: '#f7f7f5' }};
+    min-height: 580px;
+    background-color: {{ section.settings.bg_color | default: '#f5f5f2' }};
     background-size: cover;
     background-position: center;
     display: flex;
@@ -170,7 +318,7 @@
     overflow: hidden;
   }
 
-  /* SVG Illustration Background */
+  /* SVG Illustration Background - full coverage */
   .gift-hero__illustration {
     position: absolute;
     top: 0;
@@ -184,7 +332,7 @@
   .gift-hero__svg {
     width: 100%;
     height: 100%;
-    opacity: 0.6;
+    opacity: 1;
   }
 
   .gift-hero__container {
@@ -192,30 +340,30 @@
     z-index: 2;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 60px 40px 30px;
+    padding: 80px 48px 30px;
     width: 100%;
   }
 
   .gift-hero__content {
-    max-width: 440px;
+    max-width: 420px;
   }
 
   .gift-hero__title {
-    font-size: 52px;
+    font-size: 48px;
     font-weight: 700;
     color: {{ section.settings.heading_color | default: '#000000' }};
-    margin: 0 0 20px 0;
+    margin: 0 0 18px 0;
     line-height: 1.05;
     letter-spacing: -0.02em;
     font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
   }
 
   .gift-hero__description {
-    font-size: 15px;
-    color: {{ section.settings.text_color | default: '#333333' }};
-    line-height: 1.6;
-    margin-bottom: 30px;
-    max-width: 380px;
+    font-size: 14px;
+    color: {{ section.settings.text_color | default: '#1a1a1a' }};
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 370px;
   }
 
   .gift-hero__description p {
@@ -228,7 +376,7 @@
     gap: 12px;
     background-color: {{ section.settings.btn_bg_color | default: '#000000' }};
     color: {{ section.settings.btn_text_color | default: '#ffffff' }};
-    padding: 14px 28px;
+    padding: 13px 26px;
     text-decoration: none;
     font-size: 12px;
     font-weight: 600;
@@ -256,13 +404,14 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 20px 40px;
-    font-size: 11px;
+    padding: 18px 40px;
+    font-size: 10px;
     font-weight: 500;
-    letter-spacing: 2.5px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: {{ section.settings.tagline_color | default: '#666666' }};
-    border-top: 1px solid rgba(0,0,0,0.08);
+    color: {{ section.settings.tagline_color | default: '#555555' }};
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background-color: rgba(245, 245, 242, 0.5);
   }
 
   /* Tablet */
@@ -272,22 +421,22 @@
     }
 
     .gift-hero__container {
-      padding: 50px 30px 25px;
+      padding: 60px 30px 25px;
     }
 
     .gift-hero__title {
-      font-size: 42px;
+      font-size: 40px;
     }
 
     .gift-hero__description {
-      font-size: 14px;
+      font-size: 13px;
     }
   }
 
   /* Mobile */
   @media (max-width: 749px) {
     .gift-hero {
-      min-height: 420px;
+      min-height: 400px;
     }
 
     .gift-hero__container {
@@ -299,14 +448,14 @@
     }
 
     .gift-hero__title {
-      font-size: 34px;
-      margin-bottom: 16px;
+      font-size: 32px;
+      margin-bottom: 14px;
     }
 
     .gift-hero__description {
-      font-size: 14px;
+      font-size: 13px;
       max-width: 100%;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .gift-hero__btn {
@@ -317,9 +466,9 @@
     }
 
     .gift-hero__tagline {
-      font-size: 9px;
+      font-size: 8px;
       letter-spacing: 1.5px;
-      padding: 16px 16px;
+      padding: 14px 16px;
     }
   }
 </style>
@@ -342,7 +491,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#f7f7f5"
+      "default": "#f5f5f2"
     },
     {
       "type": "header",
@@ -370,7 +519,7 @@
       "type": "color",
       "id": "text_color",
       "label": "Description Color",
-      "default": "#333333"
+      "default": "#1a1a1a"
     },
     {
       "type": "header",
@@ -413,7 +562,7 @@
       "type": "color",
       "id": "tagline_color",
       "label": "Tagline Color",
-      "default": "#666666"
+      "default": "#555555"
     }
   ],
   "presets": [
