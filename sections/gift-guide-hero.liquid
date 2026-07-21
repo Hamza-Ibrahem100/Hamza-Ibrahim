@@ -1,13 +1,6 @@
 <!-- Gift Guide Hero Banner -->
 <section class="gift-hero" id="gift-hero-section" style="{% if section.settings.bg_image != blank %}background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');{% endif %}">
 
-  <!-- Combined Background Illustration SVG -->
-  {% unless section.settings.bg_image != blank %}
-  <div class="gift-hero__illustration" aria-hidden="true">
-    <img src="{{ 'gift-guide-background.svg' | asset_url }}" class="gift-hero__bg-img" alt="" loading="eager">
-  </div>
-  {% endunless %}
-
   <div class="gift-hero__container">
     <div class="gift-hero__content">
       {% if section.settings.heading != blank %}
@@ -49,25 +42,6 @@
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
-  }
-
-  /* Centered illustration background */
-  .gift-hero__illustration {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .gift-hero__bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
   }
 
   .gift-hero__container {

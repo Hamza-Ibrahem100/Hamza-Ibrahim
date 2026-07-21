@@ -8,8 +8,9 @@ $items = @(
     @{ Name="Vector.svg"; Top=-2; Left=1; Width=5 }
     @{ Name="Vector-1.svg"; Top=-4; Left=7; Width=14 }
     @{ Name="Vector-3.svg"; Top=6; Left=6; Width=10 }
-    @{ Name="watch.svg"; Top=38; Left=-1; Width=26; Path="c:\Users\Mass\Downloads\theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm\watch\watch.svg" }
+    @{ Name="Vector-4.svg"; Top=38; Left=-1; Width=26 }
     @{ Name="Vector-5.svg"; Top=5; Left=36; Width=21 }
+    @{ Name="Vector-6.svg"; Top=42; Left=8; Width=13 }
     @{ Name="Vector-7.svg"; Top=2; Left=30; Width=12 }
     @{ Name="Vector-8.svg"; Top=2; Left=13; Width=23 }
     @{ Name="Vector-9.svg"; Top=-3; Left=60; Width=10 }
@@ -49,9 +50,6 @@ $svgContent = "<svg viewBox=""0 0 $viewBoxWidth $viewBoxHeight"" fill=""none"" x
 
 foreach ($item in $items) {
     $filePath = Join-Path $svgFolder $item.Name
-    if ($item.Path) {
-        $filePath = $item.Path
-    }
     if (Test-Path $filePath) {
         $content = Get-Content $filePath -Raw
         
