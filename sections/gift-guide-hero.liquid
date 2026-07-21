@@ -1,72 +1,5 @@
-<!-- Gift Guide Hero Banner - Rebuilt with Individual SVG illustrations placed one by one -->
+<!-- Gift Guide Hero Banner -->
 <section class="gift-hero" id="gift-hero-section" style="{% if section.settings.bg_image != blank %}background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');{% endif %}">
-  
-  <!-- Original SVG Illustrations positioned individually -->
-  {% unless section.settings.bg_image != blank %}
-  <div class="gift-hero__illustration" aria-hidden="true">
-
-    <!-- Top Left Corner -->
-    <!-- Sunglasses (vertical, left edge) -->
-    <img src="{{ 'illustration-Vector.svg' | asset_url }}" class="gift-hero__item" style="top: 10%; left: 2%; width: 5%;" alt="" loading="eager">
-    <!-- Camera (large, top-left) -->
-    <img src="{{ 'illustration-Vector-8.svg' | asset_url }}" class="gift-hero__item" style="top: 12%; left: 9%; width: 21%;" alt="" loading="eager">
-    <!-- Map contours (behind camera) -->
-    <img src="{{ 'illustration-Vector-30.svg' | asset_url }}" class="gift-hero__item" style="top: 12%; left: 9%; width: 21%;" alt="" loading="eager">
-    <!-- Camera details -->
-    <img src="{{ 'illustration-Vector-7.svg' | asset_url }}" class="gift-hero__item" style="top: 12%; left: 9%; width: 21%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-25.svg' | asset_url }}" class="gift-hero__item" style="top: 12%; left: 9%; width: 21%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-27.svg' | asset_url }}" class="gift-hero__item" style="top: 12%; left: 9%; width: 21%;" alt="" loading="eager">
-
-    <!-- Top Center / Center -->
-    <!-- Compass -->
-    <img src="{{ 'illustration-Vector-5.svg' | asset_url }}" class="gift-hero__item" style="top: 18%; left: 31%; width: 7%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-1.svg' | asset_url }}" class="gift-hero__item" style="top: 18%; left: 31%; width: 7%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-2.svg' | asset_url }}" class="gift-hero__item" style="top: 18%; left: 31%; width: 7%;" alt="" loading="eager">
-    <!-- Notepad & Pens -->
-    <img src="{{ 'illustration-Vector-19.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 38%; width: 10%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-9.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 38%; width: 10%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-3.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 48%; width: 2%;" alt="" loading="eager">
-    <!-- Watch (center strap) -->
-    <img src="{{ 'illustration-Vector-4.svg' | asset_url }}" class="gift-hero__item" style="top: 45%; left: 28%; width: 25%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-6.svg' | asset_url }}" class="gift-hero__item" style="top: 45%; left: 28%; width: 25%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-28.svg' | asset_url }}" class="gift-hero__item" style="top: 45%; left: 28%; width: 25%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-29.svg' | asset_url }}" class="gift-hero__item" style="top: 45%; left: 28%; width: 25%;" alt="" loading="eager">
-    <!-- Bow tie (center) -->
-    <img src="{{ 'illustration-Vector-36.svg' | asset_url }}" class="gift-hero__item" style="top: 45%; left: 28%; width: 25%;" alt="" loading="eager">
-
-    <!-- Top Right -->
-    <!-- Camera right -->
-    <img src="{{ 'illustration-Vector-10.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 54%; width: 14%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-14.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 54%; width: 14%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-26.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 54%; width: 14%;" alt="" loading="eager">
-    <!-- Circle tape details -->
-    <img src="{{ 'illustration-Vector-12.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 69%; width: 10%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-31.svg' | asset_url }}" class="gift-hero__item" style="top: 6%; left: 69%; width: 10%;" alt="" loading="eager">
-
-    <!-- Bottom Center (Safe from bottom-left text) -->
-    <!-- Sunglasses (vertical, bottom-center) -->
-    <img src="{{ 'illustration-Vector-22.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 29%; width: 5%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-15.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 29%; width: 5%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-24.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 29%; width: 5%;" alt="" loading="eager">
-    <!-- Camera bottom center -->
-    <img src="{{ 'illustration-Vector-32.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 35%; width: 22%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-13.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 35%; width: 22%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-33.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 35%; width: 22%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-34.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 35%; width: 22%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-35.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 35%; width: 22%;" alt="" loading="eager">
-
-    <!-- Bottom Right -->
-    <!-- Camera lens vertical -->
-    <img src="{{ 'illustration-Vector-11.svg' | asset_url }}" class="gift-hero__item" style="top: 40%; left: 56%; width: 7%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-16.svg' | asset_url }}" class="gift-hero__item" style="top: 40%; left: 56%; width: 7%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-37.svg' | asset_url }}" class="gift-hero__item" style="top: 40%; left: 56%; width: 7%;" alt="" loading="eager">
-    <!-- Watch & details bottom-right -->
-    <img src="{{ 'illustration-Vector-23.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 58%; width: 10%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-17.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 58%; width: 10%;" alt="" loading="eager">
-    <img src="{{ 'illustration-Vector-18.svg' | asset_url }}" class="gift-hero__item" style="top: 55%; left: 58%; width: 10%;" alt="" loading="eager">
-
-  </div>
-  {% endunless %}
 
   <div class="gift-hero__container">
     <div class="gift-hero__content">
@@ -109,41 +42,6 @@
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
-  }
-
-  /* Centered aspect-ratio locked illustration container behaves like background-size: cover */
-  .gift-hero__illustration {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  @media (min-aspect-ratio: 1440/620) {
-    .gift-hero__illustration {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1440/620;
-    }
-  }
-
-  @media (max-aspect-ratio: 1440/620) {
-    .gift-hero__illustration {
-      height: 100%;
-      width: auto;
-      aspect-ratio: 1440/620;
-    }
-  }
-
-  /* Each illustration item is absolutely positioned */
-  .gift-hero__item {
-    position: absolute;
-    display: block;
-    pointer-events: none;
-    object-fit: contain;
   }
 
   .gift-hero__container {
