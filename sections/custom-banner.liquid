@@ -1,21 +1,21 @@
-<section class="ecom-banner-section">
-  <div class="ecom-banner-wrapper">
-    {% if section.settings.banner_image != blank %}
-      <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="{{ section.settings.heading }}" class="ecom-banner-image">
-    {% endif %}
-    
-    <div class="ecom-banner-content">
+<section class="gift-guide-banner" style="background-image: url('{{ section.settings.bg_image | img_url: 'master' }}');">
+  <div class="banner-container">
+    <div class="banner-content">
       {% if section.settings.heading != blank %}
-        <h2 class="ecom-banner-title">{{ section.settings.heading }}</h2>
+        <h1 class="banner-title">{{ section.settings.heading }}</h1>
       {% endif %}
       
-      {% if section.settings.subheading != blank %}
-        <div class="ecom-banner-text">{{ section.settings.subheading }}</div>
+      {% if section.settings.description != blank %}
+        <div class="banner-text">{{ section.settings.description }}</div>
       {% endif %}
       
-      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="ecom-banner-btn">
-          {{ section.settings.button_label }}
+      {% if section.settings.btn_text != blank and section.settings.btn_link != blank %}
+        <a href="{{ section.settings.btn_link }}" class="banner-btn">
+          {{ section.settings.btn_text }}
+          <!-- سهم الزرار مطابق لتصميم فيجما -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </a>
       {% endif %}
     </div>
@@ -23,36 +23,66 @@
 </section>
 
 <style>
-  /* تنسيقات مبدئية لحد ما تبعتلي صورة الفيجما أظبطهالك عليها */
-  .ecom-banner-section {
-    position: relative;
+  .gift-guide-banner {
     width: 100%;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-color: #f8f8f8; /* لون احتياطي لو مفيش صورة */
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #f4f4f4; /* لون مؤقت */
+    padding: 40px 5%;
+    position: relative;
   }
-  .ecom-banner-image {
+  .banner-container {
+    max-width: 1200px;
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    margin: 0 auto;
   }
-  .ecom-banner-content {
-    position: absolute;
-    text-align: center;
-    padding: 20px;
+  .banner-content {
+    max-width: 450px; /* عشان النص ميفردش بعرض الشاشة زي التصميم */
   }
-  .ecom-banner-title {
-    font-size: 32px;
-    margin-bottom: 10px;
+  .banner-title {
+    font-size: 52px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 20px;
+    line-height: 1.1;
   }
-  .ecom-banner-btn {
-    display: inline-block;
-    padding: 10px 20px;
+  .banner-text {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+  .banner-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #000;
     color: #fff;
+    padding: 14px 28px;
     text-decoration: none;
-    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    gap: 12px;
+    transition: background-color 0.3s ease;
+  }
+  .banner-btn:hover {
+    background-color: #333;
+  }
+  
+  /* تظبيط الموبايل */
+  @media (max-width: 768px) {
+    .gift-guide-banner {
+      min-height: 400px;
+      justify-content: center;
+      text-align: center;
+    }
+    .banner-title {
+      font-size: 36px;
+    }
   }
 </style>
 
@@ -62,30 +92,30 @@
   "settings": [
     {
       "type": "image_picker",
-      "id": "banner_image",
-      "label": "Banner Image"
+      "id": "bg_image",
+      "label": "Background Image"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Welcome to Our Store"
+      "default": "The Gift Guide"
     },
     {
       "type": "richtext",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "<p>Discover our amazing products.</p>"
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
     },
     {
       "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "Shop Now"
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "SHOP NOW"
     },
     {
       "type": "url",
-      "id": "button_link",
+      "id": "btn_link",
       "label": "Button Link"
     }
   ],
