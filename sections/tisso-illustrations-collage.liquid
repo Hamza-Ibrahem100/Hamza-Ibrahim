@@ -1,0 +1,232 @@
+<!-- Tisso Illustrations Collage - Modular Block-based Customizer Section -->
+<section class="tisso-collage" id="tisso-collage-{{ section.id }}" style="background-color: {{ section.settings.bg_color | default: '#ffffff' }};">
+  <div class="tisso-collage__wrapper">
+    <div class="tisso-collage__container">
+      {% for block in section.blocks %}
+        {% if block.settings.illustration_type != blank %}
+          <div class="tisso-collage__item-wrap" {{ block.shopify_attributes }} style="
+            top: {{ block.settings.position_top }}%;
+            left: {{ block.settings.position_left }}%;
+            width: {{ block.settings.width }}%;
+          ">
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="tisso-collage__link" aria-label="View link">
+            {% endif %}
+
+            <img
+              src="{{ block.settings.illustration_type | asset_url }}"
+              class="tisso-collage__img"
+              alt=""
+              loading="lazy"
+            >
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tisso-collage {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0;
+  }
+
+  .tisso-collage__wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* Centered aspect-ratio locked container to keep positions pixel-perfect on resize */
+  .tisso-collage__container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 520;
+    overflow: visible;
+  }
+
+  .tisso-collage__item-wrap {
+    position: absolute;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .tisso-collage__item-wrap:hover {
+    transform: translateY(-4px);
+    z-index: 10;
+  }
+
+  .tisso-collage__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tisso-collage__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Mobile responsive styling */
+  @media (max-width: 749px) {
+    .tisso-collage__wrapper {
+      padding: 0 16px;
+    }
+    
+    /* Make spacing more compact on mobile */
+    .tisso-collage__container {
+      aspect-ratio: 1440 / 720;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Tisso Illustration Collage",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "illustration",
+      "name": "Illustration",
+      "settings": [
+        {
+          "type": "select",
+          "id": "illustration_type",
+          "label": "Select Illustration Vector",
+          "options": [
+            { "value": "illustration-Vector.svg", "label": "Bow Tie Accent" },
+            { "value": "illustration-Vector-1.svg", "label": "Watch body" },
+            { "value": "illustration-Vector-2.svg", "label": "Small decorative accent" },
+            { "value": "illustration-Vector-3.svg", "label": "Pencils/Pens" },
+            { "value": "illustration-Vector-4.svg", "label": "Belt" },
+            { "value": "illustration-Vector-5.svg", "label": "Compass" },
+            { "value": "illustration-Vector-6.svg", "label": "Belt buckle detail" },
+            { "value": "illustration-Vector-7.svg", "label": "Camera parts" },
+            { "value": "illustration-Vector-8.svg", "label": "Large Camera" },
+            { "value": "illustration-Vector-9.svg", "label": "Flash unit" },
+            { "value": "illustration-Vector-10.svg", "label": "Small details" },
+            { "value": "illustration-Vector-11.svg", "label": "Camera large" },
+            { "value": "illustration-Vector-12.svg", "label": "Circle detail" },
+            { "value": "illustration-Vector-13.svg", "label": "Lens assembly" },
+            { "value": "illustration-Vector-14.svg", "label": "Camera accessory" },
+            { "value": "illustration-Vector-15.svg", "label": "Sunglasses frame" },
+            { "value": "illustration-Vector-16.svg", "label": "Lens ring" },
+            { "value": "illustration-Vector-17.svg", "label": "Small circle" },
+            { "value": "illustration-Vector-18.svg", "label": "Tiny dot" },
+            { "value": "illustration-Vector-19.svg", "label": "Notepad" },
+            { "value": "illustration-Vector-22.svg", "label": "Bow tie main" },
+            { "value": "illustration-Vector-23.svg", "label": "Watch face" },
+            { "value": "illustration-Vector-24.svg", "label": "Sunglasses wide" },
+            { "value": "illustration-Vector-25.svg", "label": "Tiny dot accent 1" },
+            { "value": "illustration-Vector-26.svg", "label": "Camera piece" },
+            { "value": "illustration-Vector-27.svg", "label": "Tiny dot accent 2" },
+            { "value": "illustration-Vector-28.svg", "label": "Ruler/strap" },
+            { "value": "illustration-Vector-29.svg", "label": "Circle accent" },
+            { "value": "illustration-Vector-30.svg", "label": "Map layout" },
+            { "value": "illustration-Vector-31.svg", "label": "Tape roll" },
+            { "value": "illustration-Vector-32.svg", "label": "Camera body 2" },
+            { "value": "illustration-Vector-33.svg", "label": "Circle detail 2" },
+            { "value": "illustration-Vector-34.svg", "label": "Lens circle" },
+            { "value": "illustration-Vector-35.svg", "label": "Film canister" },
+            { "value": "illustration-Vector-36.svg", "label": "Bow tie 2" },
+            { "value": "illustration-Vector-37.svg", "label": "Lens piece" }
+          ],
+          "default": "illustration-Vector-8.svg"
+        },
+        {
+          "type": "range",
+          "id": "position_left",
+          "label": "Horizontal Position Left (%)",
+          "min": -20,
+          "max": 120,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_top",
+          "label": "Vertical Position Top (%)",
+          "min": -20,
+          "max": 120,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "width",
+          "label": "Width (%)",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 15
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tisso Illustration Collage",
+      "blocks": [
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector.svg", "position_left": 1, "position_top": -2, "width": 5 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-1.svg", "position_left": 7, "position_top": -4, "width": 14 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-3.svg", "position_left": 6, "position_top": 6, "width": 10 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-4.svg", "position_left": -1, "position_top": 38, "width": 26 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-5.svg", "position_left": 36, "position_top": 5, "width": 21 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-6.svg", "position_left": 8, "position_top": 42, "width": 13 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-7.svg", "position_left": 30, "position_top": 2, "width": 12 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-8.svg", "position_left": 13, "position_top": 2, "width": 23 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-9.svg", "position_left": 60, "position_top": -3, "width": 10 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-10.svg", "position_left": 56, "position_top": 16, "width": 19 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-11.svg", "position_left": 55, "position_top": 36, "width": 52 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-12.svg", "position_left": 88, "position_top": 10, "width": 3 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-13.svg", "position_left": 42, "position_top": 35, "width": 16 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-14.svg", "position_left": 84, "position_top": 12, "width": 9 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-15.svg", "position_left": -2, "position_top": 48, "width": 26 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-16.svg", "position_left": 92, "position_top": 25, "width": 7 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-17.svg", "position_left": 90, "position_top": 78, "width": 4 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-18.svg", "position_left": 96, "position_top": 82, "width": 2 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-19.svg", "position_left": 48, "position_top": -2, "width": 13 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-22.svg", "position_left": -2, "position_top": -8, "width": 15 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-23.svg", "position_left": 26, "position_top": 28, "width": 18 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-24.svg", "position_left": 0, "position_top": 86, "width": 65 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-25.svg", "position_left": 5, "position_top": 55, "width": 1 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-26.svg", "position_left": 78, "position_top": 30, "width": 6 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-27.svg", "position_left": 35, "position_top": 65, "width": 1 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-28.svg", "position_left": 38, "position_top": 52, "width": 8 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-29.svg", "position_left": 42, "position_top": 58, "width": 1 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-30.svg", "position_left": 5, "position_top": 14, "width": 16 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-31.svg", "position_left": 82, "position_top": 5, "width": 9 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-32.svg", "position_left": 62, "position_top": 55, "width": 46 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-33.svg", "position_left": 8, "position_top": 72, "width": 3 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-34.svg", "position_left": 2, "position_top": 68, "width": 7 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-35.svg", "position_left": 12, "position_top": 64, "width": 5 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-36.svg", "position_left": 40, "position_top": 42, "width": 22 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-37.svg", "position_left": 72, "position_top": 35, "width": 13 } },
+        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-2.svg", "position_left": 18, "position_top": 75, "width": 4 } }
+      ]
+    }
+  ]
+}
+{% endschema %}
