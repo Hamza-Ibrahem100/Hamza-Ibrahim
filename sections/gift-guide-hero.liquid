@@ -1,0 +1,425 @@
+<!-- Gift Guide Hero Banner - Matching Figma Design -->
+<section class="gift-hero" id="gift-hero-section" style="{% if section.settings.bg_image != blank %}background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');{% endif %}">
+  
+  <!-- SVG Illustration Background Pattern -->
+  {% unless section.settings.bg_image != blank %}
+  <div class="gift-hero__illustration" aria-hidden="true">
+    <svg class="gift-hero__svg" viewBox="0 0 1400 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Sunglasses -->
+      <g transform="translate(50, 30) scale(0.9)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <ellipse cx="35" cy="35" rx="30" ry="22"/>
+        <ellipse cx="105" cy="35" rx="30" ry="22"/>
+        <path d="M65 35 C70 30, 70 30, 75 35"/>
+        <line x1="5" y1="28" x2="-10" y2="22"/>
+        <line x1="135" y1="28" x2="150" y2="22"/>
+      </g>
+
+      <!-- Camera (large) -->
+      <g transform="translate(200, 40) scale(1.2)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="10" y="20" width="120" height="80" rx="8"/>
+        <rect x="40" y="5" width="30" height="18" rx="3"/>
+        <circle cx="70" cy="60" r="28"/>
+        <circle cx="70" cy="60" r="18"/>
+        <circle cx="70" cy="60" r="8"/>
+        <rect x="105" y="30" width="15" height="10" rx="2"/>
+        <circle cx="30" cy="35" r="5"/>
+      </g>
+
+      <!-- Compass -->
+      <g transform="translate(500, 20) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <circle cx="50" cy="50" r="45"/>
+        <circle cx="50" cy="50" r="38"/>
+        <polygon points="50,15 54,45 50,55 46,45" stroke="#c8c8c8" fill="none"/>
+        <polygon points="50,85 54,55 50,45 46,55" stroke="#c8c8c8" fill="none"/>
+        <line x1="50" y1="5" x2="50" y2="12"/>
+        <line x1="50" y1="88" x2="50" y2="95"/>
+        <line x1="5" y1="50" x2="12" y2="50"/>
+        <line x1="88" y1="50" x2="95" y2="50"/>
+      </g>
+
+      <!-- Notepad & Pencils -->
+      <g transform="translate(630, 15) scale(0.9)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="0" y="0" width="70" height="100" rx="3"/>
+        <line x1="10" y1="20" x2="60" y2="20"/>
+        <line x1="10" y1="32" x2="60" y2="32"/>
+        <line x1="10" y1="44" x2="60" y2="44"/>
+        <line x1="10" y1="56" x2="60" y2="56"/>
+        <line x1="10" y1="68" x2="60" y2="68"/>
+        <!-- Pencils -->
+        <line x1="85" y1="0" x2="85" y2="100" stroke-width="3"/>
+        <line x1="95" y1="10" x2="95" y2="100" stroke-width="3"/>
+      </g>
+
+      <!-- Flash/Camera Accessory (right side) -->
+      <g transform="translate(850, 10) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="10" y="0" width="50" height="35" rx="4"/>
+        <rect x="5" y="35" width="60" height="50" rx="4"/>
+        <rect x="20" y="85" width="30" height="20" rx="2"/>
+        <circle cx="35" cy="55" r="12"/>
+      </g>
+
+      <!-- Watch -->
+      <g transform="translate(350, 200) scale(1.1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <circle cx="60" cy="50" r="35"/>
+        <circle cx="60" cy="50" r="30"/>
+        <line x1="60" y1="50" x2="60" y2="28"/>
+        <line x1="60" y1="50" x2="78" y2="50"/>
+        <line x1="60" y1="15" x2="60" y2="0"/>
+        <line x1="60" y1="85" x2="60" y2="100"/>
+        <!-- Strap -->
+        <rect x="42" y="-15" width="36" height="20" rx="3"/>
+        <rect x="42" y="95" width="36" height="20" rx="3"/>
+      </g>
+
+      <!-- Belt -->
+      <g transform="translate(50, 220) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <path d="M0 30 L250 30 L250 60 L0 60 Z"/>
+        <rect x="100" y="25" width="40" height="40" rx="3"/>
+        <rect x="110" y="33" width="20" height="24" rx="2"/>
+        <circle cx="120" cy="45" r="3"/>
+        <circle cx="70" cy="45" r="2"/>
+        <circle cx="80" cy="45" r="2"/>
+        <circle cx="90" cy="45" r="2"/>
+      </g>
+
+      <!-- Bow Tie (center) -->
+      <g transform="translate(530, 240) scale(1.3)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <path d="M0 25 Q50 0 50 25 Q50 50 0 25"/>
+        <path d="M100 25 Q50 0 50 25 Q50 50 100 25"/>
+        <circle cx="50" cy="25" r="5"/>
+      </g>
+
+      <!-- Camera Lens -->
+      <g transform="translate(800, 200) scale(1)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="0" y="10" width="80" height="60" rx="6"/>
+        <circle cx="40" cy="40" r="22"/>
+        <circle cx="40" cy="40" r="15"/>
+        <circle cx="40" cy="40" r="8"/>
+        <rect x="80" y="20" width="30" height="40" rx="5"/>
+      </g>
+
+      <!-- Second Camera (bottom right) -->
+      <g transform="translate(1000, 30) scale(0.8)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="0" y="15" width="100" height="70" rx="6"/>
+        <rect x="30" y="0" width="25" height="18" rx="3"/>
+        <circle cx="50" cy="50" r="22"/>
+        <circle cx="50" cy="50" r="14"/>
+        <circle cx="50" cy="50" r="6"/>
+      </g>
+
+      <!-- Map/Travel Item -->
+      <g transform="translate(150, 130) scale(0.8)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <rect x="0" y="0" width="100" height="70" rx="2"/>
+        <path d="M10 20 Q30 10, 50 25 T90 20"/>
+        <path d="M15 40 Q35 30, 55 45 T95 40"/>
+        <path d="M20 55 Q40 50, 60 55"/>
+      </g>
+
+      <!-- Additional Sunglasses (bottom) -->
+      <g transform="translate(720, 160) scale(0.7)" stroke="#c8c8c8" stroke-width="1.5" fill="none">
+        <ellipse cx="35" cy="25" rx="28" ry="20"/>
+        <ellipse cx="100" cy="25" rx="28" ry="20"/>
+        <path d="M63 25 C68 20, 72 20, 77 25"/>
+        <line x1="7" y1="18" x2="-8" y2="12"/>
+        <line x1="128" y1="18" x2="143" y2="12"/>
+      </g>
+    </svg>
+  </div>
+  {% endunless %}
+
+  <div class="gift-hero__container">
+    <div class="gift-hero__content">
+      {% if section.settings.heading != blank %}
+        <h1 class="gift-hero__title">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="gift-hero__description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      {% if section.settings.btn_text != blank %}
+        <a href="{{ section.settings.btn_link | default: '#' }}" class="gift-hero__btn">
+          {{ section.settings.btn_text }}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bottom tagline -->
+  {% if section.settings.bottom_text != blank %}
+    <div class="gift-hero__tagline">
+      {{ section.settings.bottom_text }}
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  .gift-hero {
+    position: relative;
+    width: 100%;
+    min-height: 560px;
+    background-color: {{ section.settings.bg_color | default: '#f7f7f5' }};
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  /* SVG Illustration Background */
+  .gift-hero__illustration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .gift-hero__svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+  }
+
+  .gift-hero__container {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px 30px;
+    width: 100%;
+  }
+
+  .gift-hero__content {
+    max-width: 440px;
+  }
+
+  .gift-hero__title {
+    font-size: 52px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color | default: '#000000' }};
+    margin: 0 0 20px 0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  }
+
+  .gift-hero__description {
+    font-size: 15px;
+    color: {{ section.settings.text_color | default: '#333333' }};
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 380px;
+  }
+
+  .gift-hero__description p {
+    margin: 0;
+  }
+
+  .gift-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: {{ section.settings.btn_bg_color | default: '#000000' }};
+    color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+    padding: 14px 28px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .gift-hero__btn:hover {
+    background-color: #333;
+    transform: translateX(3px);
+  }
+
+  .gift-hero__btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .gift-hero__btn:hover svg {
+    transform: translateX(5px);
+  }
+
+  /* Bottom Tagline */
+  .gift-hero__tagline {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px 40px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: {{ section.settings.tagline_color | default: '#666666' }};
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .gift-hero {
+      min-height: 480px;
+    }
+
+    .gift-hero__container {
+      padding: 50px 30px 25px;
+    }
+
+    .gift-hero__title {
+      font-size: 42px;
+    }
+
+    .gift-hero__description {
+      font-size: 14px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 749px) {
+    .gift-hero {
+      min-height: 420px;
+    }
+
+    .gift-hero__container {
+      padding: 40px 20px 20px;
+    }
+
+    .gift-hero__content {
+      max-width: 100%;
+    }
+
+    .gift-hero__title {
+      font-size: 34px;
+      margin-bottom: 16px;
+    }
+
+    .gift-hero__description {
+      font-size: 14px;
+      max-width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .gift-hero__btn {
+      padding: 12px 24px;
+      font-size: 11px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .gift-hero__tagline {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      padding: 16px 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Gift Guide Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image",
+      "info": "Leave empty to use the built-in line illustration pattern"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f7f7f5"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Tagline",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL."
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#666666"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Hero"
+    }
+  ]
+}
+{% endschema %}

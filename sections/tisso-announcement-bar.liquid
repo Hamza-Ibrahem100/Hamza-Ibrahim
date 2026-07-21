@@ -1,0 +1,220 @@
+<!-- Tisso Announcement Bar - Matching Figma Design -->
+<section class="tisso-announcement-bar" id="tisso-announcement-bar">
+  <div class="tisso-announcement-bar__inner">
+    <!-- Logo -->
+    <div class="tisso-announcement-bar__logo">
+      {% if section.settings.logo_image != blank %}
+        <img
+          src="{{ section.settings.logo_image | image_url: width: 200 }}"
+          alt="{{ section.settings.logo_text | default: shop.name }}"
+          width="auto"
+          height="24"
+          loading="eager"
+        >
+      {% else %}
+        <span class="tisso-announcement-bar__logo-text">{{ section.settings.logo_text | default: 'TISSO VISON' }}</span>
+      {% endif %}
+    </div>
+
+    <!-- Center Message -->
+    <div class="tisso-announcement-bar__message">
+      {{ section.settings.message | default: 'Find the ideal gift for your loved ones.' }}
+    </div>
+
+    <!-- CTA Button -->
+    {% if section.settings.cta_text != blank %}
+      <a href="{{ section.settings.cta_link | default: '#' }}" class="tisso-announcement-bar__cta">
+        {{ section.settings.cta_text }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .tisso-announcement-bar {
+    width: 100%;
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .tisso-announcement-bar__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .tisso-announcement-bar__logo {
+    flex-shrink: 0;
+  }
+
+  .tisso-announcement-bar__logo-text {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color | default: '#000000' }};
+    white-space: nowrap;
+  }
+
+  .tisso-announcement-bar__logo img {
+    height: 24px;
+    width: auto;
+    display: block;
+  }
+
+  .tisso-announcement-bar__message {
+    font-size: 14px;
+    color: {{ section.settings.text_color | default: '#000000' }};
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tisso-announcement-bar__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: {{ section.settings.cta_bg_color | default: '#d4e600' }};
+    color: {{ section.settings.cta_text_color | default: '#000000' }};
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    flex-shrink: 0;
+  }
+
+  .tisso-announcement-bar__cta:hover {
+    opacity: 0.85;
+    transform: translateX(3px);
+  }
+
+  .tisso-announcement-bar__cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .tisso-announcement-bar__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    .tisso-announcement-bar__inner {
+      padding: 0 24px;
+    }
+
+    .tisso-announcement-bar__message {
+      font-size: 13px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 749px) {
+    .tisso-announcement-bar__inner {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 16px;
+    }
+
+    .tisso-announcement-bar__logo {
+      order: 1;
+      width: 100%;
+      text-align: center;
+    }
+
+    .tisso-announcement-bar__message {
+      order: 2;
+      width: 100%;
+      white-space: normal;
+      font-size: 12px;
+    }
+
+    .tisso-announcement-bar__cta {
+      order: 3;
+      font-size: 11px;
+      padding: 8px 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Tisso Announcement Bar",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Center Message",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "CTA Background Color",
+      "default": "#d4e600"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tisso Announcement Bar"
+    }
+  ]
+}
+{% endschema %}
