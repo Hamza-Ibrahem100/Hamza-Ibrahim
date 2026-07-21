@@ -1,36 +1,97 @@
-<!-- 1. HTML (من تصميم Figma) -->
-<section class="ecom-custom-banner">
-  <div class="banner-content">
-    <!-- ضف عناصرك هنا -->
-    <h1>Banner Title</h1>
+<section class="ecom-banner-section">
+  <div class="ecom-banner-wrapper">
+    {% if section.settings.banner_image != blank %}
+      <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="{{ section.settings.heading }}" class="ecom-banner-image">
+    {% endif %}
+    
+    <div class="ecom-banner-content">
+      {% if section.settings.heading != blank %}
+        <h2 class="ecom-banner-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if section.settings.subheading != blank %}
+        <div class="ecom-banner-text">{{ section.settings.subheading }}</div>
+      {% endif %}
+      
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="ecom-banner-btn">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
   </div>
 </section>
 
-<!-- 2. CSS (للتنسيق) -->
 <style>
-  .ecom-custom-banner {
-    /* كود الـ CSS الخاص بالبانر */
-    display: flex;
+  /* تنسيقات مبدئية لحد ما تبعتلي صورة الفيجما أظبطهالك عليها */
+  .ecom-banner-section {
+    position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4; /* لون مؤقت */
+  }
+  .ecom-banner-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .ecom-banner-content {
+    position: absolute;
+    text-align: center;
+    padding: 20px;
+  }
+  .ecom-banner-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  .ecom-banner-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
   }
 </style>
 
-<!-- 3. Vanilla JavaScript (حسب المطلوب) -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // أي تفاعل أو أكواد جافاسكريبت للبانر تتكتب هنا
-    console.log("Banner initialized");
-  });
-</script>
-
-<!-- 4. Shopify Schema (ضروري جداً عشان يظهر في المتجر) -->
 {% schema %}
 {
-  "name": "Custom Product Grid",
-  "settings": [],
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Discover our amazing products.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
   "presets": [
     {
-      "name": "Custom Product Grid"
+      "name": "Custom Banner"
     }
   ]
 }
