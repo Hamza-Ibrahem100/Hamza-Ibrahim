@@ -1,20 +1,26 @@
-<section class="gift-guide-banner" style="background-image: url('{{ section.settings.bg_image | img_url: 'master' }}');">
-  <div class="banner-container">
-    <div class="banner-content">
+<!-- Custom Banner Section -->
+<section class="custom-banner" id="custom-banner-{{ section.id }}" style="
+  {% if section.settings.bg_image != blank %}
+    background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+  {% else %}
+    background-image: url('{{ 'Frame.svg' | asset_url }}');
+  {% endif %}
+">
+  <div class="custom-banner__container">
+    <div class="custom-banner__content">
       {% if section.settings.heading != blank %}
-        <h1 class="banner-title">{{ section.settings.heading }}</h1>
+        <h2 class="custom-banner__title">{{ section.settings.heading }}</h2>
       {% endif %}
-      
+
       {% if section.settings.description != blank %}
-        <div class="banner-text">{{ section.settings.description }}</div>
+        <div class="custom-banner__text">{{ section.settings.description }}</div>
       {% endif %}
-      
-      {% if section.settings.btn_text != blank and section.settings.btn_link != blank %}
-        <a href="{{ section.settings.btn_link }}" class="banner-btn">
+
+      {% if section.settings.btn_text != blank %}
+        <a href="{{ section.settings.btn_link | default: '#' }}" class="custom-banner__btn">
           {{ section.settings.btn_text }}
-          <!-- سهم الزرار مطابق لتصميم فيجما -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       {% endif %}
@@ -23,64 +29,106 @@
 </section>
 
 <style>
-  .gift-guide-banner {
-    width: 100%;
-    min-height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-color: #f8f8f8; /* لون احتياطي لو مفيش صورة */
-    display: flex;
-    align-items: center;
-    padding: 40px 5%;
+  .custom-banner {
     position: relative;
-  }
-  .banner-container {
-    max-width: 1200px;
     width: 100%;
+    min-height: 390px;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  .custom-banner__container {
+    width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
+    padding: 48px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
   }
-  .banner-content {
-    max-width: 450px; /* عشان النص ميفردش بعرض الشاشة زي التصميم */
+
+  .custom-banner__content {
+    max-width: 440px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    z-index: 2;
   }
-  .banner-title {
-    font-size: 52px;
+
+  .custom-banner__title {
+    font-size: 48px;
     font-weight: 600;
-    color: #000;
-    margin-bottom: 20px;
+    color: #000000;
+    margin: 0;
     line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-family: var(--font-heading--family, Georgia, serif);
   }
-  .banner-text {
-    font-size: 16px;
-    color: #000;
-    margin-bottom: 30px;
-    line-height: 1.5;
+
+  .custom-banner__text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000000;
+    margin: 0;
   }
-  .banner-btn {
+
+  .custom-banner__text p {
+    margin: 0;
+  }
+
+  .custom-banner__btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background-color: #000;
-    color: #fff;
-    padding: 14px 28px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1px;
     gap: 12px;
-    transition: background-color 0.3s ease;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
   }
-  .banner-btn:hover {
-    background-color: #333;
+
+  .custom-banner__btn:hover {
+    background-color: #333333;
+    transform: translateX(3px);
   }
-  
-  /* تظبيط الموبايل */
+
+  .custom-banner__btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .custom-banner__btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Tablet and Mobile Responsiveness */
   @media (max-width: 768px) {
-    .gift-guide-banner {
-      min-height: 400px;
-      justify-content: center;
-      text-align: center;
+    .custom-banner {
+      min-height: 350px;
     }
-    .banner-title {
+
+    .custom-banner__container {
+      padding: 24px;
+    }
+
+    .custom-banner__content {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 24px;
+      gap: 12px;
+    }
+
+    .custom-banner__title {
       font-size: 36px;
     }
   }
@@ -93,7 +141,8 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Background Image"
+      "label": "Background Image",
+      "info": "Upload the background image (e.g. Frame.svg)"
     },
     {
       "type": "text",
@@ -105,7 +154,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts.</p>"
     },
     {
       "type": "text",
