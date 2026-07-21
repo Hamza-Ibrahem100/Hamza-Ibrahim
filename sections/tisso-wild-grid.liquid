@@ -9,32 +9,55 @@
     <!-- Image Grid - 3x2 -->
     <div class="tisso-wild__grid">
       {% for block in section.blocks %}
+        {%- liquid
+          assign product_item = block.settings.product
+          assign grid_image = block.settings.image
+          if grid_image == blank and product_item != blank
+            assign grid_image = product_item.featured_image
+          endif
+          
+          assign p_name = block.settings.product_name
+          if p_name == blank and product_item != blank
+            assign p_name = product_item.title
+          endif
+
+          assign p_price = block.settings.product_price
+          if p_price == blank and product_item != blank
+            assign p_price = product_item.price | money
+          endif
+
+          assign p_link = block.settings.product_link
+          if p_link == blank and product_item != blank
+            assign p_link = product_item.url
+          endif
+        -%}
         <div class="tisso-wild__item" {{ block.shopify_attributes }}>
           <div class="tisso-wild__image-wrapper">
-            {% if block.settings.image != blank %}
+            {% if grid_image != blank %}
               <img
-                src="{{ block.settings.image | image_url: width: 800 }}"
+                src="{{ grid_image | image_url: width: 800 }}"
                 srcset="
-                  {{ block.settings.image | image_url: width: 400 }} 400w,
-                  {{ block.settings.image | image_url: width: 600 }} 600w,
-                  {{ block.settings.image | image_url: width: 800 }} 800w
+                  {{ grid_image | image_url: width: 400 }} 400w,
+                  {{ grid_image | image_url: width: 600 }} 600w,
+                  {{ grid_image | image_url: width: 800 }} 800w
                 "
                 sizes="(max-width: 749px) 50vw, 33vw"
-                alt="{{ block.settings.image.alt | default: block.settings.product_name | default: 'Lifestyle image' }}"
+                alt="{{ grid_image.alt | default: p_name | default: 'Lifestyle image' }}"
                 loading="lazy"
-                width="{{ block.settings.image.width }}"
-                height="{{ block.settings.image.height }}"
+                width="{{ grid_image.width }}"
+                height="{{ grid_image.height }}"
                 class="tisso-wild__image"
               >
             {% else %}
               <div class="tisso-wild__placeholder">
-                {{ 'lifestyle-' | append: forloop.index | placeholder_svg_tag: 'tisso-wild__placeholder-svg' }}
+                {%- assign placeholder_num = forloop.index | modulo: 2 | plus: 1 -%}
+                {{ 'lifestyle-' | append: placeholder_num | placeholder_svg_tag: 'tisso-wild__placeholder-svg' }}
               </div>
             {% endif %}
 
             <!-- Hotspot / Plus Button - positioned per Figma -->
-            {% if block.settings.product_link != blank %}
-              <a href="{{ block.settings.product_link }}" class="tisso-wild__hotspot" aria-label="{{ block.settings.product_name | default: 'View product' }}">
+            {% if p_link != blank %}
+              <a href="{{ p_link }}" class="tisso-wild__hotspot" aria-label="{{ p_name | default: 'View product' }}">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="6" y1="0" x2="6" y2="12" stroke="currentColor" stroke-width="1.5"/>
                   <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5"/>
@@ -50,11 +73,11 @@
             {% endif %}
 
             <!-- Product tooltip on hover -->
-            {% if block.settings.product_name != blank %}
+            {% if p_name != blank %}
               <div class="tisso-wild__tooltip">
-                <span class="tisso-wild__tooltip-name">{{ block.settings.product_name }}</span>
-                {% if block.settings.product_price != blank %}
-                  <span class="tisso-wild__tooltip-price">{{ block.settings.product_price }}</span>
+                <span class="tisso-wild__tooltip-name">{{ p_name }}</span>
+                {% if p_price != blank %}
+                  <span class="tisso-wild__tooltip-price">{{ p_price }}</span>
                 {% endif %}
               </div>
             {% endif %}
@@ -327,24 +350,29 @@
       "limit": 12,
       "settings": [
         {
+          "type": "product",
+          "id": "product",
+          "label": "Product (Select a Shopify Product)"
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Custom Image (Overrides product image)"
         },
         {
           "type": "text",
           "id": "product_name",
-          "label": "Product Name"
+          "label": "Custom Product Name (Overrides product title)"
         },
         {
           "type": "text",
           "id": "product_price",
-          "label": "Product Price"
+          "label": "Custom Product Price (Overrides product price)"
         },
         {
           "type": "url",
           "id": "product_link",
-          "label": "Product Link"
+          "label": "Custom Product Link (Overrides product link)"
         }
       ]
     }
