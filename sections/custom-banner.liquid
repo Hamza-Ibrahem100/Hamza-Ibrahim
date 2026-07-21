@@ -1,0 +1,39 @@
+<!-- 1. HTML (من تصميم Figma) -->
+<section class="ecom-custom-banner">
+  <div class="banner-content">
+    <!-- ضف عناصرك هنا -->
+    <h1>Banner Title</h1>
+  </div>
+</section>
+
+<!-- 2. CSS (للتنسيق) -->
+<style>
+  .ecom-custom-banner {
+    /* كود الـ CSS الخاص بالبانر */
+    display: flex;
+    width: 100%;
+  }
+</style>
+
+<!-- 3. Vanilla JavaScript (حسب المطلوب) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // أي تفاعل أو أكواد جافاسكريبت للبانر تتكتب هنا
+    console.log("Banner initialized");
+  });
+</script>
+
+<!-- 4. Shopify Schema (ضروري جداً عشان يظهر في المتجر) -->
+{% schema %}
+{
+  "name": "Custom Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
+}
+{% endschema %}
