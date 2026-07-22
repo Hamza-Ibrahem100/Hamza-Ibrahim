@@ -72,13 +72,18 @@
     height: 100%;
     z-index: 1;
     pointer-events: none;
+    overflow: hidden;
   }
 
   .gift-hero__frame-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    position: absolute;
+    width: 2373.33px;
+    height: 1072px;
+    top: -536px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: none;
+    opacity: 1;
     display: block;
   }
 
