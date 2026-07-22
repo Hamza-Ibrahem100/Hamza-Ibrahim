@@ -81,18 +81,16 @@
     </div>
   </div>
   <!-- Product Popup Modal -->
-  <div id="product-popup-overlay" class="product-popup-overlay" hidden>
-    <div class="product-popup" role="dialog" aria-modal="true">
-      <button class="product-popup__close" id="product-popup-close" aria-label="Close">&times;</button>
-
-      <div class="product-popup__image-wrap">
-        <img id="popup-product-image" class="product-popup__image" src="" alt="">
-      </div>
-
-      <div class="product-popup__details">
-        <h3 id="popup-product-title" class="product-popup__title"></h3>
-        <p id="popup-product-price" class="product-popup__price"></p>
-        <div id="popup-product-description" class="product-popup__description"></div>
+        <div class="product-popup__top-row">
+          <div class="product-popup__image-wrap">
+            <img id="popup-product-image" class="product-popup__image" src="" alt="">
+          </div>
+          <div class="product-popup__info">
+            <h3 id="popup-product-title" class="product-popup__title"></h3>
+            <p id="popup-product-price" class="product-popup__price"></p>
+            <div id="popup-product-description" class="product-popup__description"></div>
+          </div>
+        </div>
 
         <div id="popup-options-wrap"></div>
 
@@ -337,16 +335,16 @@
     padding: 20px;
   }
 
-  .product-popup__close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    line-height: 1;
-  }
+      .product-popup__top-row {
+      display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .product-popup__info {
+        flex: 1;
+        min-width: 0;
+      }
 
   .product-popup__image-wrap {
     width: 100%;
@@ -373,12 +371,12 @@
     margin: 0 0 12px;
   }
 
-  .product-popup__description {
-    font-size: 13px;
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+    .product-popup__description {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
 
   .popup-option-group {
     margin-bottom: 16px;
