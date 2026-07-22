@@ -1,26 +1,19 @@
-<!-- Custom Banner Section -->
-<section class="custom-banner" id="custom-banner-{{ section.id }}" style="
-  {% if section.settings.bg_image != blank %}
-    background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
-  {% else %}
-    background-image: url('{{ 'Frame.svg' | asset_url }}');
-  {% endif %}
-">
-  <div class="custom-banner__container">
-    <div class="custom-banner__content">
+<section class="gift-guide-banner" style="background-image: url('{{ section.settings.bg_image | img_url: 'master' }}');">
+  <div class="banner-container">
+    <div class="banner-content">
       {% if section.settings.heading != blank %}
-        <h2 class="custom-banner__title">{{ section.settings.heading }}</h2>
+        <h1 class="banner-title">{{ section.settings.heading }}</h1>
       {% endif %}
-
+      
       {% if section.settings.description != blank %}
-        <div class="custom-banner__text">{{ section.settings.description }}</div>
+        <div class="banner-text">{{ section.settings.description }}</div>
       {% endif %}
-
-      {% if section.settings.btn_text != blank %}
-        <a href="{{ section.settings.btn_link | default: '#' }}" class="custom-banner__btn">
+      
+      {% if section.settings.btn_text != blank and section.settings.btn_link != blank %}
+        <a href="{{ section.settings.btn_link }}" class="banner-btn">
           {{ section.settings.btn_text }}
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="20" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;">
+            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       {% endif %}
@@ -29,107 +22,77 @@
 </section>
 
 <style>
-  .custom-banner {
-    position: relative;
+  .gift-guide-banner {
     width: 100%;
-    min-height: 390px;
-    background-size: cover;
-    background-position: top center;
+    /* ارتفاع مطابق لفيجما بالظبط */
+    min-height: 390px; 
+    background-size: cover; 
+    /* ضبط نقطة ارتكاز الصورة عشان تناسب التصميم */
+    background-position: top center; 
     background-repeat: no-repeat;
+    background-color: #ffffff;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
-
-  .custom-banner__container {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 48px;
+    /* محاذاة المحتوى للأسفل عشان النص ينزل في المساحة الفاضية */
+    align-items: flex-end; 
+    padding: 0 5% 40px 5%; 
     box-sizing: border-box;
+  }
+  .banner-container {
+    max-width: 1440px; 
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
   }
-
-  .custom-banner__content {
-    max-width: 440px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    z-index: 2;
+  .banner-content {
+    /* تحديد عرض النص عشان ما يدخلش على الرسومات */
+    max-width: 440px; 
   }
-
-  .custom-banner__title {
+  .banner-title {
     font-size: 48px;
     font-weight: 600;
-    color: #000000;
-    margin: 0;
+    color: #000;
+    margin-bottom: 15px;
     line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-family: var(--font-heading--family, Georgia, serif);
+    letter-spacing: -0.5px;
   }
-
-  .custom-banner__text {
+  .banner-text {
     font-size: 14px;
-    line-height: 1.6;
-    color: #000000;
-    margin: 0;
+    color: #000;
+    margin-bottom: 30px;
+    line-height: 1.5;
   }
-
-  .custom-banner__text p {
-    margin: 0;
-  }
-
-  .custom-banner__btn {
+  .banner-btn {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background-color: #000000;
-    color: #ffffff;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
     padding: 14px 32px;
     text-decoration: none;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    border: none;
+    transition: background-color 0.3s ease;
   }
-
-  .custom-banner__btn:hover {
-    background-color: #333333;
-    transform: translateX(3px);
+  .banner-btn:hover {
+    background-color: #333;
   }
-
-  .custom-banner__btn svg {
-    transition: transform 0.3s ease;
-  }
-
-  .custom-banner__btn:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* Tablet and Mobile Responsiveness */
+  
+  /* تظبيط شكل البانر على الموبايل عشان الرسمة متختفيش */
   @media (max-width: 768px) {
-    .custom-banner {
+    .gift-guide-banner {
       min-height: 350px;
+      align-items: flex-end;
+      padding-bottom: 30px;
+      background-position: 70% top;
     }
-
-    .custom-banner__container {
-      padding: 24px;
-    }
-
-    .custom-banner__content {
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 24px;
-      gap: 12px;
-    }
-
-    .custom-banner__title {
+    .banner-title {
       font-size: 36px;
+    }
+    .banner-content {
+      background: rgba(255, 255, 255, 0.85); /* خلفية شفافة بسيطة للنص على الموبايل عشان يتقري */
+      padding: 15px;
     }
   }
 </style>
@@ -141,8 +104,7 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Background Image",
-      "info": "Upload the background image (e.g. Frame.svg)"
+      "label": "Background Image"
     },
     {
       "type": "text",
@@ -154,7 +116,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts.</p>"
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.<br>Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
     },
     {
       "type": "text",
