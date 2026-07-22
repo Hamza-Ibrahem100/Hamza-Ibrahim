@@ -55,20 +55,14 @@
               </div>
             {% endif %}
 
-            <!-- Hotspot / Plus Button - positioned per Figma -->
+            <!-- Hotspot / Plus Button -->
             {% if p_link != blank %}
-              <a href="{{ p_link }}" class="tisso-wild__hotspot" aria-label="{{ p_name | default: 'View product' }}">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="6" y1="0" x2="6" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5"/>
-                </svg>
+              <a href="{{ p_link }}" class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}">
+                <span class="hotspot-marker__icon">+</span>
               </a>
             {% else %}
-              <button class="tisso-wild__hotspot" aria-label="View details" type="button">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="6" y1="0" x2="6" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                  <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5"/>
-                </svg>
+              <button class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="View details" type="button">
+                <span class="hotspot-marker__icon">+</span>
               </button>
             {% endif %}
 
@@ -164,34 +158,34 @@
     opacity: 0.25;
   }
 
-  /* Hotspot / Plus Button - matching Figma position (bottom-left on images) */
+  /* Hotspot / Plus Button */
   .tisso-wild__hotspot {
     position: absolute;
-    bottom: 14px;
-    left: 14px;
-    width: 28px;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    background: white;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+    z-index: 3;
     text-decoration: none;
     padding: 0;
-    z-index: 3;
+    color: #000;
   }
 
   .tisso-wild__hotspot:hover {
-    background-color: #000;
-    color: #fff;
-    border-color: #000;
-    transform: scale(1.12);
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  .hotspot-marker__icon {
+    font-size: 18px;
+    line-height: 1;
   }
 
   /* Tooltip */
@@ -276,13 +270,10 @@
     .tisso-wild__hotspot {
       width: 24px;
       height: 24px;
-      bottom: 10px;
-      left: 10px;
     }
 
-    .tisso-wild__hotspot svg {
-      width: 10px;
-      height: 10px;
+    .hotspot-marker__icon {
+      font-size: 14px;
     }
 
     .tisso-wild__tooltip {
@@ -297,6 +288,25 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.hotspot-marker').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const handle = btn.dataset.productHandle;
+        if (handle) {
+          if (typeof openProductPopup === 'function') {
+            openProductPopup(handle);
+          } else {
+            console.log('Product popup triggered for:', handle);
+            // We will implement openProductPopup in the next step
+          }
+        }
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -353,6 +363,24 @@
           "type": "product",
           "id": "product",
           "label": "Product (Select a Shopify Product)"
+        },
+        {
+          "type": "range",
+          "id": "position_left",
+          "label": "Horizontal Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_top",
+          "label": "Vertical Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 90
         },
         {
           "type": "image_picker",
