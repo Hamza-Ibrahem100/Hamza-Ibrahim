@@ -80,6 +80,31 @@
       {% endfor %}
     </div>
   </div>
+  <!-- Product Popup Modal -->
+  <div id="product-popup-overlay" class="product-popup-overlay" hidden>
+    <div class="product-popup" role="dialog" aria-modal="true">
+      <button class="product-popup__close" id="product-popup-close" aria-label="Close">&times;</button>
+
+      <div class="product-popup__image-wrap">
+        <img id="popup-product-image" class="product-popup__image" src="" alt="">
+      </div>
+
+      <div class="product-popup__details">
+        <h3 id="popup-product-title" class="product-popup__title"></h3>
+        <p id="popup-product-price" class="product-popup__price"></p>
+        <div id="popup-product-description" class="product-popup__description"></div>
+
+        <div id="popup-options-wrap"></div>
+
+        <button id="popup-add-to-cart" class="product-popup__add-btn" type="button" disabled>
+          <span>ADD TO CART</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -287,23 +312,303 @@
       padding-bottom: 130%;
     }
   }
+  /* Product Popup Styles */
+  .product-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .product-popup-overlay[hidden] {
+    display: none;
+  }
+
+  .product-popup {
+    background: #fff;
+    width: 320px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 20px;
+  }
+
+  .product-popup__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .product-popup__image-wrap {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .product-popup__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-popup__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .product-popup__price {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+
+  .product-popup__description {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .popup-option-group {
+    margin-bottom: 16px;
+  }
+
+  .popup-option-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .popup-swatch-row {
+    display: flex;
+    border: 1px solid #ddd;
+  }
+
+  .popup-swatch {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    background: #fff;
+    border: none;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .popup-swatch:last-child {
+    border-right: none;
+  }
+
+  .popup-swatch.is-selected {
+    background: #000;
+    color: #fff;
+  }
+
+  .popup-size-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background: #fff;
+  }
+
+  .product-popup__add-btn {
+    width: 100%;
+    padding: 16px;
+    background: #000;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+
+  .product-popup__add-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+  }
 </style>
 
 <script>
+  let currentProduct = null;
+  let selectedOptions = {};
+
+  async function openProductPopup(handle) {
+    if (!handle) return;
+
+    const res = await fetch(`/products/${handle}.js`);
+    currentProduct = await res.json();
+    selectedOptions = {};
+
+    document.getElementById('popup-product-image').src = currentProduct.featured_image;
+    document.getElementById('popup-product-title').textContent = currentProduct.title;
+    document.getElementById('popup-product-description').innerHTML = currentProduct.description;
+    updatePriceDisplay(currentProduct.price);
+
+    renderOptions();
+    updateSelectedVariant();
+
+    document.getElementById('product-popup-overlay').hidden = false;
+  }
+
+  function updatePriceDisplay(cents) {
+    const formatted = (cents / 100).toFixed(2).replace('.', ',') + '€';
+    document.getElementById('popup-product-price').textContent = formatted;
+  }
+
+  function renderOptions() {
+    const wrap = document.getElementById('popup-options-wrap');
+    wrap.innerHTML = '';
+
+    if (!currentProduct.options || currentProduct.options.length === 0 || (currentProduct.options.length === 1 && currentProduct.options[0] === 'Title')) {
+      return; // No options
+    }
+
+    currentProduct.options.forEach((optionName, index) => {
+      const values = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+
+      const group = document.createElement('div');
+      group.className = 'popup-option-group';
+
+      const label = document.createElement('label');
+      label.className = 'popup-option-label';
+      label.textContent = optionName;
+      group.appendChild(label);
+
+      if (optionName.toLowerCase() === 'size') {
+        const select = document.createElement('select');
+        select.className = 'popup-size-select';
+        select.innerHTML = `<option value="">Choose your size</option>` +
+          values.map(v => `<option value="${v}">${v}</option>`).join('');
+        select.addEventListener('change', (e) => {
+          selectedOptions[optionName] = e.target.value;
+          updateSelectedVariant();
+        });
+        group.appendChild(select);
+      } else {
+        const row = document.createElement('div');
+        row.className = 'popup-swatch-row';
+        values.forEach(val => {
+          const btn = document.createElement('button');
+          btn.className = 'popup-swatch';
+          btn.type = 'button';
+          btn.textContent = val;
+          btn.addEventListener('click', () => {
+            selectedOptions[optionName] = val;
+            row.querySelectorAll('.popup-swatch').forEach(b => b.classList.remove('is-selected'));
+            btn.classList.add('is-selected');
+            updateSelectedVariant();
+          });
+          row.appendChild(btn);
+        });
+        group.appendChild(row);
+      }
+
+      wrap.appendChild(group);
+    });
+  }
+
+  function updateSelectedVariant() {
+    const addBtn = document.getElementById('popup-add-to-cart');
+    
+    // If product has no options (or only default "Title"), just pick the first variant
+    if (!currentProduct.options || currentProduct.options.length === 0 || (currentProduct.options.length === 1 && currentProduct.options[0] === 'Title')) {
+      const variant = currentProduct.variants[0];
+      if (variant) {
+        addBtn.disabled = !variant.available;
+        addBtn.dataset.variantId = variant.id;
+        updatePriceDisplay(variant.price);
+      }
+      return;
+    }
+
+    const allSelected = currentProduct.options.every(opt => selectedOptions[opt]);
+
+    if (!allSelected) {
+      addBtn.disabled = true;
+      return;
+    }
+
+    const variant = currentProduct.variants.find(v =>
+      currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[opt])
+    );
+
+    if (variant) {
+      addBtn.disabled = !variant.available;
+      addBtn.dataset.variantId = variant.id;
+      updatePriceDisplay(variant.price);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    // Add click listeners to hotspots
     document.querySelectorAll('.hotspot-marker').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const handle = btn.dataset.productHandle;
         if (handle) {
-          if (typeof openProductPopup === 'function') {
-            openProductPopup(handle);
-          } else {
-            console.log('Product popup triggered for:', handle);
-            // We will implement openProductPopup in the next step
-          }
+          openProductPopup(handle);
         }
       });
+    });
+
+    // Add to cart click
+    document.getElementById('popup-add-to-cart').addEventListener('click', async (e) => {
+      const variantId = e.currentTarget.dataset.variantId;
+      if (!variantId) return;
+
+      e.currentTarget.disabled = true;
+      const span = e.currentTarget.querySelector('span');
+      const originalText = span.textContent;
+      span.textContent = 'ADDING...';
+
+      try {
+        await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: variantId, quantity: 1 })
+        });
+        
+        span.textContent = 'ADDED!';
+        setTimeout(() => {
+          document.getElementById('product-popup-overlay').hidden = true;
+          span.textContent = originalText;
+          e.currentTarget.disabled = false;
+        }, 1500);
+        
+      } catch (err) {
+        console.error(err);
+        e.currentTarget.disabled = false;
+        span.textContent = originalText;
+      }
+    });
+
+    // Close buttons
+    document.getElementById('product-popup-close').addEventListener('click', () => {
+      document.getElementById('product-popup-overlay').hidden = true;
+    });
+
+    document.getElementById('product-popup-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'product-popup-overlay') {
+        document.getElementById('product-popup-overlay').hidden = true;
+      }
     });
   });
 </script>
