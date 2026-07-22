@@ -1,481 +1,487 @@
 <!-- Gift Guide Hero Banner -->
-<section class="gift-hero" id="gift-hero-section-{{ section.id }}" style="
-  background-color: {{ section.settings.bg_color | default: '#ffffff' }};
-">
-  <div class="gift-guide-hero__bg-wrapper">
-    <img
-      src="{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 2400 }}{% else %}{{ 'Frame.svg' | asset_url }}{% endif %}"
-      class="gift-guide-hero__bg-image"
-      alt="{{ section.settings.heading | default: 'Gift guide illustrations' }}"
-      loading="eager"
-    >
-  </div>
+  <section class="gift-hero" id="gift-hero-section-{{ section.id }}" style="
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+  ">
+    <div class="gift-guide-hero__bg-wrapper">
+      <img
+        src="{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 2400 }}{% else %}{{ 'Frame.svg' | asset_url }}{% endif %}"
+        class="gift-guide-hero__bg-image"
+        alt="{{ section.settings.heading | default: 'Gift guide illustrations' }}"
+        loading="eager"
+      >
+    </div>
 
-  <div class="gift-hero__wrapper">
-    <!-- Centered container for content overlay & illustration frame -->
-    <div class="gift-hero__collage-container">
+    <div class="gift-hero__wrapper">
+      <!-- Centered container for content overlay & illustration frame -->
+      <div class="gift-hero__collage-container">
 
-      <!-- Live Text Content overlaid on the left side of the banner -->
-      <div class="gift-hero__content-box">
-        {% if section.settings.heading != blank %}
-          <h1 class="gift-hero__title" style="color: {{ section.settings.heading_color | default: '#000000' }};">{{ section.settings.heading }}</h1>
-        {% endif %}
+        <!-- Live Text Content overlaid on the left side of the banner -->
+        <div class="gift-hero__content-box">
+          {% if section.settings.heading != blank %}
+            <h1 class="gift-hero__title" style="color: {{ section.settings.heading_color | default: '#000000' }};">{{ section.settings.heading }}</h1>
+          {% endif %}
 
-        {% if section.settings.description != blank %}
-          <div class="gift-hero__description" style="color: {{ section.settings.text_color | default: '#1a1a1a' }};">
-            {{ section.settings.description }}
-          </div>
-        {% endif %}
+          {% if section.settings.description != blank %}
+            <div class="gift-hero__description" style="color: {{ section.settings.text_color | default: '#1a1a1a' }};">
+              {{ section.settings.description }}
+            </div>
+          {% endif %}
 
-        {% if section.settings.btn_text != blank %}
-          <a href="{{ section.settings.btn_link | default: '#' }}" class="gift-hero__btn" style="
-            background-color: {{ section.settings.btn_bg_color | default: '#000000' }};
-            color: {{ section.settings.btn_text_color | default: '#ffffff' }};
-          ">
-            {{ section.settings.btn_text }}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        {% endif %}
+          {% if section.settings.btn_text != blank %}
+            <a href="{{ section.settings.btn_link | default: '#' }}" class="gift-hero__btn" style="
+              background-color: {{ section.settings.btn_bg_color | default: '#000000' }};
+              color: {{ section.settings.btn_text_color | default: '#ffffff' }};
+            ">
+              {{ section.settings.btn_text }}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+
       </div>
-
     </div>
-  </div>
 
-  <!-- Bottom tagline -->
-  {% if section.settings.bottom_text != blank %}
-    <div class="gift-hero__tagline" style="color: {{ section.settings.tagline_color | default: '#555555' }};">
-      {{ section.settings.bottom_text }}
-    </div>
-  {% endif %}
-</section>
+    <!-- Bottom tagline -->
+    {% if section.settings.bottom_text != blank %}
+      <div class="gift-hero__tagline" style="color: {{ section.settings.tagline_color | default: '#555555' }};">
+        {{ section.settings.bottom_text }}
+      </div>
+    {% endif %}
+  </section>
 
-<style>
-  .gift-hero {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    overflow: hidden;
-  }
+  <style>
+    .gift-hero {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2373.33 / 536; /* ✅ إضافة جديدة: بتضمن إن السكشن دايمًا له ارتفاع كافي عشان يعرض نص الصورة السفلي */
+      min-height: 400px; /* ✅ إضافة جديدة: fallback لو المتصفح مش بيدعم aspect-ratio */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
 
-  .gift-guide-hero__bg-wrapper {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-    pointer-events: none;
-  }
+    .gift-guide-hero__bg-wrapper {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  .gift-guide-hero__bg-image {
-    position: absolute;
-    width: 2373.33px;
-    height: 1072px;
-    top: -536px;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: none;
-    opacity: 1;
-    display: block;
-  }
+    .gift-guide-hero__bg-image {
+      position: absolute;
+      width: 2373.33px;
+      height: 1072px;
+      top: -536px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: none;
+      opacity: 1;
+      display: block;
+    }
 
-  .gift-hero__wrapper {
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px 48px;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Centered aspect-ratio locked container (locked to Figma viewport ratio 1440x620) */
-  .gift-hero__collage-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1440 / 620;
-    overflow: visible;
-  }
-
-  /* Text Content Box Positioned exactly inside the Figma empty space */
-  .gift-hero__content-box {
-    position: absolute;
-    left: 8%;
-    top: 40%;
-    width: 28%;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .gift-hero__title {
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0 0 18px 0;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
-  }
-
-  .gift-hero__description {
-    font-size: 14px;
-    line-height: 1.65;
-    margin-bottom: 28px;
-    max-width: 370px;
-  }
-
-  .gift-hero__description p {
-    margin: 0;
-  }
-
-  .gift-hero__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 28px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    border: none;
-  }
-
-  .gift-hero__btn:hover {
-    background-color: #d4e600 !important;
-    color: #000000 !important;
-    transform: translateX(3px);
-  }
-
-  .gift-hero__btn svg {
-    transition: transform 0.3s ease;
-  }
-
-  .gift-hero__btn:hover svg {
-    transform: translateX(5px);
-  }
-
-  /* Positioned Illustration wraps */
-  .gift-hero__illustration-wrap {
-    position: absolute;
-    display: block;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-    z-index: 1;
-  }
-
-  .gift-hero__illustration-wrap:hover {
-    transform: translateY(-4px);
-    z-index: 10;
-  }
-
-  .gift-hero__illustration-link {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .gift-hero__illustration-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  /* Bottom Tagline */
-  .gift-hero__tagline {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 16px 40px;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border-top: 1px solid rgba(0,0,0,0.08);
-    background-color: rgba(255,255,255,0.85);
-  }
-
-  /* Tablet */
-  @media (max-width: 991px) {
     .gift-hero__wrapper {
-      padding: 15px 30px;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Centered aspect-ratio locked container (locked to Figma viewport ratio 1440x620) */
+    .gift-hero__collage-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1440 / 620;
+      overflow: visible;
+    }
+
+    /* Text Content Box Positioned exactly inside the Figma empty space */
+    .gift-hero__content-box {
+      position: absolute;
+      left: 8%;
+      top: 40%;
+      width: 28%;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .gift-hero__title {
-      font-size: 36px;
-      margin-bottom: 12px;
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
     }
 
     .gift-hero__description {
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-  }
-
-  /* Mobile Layout - Stacks elements to fit small screens */
-  @media (max-width: 749px) {
-    .gift-hero__wrapper {
-      padding: 0 16px;
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+      max-width: 370px;
     }
 
-    .gift-hero__collage-container {
-      aspect-ratio: auto;
-      display: flex;
-      flex-direction: column;
-      padding: 40px 0;
-    }
-
-    .gift-hero__content-box {
-      position: static;
-      width: 100%;
-      margin-bottom: 40px;
-      align-items: center;
-      text-align: center;
-    }
-
-    .gift-hero__title {
-      font-size: 32px;
+    .gift-hero__description p {
+      margin: 0;
     }
 
     .gift-hero__btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .gift-hero__tagline {
-      font-size: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
       letter-spacing: 1.5px;
-      padding: 14px 16px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border: none;
     }
 
-    /* Hide individual illustration blocks on mobile to stay clean and load fast */
+    .gift-hero__btn:hover {
+      background-color: #d4e600 !important;
+      color: #000000 !important;
+      transform: translateX(3px);
+    }
+
+    .gift-hero__btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .gift-hero__btn:hover svg {
+      transform: translateX(5px);
+    }
+
+    /* Positioned Illustration wraps */
     .gift-hero__illustration-wrap {
-      display: none;
+      position: absolute;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      z-index: 1;
     }
-  }
-</style>
 
-{% schema %}
-{
-  "name": "Gift Guide Hero Banner",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Background"
-    },
-    {
-      "type": "image_picker",
-      "id": "bg_image",
-      "label": "Background Image",
-      "info": "Leave empty to use the built-in line illustration pattern"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "The Gift Guide"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#000000"
-    },
-    {
-      "type": "richtext",
-      "id": "description",
-      "label": "Description",
-      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Description Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "btn_text",
-      "label": "Button Text",
-      "default": "SHOP NOW"
-    },
-    {
-      "type": "url",
-      "id": "btn_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "color",
-      "id": "btn_bg_color",
-      "label": "Button Background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "btn_text_color",
-      "label": "Button Text Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Tagline"
-    },
-    {
-      "type": "text",
-      "id": "bottom_text",
-      "label": "Bottom Tagline",
-      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL."
-    },
-    {
-      "type": "color",
-      "id": "tagline_color",
-      "label": "Tagline Color",
-      "default": "#555555"
+    .gift-hero__illustration-wrap:hover {
+      transform: translateY(-4px);
+      z-index: 10;
     }
-  ],
-  "blocks": [
-    {
-      "type": "illustration",
-      "name": "Illustration",
-      "settings": [
-        {
-          "type": "select",
-          "id": "illustration_type",
-          "label": "Select Illustration Vector",
-          "options": [
-            { "value": "illustration-Vector.svg", "label": "Bow Tie Accent" },
-            { "value": "illustration-Vector-1.svg", "label": "Watch body" },
-            { "value": "illustration-Vector-2.svg", "label": "Small decorative accent" },
-            { "value": "illustration-Vector-3.svg", "label": "Pencils/Pens" },
-            { "value": "illustration-Vector-4.svg", "label": "Belt" },
-            { "value": "illustration-Vector-5.svg", "label": "Compass" },
-            { "value": "illustration-Vector-6.svg", "label": "Belt buckle detail" },
-            { "value": "illustration-Vector-7.svg", "label": "Camera parts" },
-            { "value": "illustration-Vector-8.svg", "label": "Large Camera" },
-            { "value": "illustration-Vector-9.svg", "label": "Flash unit" },
-            { "value": "illustration-Vector-10.svg", "label": "Small details" },
-            { "value": "illustration-Vector-11.svg", "label": "Camera large" },
-            { "value": "illustration-Vector-12.svg", "label": "Circle detail" },
-            { "value": "illustration-Vector-13.svg", "label": "Lens assembly" },
-            { "value": "illustration-Vector-14.svg", "label": "Camera accessory" },
-            { "value": "illustration-Vector-15.svg", "label": "Sunglasses frame" },
-            { "value": "illustration-Vector-16.svg", "label": "Lens ring" },
-            { "value": "illustration-Vector-17.svg", "label": "Small circle" },
-            { "value": "illustration-Vector-18.svg", "label": "Tiny dot" },
-            { "value": "illustration-Vector-19.svg", "label": "Notepad" },
-            { "value": "illustration-Vector-22.svg", "label": "Bow tie main" },
-            { "value": "illustration-Vector-23.svg", "label": "Watch face" },
-            { "value": "illustration-Vector-24.svg", "label": "Sunglasses wide" },
-            { "value": "illustration-Vector-25.svg", "label": "Tiny dot accent 1" },
-            { "value": "illustration-Vector-26.svg", "label": "Camera piece" },
-            { "value": "illustration-Vector-27.svg", "label": "Tiny dot accent 2" },
-            { "value": "illustration-Vector-28.svg", "label": "Ruler/strap" },
-            { "value": "illustration-Vector-29.svg", "label": "Circle accent" },
-            { "value": "illustration-Vector-30.svg", "label": "Map layout" },
-            { "value": "illustration-Vector-31.svg", "label": "Tape roll" },
-            { "value": "illustration-Vector-32.svg", "label": "Camera body 2" },
-            { "value": "illustration-Vector-33.svg", "label": "Circle detail 2" },
-            { "value": "illustration-Vector-34.svg", "label": "Lens circle" },
-            { "value": "illustration-Vector-35.svg", "label": "Film canister" },
-            { "value": "illustration-Vector-36.svg", "label": "Bow tie 2" },
-            { "value": "illustration-Vector-37.svg", "label": "Lens piece" },
-            { "value": "watch.svg", "label": "Combined Horizontal Watch" }
-          ],
-          "default": "watch.svg"
-        },
-        {
-          "type": "range",
-          "id": "position_left",
-          "label": "Horizontal Position Left (%)",
-          "min": -20,
-          "max": 120,
-          "step": 1,
-          "default": 10
-        },
-        {
-          "type": "range",
-          "id": "position_top",
-          "label": "Vertical Position Top (%)",
-          "min": -20,
-          "max": 120,
-          "step": 1,
-          "default": 10
-        },
-        {
-          "type": "range",
-          "id": "width",
-          "label": "Width (%)",
-          "min": 1,
-          "max": 100,
-          "step": 1,
-          "default": 15
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link (Optional)"
-        }
-      ]
+
+    .gift-hero__illustration-link {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
-  ],
-  "presets": [
-    {
-      "name": "Gift Guide Hero Banner",
-      "blocks": [
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector.svg", "position_left": 1, "position_top": -2, "width": 5 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-1.svg", "position_left": 7, "position_top": -4, "width": 14 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-3.svg", "position_left": 6, "position_top": 6, "width": 10 } },
-        { "type": "illustration", "settings": { "illustration_type": "watch.svg", "position_left": -1, "position_top": 38, "width": 26 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-5.svg", "position_left": 36, "position_top": 5, "width": 21 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-7.svg", "position_left": 30, "position_top": 2, "width": 12 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-8.svg", "position_left": 13, "position_top": 2, "width": 23 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-9.svg", "position_left": 60, "position_top": -3, "width": 10 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-10.svg", "position_left": 56, "position_top": 16, "width": 19 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-11.svg", "position_left": 55, "position_top": 36, "width": 52 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-12.svg", "position_left": 88, "position_top": 10, "width": 3 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-13.svg", "position_left": 42, "position_top": 35, "width": 16 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-14.svg", "position_left": 84, "position_top": 12, "width": 9 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-15.svg", "position_left": -2, "position_top": 48, "width": 26 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-16.svg", "position_left": 92, "position_top": 25, "width": 7 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-17.svg", "position_left": 90, "position_top": 78, "width": 4 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-18.svg", "position_left": 96, "position_top": 82, "width": 2 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-19.svg", "position_left": 48, "position_top": -2, "width": 13 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-22.svg", "position_left": -2, "position_top": -8, "width": 15 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-23.svg", "position_left": 26, "position_top": 28, "width": 18 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-24.svg", "position_left": 0, "position_top": 86, "width": 65 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-25.svg", "position_left": 5, "position_top": 55, "width": 1 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-26.svg", "position_left": 78, "position_top": 30, "width": 6 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-27.svg", "position_left": 35, "position_top": 65, "width": 1 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-29.svg", "position_left": 42, "position_top": 58, "width": 1 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-30.svg", "position_left": 5, "position_top": 14, "width": 16 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-31.svg", "position_left": 82, "position_top": 5, "width": 9 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-32.svg", "position_left": 62, "position_top": 55, "width": 46 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-33.svg", "position_left": 8, "position_top": 72, "width": 3 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-34.svg", "position_left": 2, "position_top": 68, "width": 7 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-35.svg", "position_left": 12, "position_top": 64, "width": 5 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-36.svg", "position_left": 40, "position_top": 42, "width": 22 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-37.svg", "position_left": 72, "position_top": 35, "width": 13 } },
-        { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-2.svg", "position_left": 18, "position_top": 75, "width": 4 } }
-      ]
+
+    .gift-hero__illustration-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
-  ]
-}
-{% endschema %}
+
+    /* Bottom Tagline */
+    .gift-hero__tagline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 16px 40px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      background-color: rgba(255,255,255,0.85);
+    }
+
+    /* Tablet */
+    @media (max-width: 991px) {
+      .gift-hero__wrapper {
+        padding: 15px 30px;
+      }
+
+      .gift-hero__title {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+
+      .gift-hero__description {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+    }
+
+    /* Mobile Layout - Stacks elements to fit small screens */
+    @media (max-width: 749px) {
+      .gift-hero {
+        aspect-ratio: auto; /* ✅ إضافة جديدة: على الموبايل بنسيب المحتوى يحدد الارتفاع بدل ما يتقص */
+        min-height: auto;
+      }
+
+      .gift-hero__wrapper {
+        padding: 0 16px;
+      }
+
+      .gift-hero__collage-container {
+        aspect-ratio: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 40px 0;
+      }
+
+      .gift-hero__content-box {
+        position: static;
+        width: 100%;
+        margin-bottom: 40px;
+        align-items: center;
+        text-align: center;
+      }
+
+      .gift-hero__title {
+        font-size: 32px;
+      }
+
+      .gift-hero__btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .gift-hero__tagline {
+        font-size: 8px;
+        letter-spacing: 1.5px;
+        padding: 14px 16px;
+      }
+
+      /* Hide individual illustration blocks on mobile to stay clean and load fast */
+      .gift-hero__illustration-wrap {
+        display: none;
+      }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Gift Guide Hero Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image",
+        "info": "Leave empty to use the built-in line illustration pattern"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "The Gift Guide"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading Color",
+        "default": "#000000"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Description Color",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Text",
+        "default": "SHOP NOW"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "color",
+        "id": "btn_bg_color",
+        "label": "Button Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "btn_text_color",
+        "label": "Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Tagline"
+      },
+      {
+        "type": "text",
+        "id": "bottom_text",
+        "label": "Bottom Tagline",
+        "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL."
+      },
+      {
+        "type": "color",
+        "id": "tagline_color",
+        "label": "Tagline Color",
+        "default": "#555555"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "illustration",
+        "name": "Illustration",
+        "settings": [
+          {
+            "type": "select",
+            "id": "illustration_type",
+            "label": "Select Illustration Vector",
+            "options": [
+              { "value": "illustration-Vector.svg", "label": "Bow Tie Accent" },
+              { "value": "illustration-Vector-1.svg", "label": "Watch body" },
+              { "value": "illustration-Vector-2.svg", "label": "Small decorative accent" },
+              { "value": "illustration-Vector-3.svg", "label": "Pencils/Pens" },
+              { "value": "illustration-Vector-4.svg", "label": "Belt" },
+              { "value": "illustration-Vector-5.svg", "label": "Compass" },
+              { "value": "illustration-Vector-6.svg", "label": "Belt buckle detail" },
+              { "value": "illustration-Vector-7.svg", "label": "Camera parts" },
+              { "value": "illustration-Vector-8.svg", "label": "Large Camera" },
+              { "value": "illustration-Vector-9.svg", "label": "Flash unit" },
+              { "value": "illustration-Vector-10.svg", "label": "Small details" },
+              { "value": "illustration-Vector-11.svg", "label": "Camera large" },
+              { "value": "illustration-Vector-12.svg", "label": "Circle detail" },
+              { "value": "illustration-Vector-13.svg", "label": "Lens assembly" },
+              { "value": "illustration-Vector-14.svg", "label": "Camera accessory" },
+              { "value": "illustration-Vector-15.svg", "label": "Sunglasses frame" },
+              { "value": "illustration-Vector-16.svg", "label": "Lens ring" },
+              { "value": "illustration-Vector-17.svg", "label": "Small circle" },
+              { "value": "illustration-Vector-18.svg", "label": "Tiny dot" },
+              { "value": "illustration-Vector-19.svg", "label": "Notepad" },
+              { "value": "illustration-Vector-22.svg", "label": "Bow tie main" },
+              { "value": "illustration-Vector-23.svg", "label": "Watch face" },
+              { "value": "illustration-Vector-24.svg", "label": "Sunglasses wide" },
+              { "value": "illustration-Vector-25.svg", "label": "Tiny dot accent 1" },
+              { "value": "illustration-Vector-26.svg", "label": "Camera piece" },
+              { "value": "illustration-Vector-27.svg", "label": "Tiny dot accent 2" },
+              { "value": "illustration-Vector-29.svg", "label": "Circle accent" },
+              { "value": "illustration-Vector-30.svg", "label": "Map layout" },
+              { "value": "illustration-Vector-31.svg", "label": "Tape roll" },
+              { "value": "illustration-Vector-32.svg", "label": "Camera body 2" },
+              { "value": "illustration-Vector-33.svg", "label": "Circle detail 2" },
+              { "value": "illustration-Vector-34.svg", "label": "Lens circle" },
+              { "value": "illustration-Vector-35.svg", "label": "Film canister" },
+              { "value": "illustration-Vector-36.svg", "label": "Bow tie 2" },
+              { "value": "illustration-Vector-37.svg", "label": "Lens piece" },
+              { "value": "watch.svg", "label": "Combined Horizontal Watch" }
+            ],
+            "default": "watch.svg"
+          },
+          {
+            "type": "range",
+            "id": "position_left",
+            "label": "Horizontal Position Left (%)",
+            "min": -20,
+            "max": 120,
+            "step": 1,
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_top",
+            "label": "Vertical Position Top (%)",
+            "min": -20,
+            "max": 120,
+            "step": 1,
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "label": "Width (%)",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "default": 15
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link (Optional)"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Gift Guide Hero Banner",
+        "blocks": [
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector.svg", "position_left": 1, "position_top": -2, "width": 5 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-1.svg", "position_left": 7, "position_top": -4, "width": 14 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-3.svg", "position_left": 6, "position_top": 6, "width": 10 } },
+          { "type": "illustration", "settings": { "illustration_type": "watch.svg", "position_left": -1, "position_top": 38, "width": 26 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-5.svg", "position_left": 36, "position_top": 5, "width": 21 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-7.svg", "position_left": 30, "position_top": 2, "width": 12 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-8.svg", "position_left": 13, "position_top": 2, "width": 23 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-9.svg", "position_left": 60, "position_top": -3, "width": 10 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-10.svg", "position_left": 56, "position_top": 16, "width": 19 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-11.svg", "position_left": 55, "position_top": 36, "width": 52 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-12.svg", "position_left": 88, "position_top": 10, "width": 3 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-13.svg", "position_left": 42, "position_top": 35, "width": 16 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-14.svg", "position_left": 84, "position_top": 12, "width": 9 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-15.svg", "position_left": -2, "position_top": 48, "width": 26 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-16.svg", "position_left": 92, "position_top": 25, "width": 7 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-17.svg", "position_left": 90, "position_top": 78, "width": 4 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-18.svg", "position_left": 96, "position_top": 82, "width": 2 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-19.svg", "position_left": 48, "position_top": -2, "width": 13 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-22.svg", "position_left": -2, "position_top": -8, "width": 15 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-23.svg", "position_left": 26, "position_top": 28, "width": 18 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-24.svg", "position_left": 0, "position_top": 86, "width": 65 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-25.svg", "position_left": 5, "position_top": 55, "width": 1 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-26.svg", "position_left": 78, "position_top": 30, "width": 6 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-27.svg", "position_left": 35, "position_top": 65, "width": 1 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-29.svg", "position_left": 42, "position_top": 58, "width": 1 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-30.svg", "position_left": 5, "position_top": 14, "width": 16 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-31.svg", "position_left": 82, "position_top": 5, "width": 9 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-32.svg", "position_left": 62, "position_top": 55, "width": 46 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-33.svg", "position_left": 8, "position_top": 72, "width": 3 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-34.svg", "position_left": 2, "position_top": 68, "width": 7 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-35.svg", "position_left": 12, "position_top": 64, "width": 5 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-36.svg", "position_left": 40, "position_top": 42, "width": 22 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-37.svg", "position_left": 72, "position_top": 35, "width": 13 } },
+          { "type": "illustration", "settings": { "illustration_type": "illustration-Vector-2.svg", "position_left": 18, "position_top": 75, "width": 4 } }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
