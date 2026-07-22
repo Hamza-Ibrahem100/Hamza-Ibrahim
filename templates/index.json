@@ -1,27 +1,5 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "tisso_announcement_bar": {
-      "type": "tisso-announcement-bar",
-      "settings": {
-        "logo_text": "TISSO VISON",
-        "message": "Find the ideal gift for your loved ones.",
-        "cta_text": "CHOOSE GIFT",
-        "cta_link": "",
-        "bg_color": "#ffffff",
-        "text_color": "#000000",
-        "cta_bg_color": "#d4e600",
-        "cta_text_color": "#000000"
-      }
-    },
     "gift_guide_hero": {
       "type": "gift-guide-hero",
       "settings": {
@@ -359,7 +337,6 @@
     }
   },
   "order": [
-    "tisso_announcement_bar",
     "gift_guide_hero",
     "tisso_illustrations_frame",
     "tisso_wild_grid",

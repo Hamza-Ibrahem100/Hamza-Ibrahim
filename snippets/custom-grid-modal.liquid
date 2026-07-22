@@ -1,0 +1,76 @@
+{% comment %}
+  Custom Grid Modal Snippet
+  Accepts: 'product' (Product Liquid object)
+{% endcomment %}
+
+<div id="modal-{{ product.id }}" class="custom-modal-overlay" style="display: none;">
+  <div class="custom-modal">
+    <!-- Close Button -->
+    <button class="close-modal-btn" onclick="closeModal('modal-{{ product.id }}')" type="button">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L13 13M1 13L13 1" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Product Info -->
+    <div class="modal-top-section">
+      <img src="{{ product.featured_image | img_url: '300x' }}" alt="{{ product.title }}" class="modal-img">
+      <div class="modal-text-info">
+        <h3 class="modal-title">{{ product.title }}</h3>
+        <p class="modal-price">{{ product.price | money }}</p>
+        <p class="modal-desc">
+          {% if product.description != blank %}
+            {{ product.description | strip_html | truncatewords: 20 }}
+          {% else %}
+            This item is crafted from high-quality materials featuring an exclusive design motif in relief.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <!-- Add to Cart Form -->
+    <form method="post" action="/cart/add" class="modal-form">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" class="variant-id-input">
+      
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <div class="option-group">
+            <label class="option-label">{{ option.name }}</label>
+            
+            {% if option.name == 'Color' or option.name == 'Colour' %}
+              <!-- Color Swatches styling -->
+              <div class="color-options-wrapper">
+                {% for value in option.values %}
+                  <div class="color-swatch-box" data-value="{{ value | escape }}">
+                    <div class="color-indicator color-{{ value | handleize }}"></div>
+                    <span>{{ value }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <!-- Size / Other Options styling -->
+              <div class="select-wrapper">
+                <select class="custom-select" name="options[{{ option.name | escape }}]">
+                  <option value="" disabled selected>Choose your {{ option.name | downcase }}</option>
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+                <svg class="select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L6 6L11 1" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endunless %}
+
+      <button type="submit" class="modal-add-btn">
+        ADD TO CART
+        <svg width="24" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;">
+          <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
