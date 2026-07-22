@@ -557,6 +557,38 @@
     }
   }
 
+  // ⚙️ اسم/handle منتج "Soft Winter Jacket" - غيّره هنا لو مختلف في متجرك
+  const BUNDLE_TRIGGER_PRODUCT = 'soft-winter-jacket';
+
+  /**
+   * بيتشيك هل الـ variant المختار حاليًا فيه الخيارين "Black" و"Medium" مع بعض
+   * (بغض النظر عن ترتيبهم في الـ options)
+   */
+  function shouldTriggerBundle(variant) {
+    if (!variant) return false;
+    const values = [variant.option1, variant.option2, variant.option3]
+      .filter(Boolean)
+      .map(v => v.toLowerCase());
+
+    return values.includes('black') && values.includes('medium');
+  }
+
+  /**
+   * بيجيب أول variant متاح لمنتج الـ bundle (Soft Winter Jacket) عن طريق الـ handle
+   */
+  async function getBundleVariantId() {
+    try {
+      const res = await fetch(`/products/${BUNDLE_TRIGGER_PRODUCT}.js`);
+      if (!res.ok) return null;
+      const product = await res.json();
+      const availableVariant = product.variants.find(v => v.available);
+      return availableVariant ? availableVariant.id : null;
+    } catch (err) {
+      console.error('Failed to fetch bundle product:', err);
+      return null;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     // Add click listeners to hotspots
     document.querySelectorAll('.hotspot-marker').forEach(btn => {
@@ -580,10 +612,25 @@
       span.textContent = 'ADDING...';
 
       try {
+        // نبني قائمة العناصر اللي هتتضاف - تبدأ بالمنتج المختار
+        const itemsToAdd = [{ id: variantId, quantity: 1 }];
+
+        // نلاقي الـ variant الكامل بتاع المنتج الحالي عشان نتأكد من خياراته
+        const selectedVariant = currentProduct.variants.find(v => String(v.id) === String(variantId));
+
+        // ✅ الشرط المطلوب: لو الـ variant فيه Black + Medium، نضيف Soft Winter Jacket تلقائي
+        if (shouldTriggerBundle(selectedVariant)) {
+          const bundleVariantId = await getBundleVariantId();
+          if (bundleVariantId) {
+            itemsToAdd.push({ id: bundleVariantId, quantity: 1 });
+          }
+        }
+
+        // نضيف كل العناصر في طلب واحد بستخدام /cart/add.js بصيغة { items: [...] }
         await fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: variantId, quantity: 1 })
+          body: JSON.stringify({ items: itemsToAdd })
         });
         
         span.textContent = 'ADDED!';
