@@ -1,11 +1,22 @@
 <!-- Gift Guide Hero Banner -->
 <section class="gift-hero" id="gift-hero-section-{{ section.id }}" style="
   background-color: {{ section.settings.bg_color | default: '#ffffff' }};
-  background-image: url('{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 2000 }}{% else %}{{ 'Frame.svg' | asset_url }}{% endif %}');
 ">
   <div class="gift-hero__wrapper">
-    <!-- Centered container for content overlay -->
+    <!-- Centered container for content overlay & illustration frame -->
     <div class="gift-hero__collage-container">
+
+      <!-- Illustration Frame Image Element -->
+      <div class="gift-hero__frame-wrap">
+        <img
+          src="{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 2000 }}{% else %}{{ 'Frame.svg' | asset_url }}{% endif %}"
+          class="gift-hero__frame-img"
+          alt="{{ section.settings.heading | default: 'Gift guide illustrations' }}"
+          loading="eager"
+          width="1052"
+          height="400"
+        >
+      </div>
       
       <!-- Live Text Content overlaid on the left side of the banner -->
       <div class="gift-hero__content-box">
@@ -47,14 +58,28 @@
   .gift-hero {
     position: relative;
     width: 100%;
-    min-height: 450px;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
+  }
+
+  .gift-hero__frame-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .gift-hero__frame-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
   }
 
   .gift-hero__wrapper {

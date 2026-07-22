@@ -1,4 +1,4 @@
-<!-- Tisso Illustrations Frame - Displaying Figma Frame.svg Layout -->
+<!-- Tisso Illustrations Frame -->
 <section class="tisso-frame" id="tisso-frame-{{ section.id }}" style="
   background-color: {{ section.settings.bg_color | default: '#ffffff' }};
   padding-block-start: {{ section.settings.padding_top }}px;
@@ -7,18 +7,6 @@
   <div class="tisso-frame__container" style="max-width: {{ section.settings.max_width }}px;">
     {% if section.settings.link != blank %}
       <a href="{{ section.settings.link }}" class="tisso-frame__link" aria-label="View collection">
-    {% endif %}
-
-    <img
-      src="{{ 'Frame.svg' | asset_url }}"
-      class="tisso-frame__img"
-      alt="{{ section.settings.heading | default: 'Tisso illustrations layout' }}"
-      loading="lazy"
-      width="1052"
-      height="400"
-    >
-
-    {% if section.settings.link != blank %}
       </a>
     {% endif %}
   </div>
