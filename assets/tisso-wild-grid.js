@@ -9,78 +9,37 @@ let selectedOptions = {};
  * Fetch Product data and Open Popup Modal
  * @param {string} handle 
  */
-async function openProductPopup(handle, element) {
-  const overlay = document.getElementById('product-popup-overlay');
-  currentProduct = null;
+async function openProductPopup(handle) {
+  if (!handle) return;
 
-  let fallbackImage = '';
-  let fallbackName = '';
-  let fallbackPrice = '';
+  try {
+    const res = await fetch(`/products/${handle}.js`);
+    if (!res.ok) throw new Error('Product not found');
+    currentProduct = await res.json();
+    selectedOptions = {};
 
-  if (element && element.closest) {
-    const card = element.closest('.tisso-wild__item');
-    if (card) {
-      const img = card.querySelector('.tisso-wild__image');
-      if (img) fallbackImage = img.src;
-      const nameEl = card.querySelector('.tisso-wild__tooltip-name');
-      if (nameEl) fallbackName = nameEl.textContent.trim();
-      const priceEl = card.querySelector('.tisso-wild__tooltip-price');
-      if (priceEl) fallbackPrice = priceEl.textContent.trim();
+    const imgEl = document.getElementById('popup-product-image');
+    if (imgEl) imgEl.src = currentProduct.featured_image;
+
+    const titleEl = document.getElementById('popup-product-title');
+    if (titleEl) titleEl.textContent = currentProduct.title;
+
+    const descEl = document.getElementById('popup-product-description');
+    if (descEl) {
+      descEl.innerHTML = currentProduct.description && currentProduct.description.trim() !== ''
+        ? currentProduct.description
+        : 'This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.';
     }
-  }
 
-  if (handle && handle !== '') {
-    try {
-      const res = await fetch(`/products/${handle}.js`);
-      if (res.ok) {
-        currentProduct = await res.json();
-      }
-    } catch (err) {
-      console.warn('Could not fetch product JSON, using fallback data:', err);
-    }
-  }
+    updatePriceDisplay(currentProduct.price);
 
-  if (!currentProduct) {
-    currentProduct = {
-      title: fallbackName || 'Orange Wide Leg',
-      price: 98000,
-      featured_image: fallbackImage || '',
-      description: 'This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.',
-      options: ['Color', 'Size'],
-      variants: [
-        { id: 1, available: true, price: 98000, option1: 'White', option2: 'M' },
-        { id: 2, available: true, price: 98000, option1: 'Black', option2: 'M' }
-      ]
-    };
-  }
+    renderOptions();
+    updateSelectedVariant();
 
-  selectedOptions = {};
-
-  const imgEl = document.getElementById('popup-product-image');
-  if (imgEl) {
-    imgEl.src = currentProduct.featured_image || fallbackImage || '';
-  }
-
-  const titleEl = document.getElementById('popup-product-title');
-  if (titleEl) {
-    titleEl.textContent = currentProduct.title || fallbackName || 'Orange Wide Leg';
-  }
-
-  const descEl = document.getElementById('popup-product-description');
-  if (descEl) {
-    descEl.innerHTML = (currentProduct.description && currentProduct.description.trim() !== '')
-      ? currentProduct.description
-      : 'This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.';
-  }
-
-  updatePriceDisplay(currentProduct.price || 98000);
-
-  renderOptions();
-  updateSelectedVariant();
-
-  if (overlay) {
-    overlay.hidden = false;
-    overlay.style.display = 'flex';
+    const overlay = document.getElementById('product-popup-overlay');
+    if (overlay) overlay.hidden = false;
+  } catch (err) {
+    console.error('Failed to open product popup:', err);
   }
 }
 
@@ -185,7 +144,7 @@ function renderOptions() {
 function updateSelectedVariant() {
   const addBtn = document.getElementById('popup-add-to-cart');
   if (!addBtn) return;
-  
+
   // If product has no options (or only default "Title"), just pick the first variant
   if (!currentProduct.options || currentProduct.options.length === 0 || (currentProduct.options.length === 1 && currentProduct.options[0] === 'Title')) {
     const variant = currentProduct.variants[0];
@@ -280,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ items: itemsToAdd })
         });
-        
+
         if (response.ok) {
           // Dispatch cart refresh events for theme compatibility
           document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
@@ -294,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (span) span.textContent = originalText;
           e.currentTarget.disabled = false;
         }, 1500);
-        
+
       } catch (err) {
         console.error('Add to cart failed:', err);
         e.currentTarget.disabled = false;

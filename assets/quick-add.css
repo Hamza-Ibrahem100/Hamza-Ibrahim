@@ -1,0 +1,185 @@
+/* ---------- Quick Add Modal — Tisso Vison ---------- */
+.qa-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.qa-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.qa-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 340px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(18px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35);
+}
+.qa-backdrop.open .qa-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.qa-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.qa-close svg { width: 14px; height: 14px; }
+
+.qa-loading {
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6f6f6f;
+}
+
+.qa-top {
+  display: flex;
+  gap: 14px;
+  padding: 22px 22px 0;
+}
+.qa-img {
+  width: 96px;
+  height: 112px;
+  flex: none;
+  overflow: hidden;
+  background: #eae8e2;
+}
+.qa-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.qa-title {
+  font-family: var(--font-heading--family, Georgia, 'Times New Roman', serif);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 2px 0 8px;
+  color: #0a0a0a;
+}
+.qa-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.qa-body { padding: 16px 22px 22px; }
+
+.qa-desc {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #6f6f6f;
+  margin-bottom: 18px;
+}
+
+.qa-field-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #6f6f6f;
+  margin-bottom: 8px;
+}
+
+.qa-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #0a0a0a;
+  margin-bottom: 18px;
+}
+.qa-swatch {
+  flex: 1;
+  min-width: 70px;
+  padding: 11px 12px;
+  font-size: 13px;
+  background: #ffffff;
+  color: #0a0a0a;
+  cursor: pointer;
+  border: none;
+  border-right: 1px solid #0a0a0a;
+}
+.qa-swatch:last-child { border-right: none; }
+.qa-swatch.active { background: #0a0a0a; color: #ffffff; }
+.qa-swatch.unavailable { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
+
+.qa-select-wrap {
+  position: relative;
+  border: 1px solid #e6e6e2;
+  margin-bottom: 20px;
+}
+.qa-select-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 12px 34px 12px 14px;
+  color: #0a0a0a;
+  cursor: pointer;
+  font-family: inherit;
+}
+.qa-select-wrap svg {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+}
+
+.qa-error {
+  font-size: 12px;
+  color: #b3261e;
+  margin: -8px 0 14px;
+}
+
+.qa-add-btn {
+  width: 100%;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  padding: 15px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.qa-add-btn:hover:not(:disabled) { background: #d4e600; color: #0a0a0a; }
+.qa-add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.qa-add-btn svg { width: 17px; height: 17px; transition: transform 0.3s ease; }
+.qa-add-btn:hover:not(:disabled) svg { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .qa-backdrop, .qa-modal, .qa-add-btn, .qa-add-btn svg { transition: none !important; }
+}

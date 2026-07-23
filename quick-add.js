@@ -153,18 +153,6 @@
       });
   };
 
-  // Delegate click for trigger buttons (e.g. .hotspot-marker)
-  document.addEventListener('click', function(e) {
-    const trigger = e.target.closest('[data-product-handle]');
-    if (trigger) {
-      const handle = trigger.getAttribute('data-product-handle');
-      if (handle) {
-        e.preventDefault();
-        window.openProductPopup(handle);
-      }
-    }
-  });
-
   addBtn.addEventListener('click', () => {
     const variant = findVariant();
     if (!variant || !variant.available) return;

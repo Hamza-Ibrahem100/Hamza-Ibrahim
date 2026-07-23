@@ -63,9 +63,15 @@
             {% endif %}
 
             <!-- Hotspot / Plus Button -->
-            <button class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" onclick="event.preventDefault(); event.stopPropagation(); window.openProductPopup('{{ product_item.handle }}', this);" aria-label="View details" type="button">
-              <span class="hotspot-marker__icon">+</span>
-            </button>
+            {% if p_link != blank %}
+              <a href="{{ p_link }}" class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}">
+                <span class="hotspot-marker__icon">+</span>
+              </a>
+            {% else %}
+              <button class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="View details" type="button">
+                <span class="hotspot-marker__icon">+</span>
+              </button>
+            {% endif %}
 
             <!-- Product tooltip on hover -->
             {% if p_name != blank %}
