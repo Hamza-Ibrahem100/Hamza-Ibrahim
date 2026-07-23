@@ -15,8 +15,8 @@
             <a href="{{ product.url }}">
               <img src="{{ product.featured_image | img_url: '500x' }}" alt="{{ product.title }}" class="product-img">
             </a>
-            <!-- Trigger Button for Pop-up -->
-            <button class="quick-view-btn" onclick="openModal('modal-{{ product.id }}')" aria-label="Quick View" type="button">
+            <!-- Trigger Button for Pop-up (Connected to JS) -->
+            <button class="quick-view-btn hotspot-marker" data-product-handle="{{ product.handle }}" aria-label="Quick View" type="button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 5V19M5 12H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -27,15 +27,15 @@
             <p class="product-price">{{ product.price | money }}</p>
           </div>
         </div>
-
-        <!-- Pop-up Modal for this Product -->
-        {% render 'custom-grid-modal', product: product %}
       {% else %}
         <p>Please select products in the theme editor.</p>
       {% endfor %}
     </div>
   </div>
 </section>
+
+<!-- Pop-up Modal (Single Instance for all products) -->
+{% render 'custom-grid-modal' %}
 
 <!-- Section Script -->
 <script src="{{ 'custom-grid.js' | asset_url }}" defer="defer"></script>
