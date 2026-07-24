@@ -103,21 +103,22 @@
 .tisso-wild__hotspot {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: white;
+  background: rgba(248, 248, 248, 0.9);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: none;
   transition: transform 0.2s ease;
   z-index: 3;
   text-decoration: none;
   padding: 0;
   color: #000;
+  box-sizing: border-box;
   user-select: none;
   -webkit-user-select: none;
   outline: none;
@@ -129,9 +130,36 @@
 }
 
 .hotspot-marker__icon {
-  font-size: 18px;
-  line-height: 1;
+  position: relative;
+  width: 8.46px;
+  height: 8.46px;
+  font-size: 0;
+  color: transparent;
+  display: block;
+  z-index: 2;
+  pointer-events: none;
 }
+
+.hotspot-marker__icon::before,
+.hotspot-marker__icon::after {
+  content: "";
+  position: absolute;
+  background: #000000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hotspot-marker__icon::before {
+  width: 8.46px;
+  height: 1.5px;
+}
+
+.hotspot-marker__icon::after {
+  width: 1.5px;
+  height: 8.46px;
+}
+
 
 /* Tooltip */
 .tisso-wild__tooltip {
@@ -175,7 +203,7 @@
 /* Tablet */
 @media (max-width: 991px) {
   .tisso-wild {
-    padding: 40px 0;
+    padding: 16px 0 40px;
   }
 
   .tisso-wild__container {
@@ -185,9 +213,11 @@
   }
 
   .tisso-wild__title {
-    font-size: 28px;
+    font-size: 32px;
     width: 100%;
     height: auto;
+    justify-content: center;
+    text-align: center;
   }
 
   .tisso-wild__grid {
@@ -198,7 +228,7 @@
 /* Mobile */
 @media (max-width: 749px) {
   .tisso-wild {
-    padding: 32px 0;
+    padding: 16px 0 32px;
   }
 
   .tisso-wild__container {
@@ -207,7 +237,10 @@
   }
 
   .tisso-wild__title {
-    font-size: 22px;
+    font-size: 28px;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .tisso-wild__grid {
@@ -216,12 +249,52 @@
   }
 
   .tisso-wild__hotspot {
-    width: 24px;
-    height: 24px;
+    position: absolute !important;
+    top: 3.86px !important;
+    left: 87.14px !important;
+    right: auto !important;
+    transform: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tisso-wild__hotspot::after {
+    content: "";
+    position: absolute;
+    width: 15.71px;
+    height: 15.71px;
+    border-radius: 50%;
+    background: rgba(248, 248, 248, 0.9);
+    border: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.1s ease;
+  }
+
+  .tisso-wild__hotspot:active::after {
+    transform: scale(0.9);
   }
 
   .hotspot-marker__icon {
-    font-size: 14px;
+    position: relative;
+    width: 6.04px !important;
+    height: 6.04px !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    margin-top: 0 !important;
+    z-index: 2;
   }
 
   .tisso-wild__tooltip {
