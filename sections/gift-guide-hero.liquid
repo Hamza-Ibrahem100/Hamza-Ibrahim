@@ -5,6 +5,51 @@
   <!-- Outer Output Frame: Width 1440px, Height 878px -->
   <div class="gift-hero__output-frame">
 
+    <!-- 0. Top Header Bar: TISSO VISON / Find the ideal gift / CHOOSE GIFT -->
+    <div class="gift-hero__top-bar">
+      <!-- Hamburger Menu (Mobile Only) -->
+      <button class="gift-hero__hamburger" aria-label="Menu" type="button">
+        {% render 'icon-hamburger' %}
+        <span class="close-icon" style="display: none;">{% render 'icon-close' %}</span>
+      </button>
+
+      <!-- Left: Logo "TISSO VISON" -->
+      <div class="gift-hero__logo">
+        {{ section.settings.top_logo_text | default: 'TISSO VISON' }}
+      </div>
+
+      <!-- Spacer for 3-column layout centering (Mobile Only) -->
+      <div class="gift-hero__top-spacer"></div>
+
+      <!-- Center: "Find the ideal gift for your loved ones." -->
+      <div class="gift-hero__top-subtext">
+        {{ section.settings.top_subtext | default: 'Find the ideal gift for your loved ones.' }}
+      </div>
+
+      <!-- Right: Action Button "CHOOSE GIFT →" -->
+      {% if section.settings.top_btn_text != blank %}
+        <a href="{{ section.settings.top_btn_link | default: '#' }}" class="gift-hero__top-btn">
+          {{ section.settings.top_btn_text }}
+          <svg width="33.7" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 8H26M26 8L19 1M26 8L19 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Dropdown Panel -->
+    <div class="gift-hero__mobile-menu-panel">
+      <div class="gift-hero__mobile-menu-subtext">
+        {{ section.settings.top_subtext | default: 'Find the ideal gift for your loved ones.' }}
+      </div>
+      {% if section.settings.top_btn_text != blank %}
+        <a href="{{ section.settings.top_btn_link | default: '#' }}" class="gift-hero__mobile-menu-btn">
+          <span>{{ section.settings.top_btn_text }}</span>
+          {% render 'icon-arrow-right' %}
+        </a>
+      {% endif %}
+    </div>
+
     <!-- Mobile Hero Block (Visible only on Mobile) -->
     <div class="gift-hero__mobile-hero">
       {% if section.settings.heading != blank %}
