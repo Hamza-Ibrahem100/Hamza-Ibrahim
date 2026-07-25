@@ -3,7 +3,7 @@
   .gift-hero {
     position: relative;
     width: 100%;
-    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -633,3 +633,4 @@
       color: #ffffff;
     }
   }
+
