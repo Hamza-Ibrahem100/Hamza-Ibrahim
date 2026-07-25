@@ -1,0 +1,9 @@
+# Files to exclude from Shopify theme uploads
+# These are development/documentation files only
+
+PROJECT_STRUCTURE.md
+scratch/
+.git/
+.gitignore
+*.log
+node_modules/

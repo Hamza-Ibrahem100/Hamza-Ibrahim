@@ -30,65 +30,7 @@
   </div>
 </section>
 
-<style>
-  .tisso-collage {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    padding: 40px 0;
-  }
-
-  .tisso-collage__wrapper {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
-  /* Centered aspect-ratio locked container to keep positions pixel-perfect on resize */
-  .tisso-collage__container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1440 / 520;
-    overflow: visible;
-  }
-
-  .tisso-collage__item-wrap {
-    position: absolute;
-    display: block;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-  }
-
-  .tisso-collage__item-wrap:hover {
-    transform: translateY(-4px);
-    z-index: 10;
-  }
-
-  .tisso-collage__link {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .tisso-collage__img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  /* Mobile responsive styling */
-  @media (max-width: 749px) {
-    .tisso-collage__wrapper {
-      padding: 0 16px;
-    }
-    
-    /* Make spacing more compact on mobile */
-    .tisso-collage__container {
-      aspect-ratio: 1440 / 720;
-    }
-  }
-</style>
+{{ 'tisso-illustrations-collage.css' | asset_url | stylesheet_tag }}
 
 {% schema %}
 {

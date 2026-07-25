@@ -1,0 +1,21 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Shopify CLI temporary files
+.shopify/
+node_modules/
+
+# Development-only files
+scratch/
+
+# Logs
+*.log
+npm-debug.log*
