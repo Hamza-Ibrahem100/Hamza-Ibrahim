@@ -173,7 +173,7 @@
           if ((productTitle.includes('accordion') || productHandle.includes('red-shirt')) && colorKey === 'red') {
             chipColor = '#7c1a22';
           } else if ((productTitle.includes('tennis') || productHandle.includes('denim-top')) && colorKey === 'blue') {
-            chipColor = '#3b6582';
+            chipColor = '#0d499f';
           }
 
           const chip = document.createElement('span');
