@@ -81,6 +81,11 @@
         values.push(...opt.values);
       }
 
+      // Skip default single options like Default Title
+      if (optionNameStr === 'Title' || (values.length === 1 && values[0] === 'Default Title')) {
+        return;
+      }
+
       const wrap = document.createElement('div');
       wrap.className = 'qa-option-group';
 
@@ -176,14 +181,16 @@
             chipColor = '#0d499f';
           }
 
-          const chip = document.createElement('span');
-          chip.className = 'qa-swatch-chip';
-          chip.style.background = chipColor;
-          // Light chips need a right-side border to stay visible on white background
-          const isLight = ['white', 'cream', 'beige', 'ivory', 'off-white'].includes(colorKey);
-          if (isLight) chip.dataset.light = 'true';
-
-          btn.appendChild(chip);
+          const isColorOption = optionNameStr.toLowerCase().includes('color') || optionNameStr.toLowerCase().includes('colour');
+          if (isColorOption) {
+            const chip = document.createElement('span');
+            chip.className = 'qa-swatch-chip';
+            chip.style.background = chipColor;
+            // Light chips need a right-side border to stay visible on white background
+            const isLight = ['white', 'cream', 'beige', 'ivory', 'off-white'].includes(colorKey);
+            if (isLight) chip.dataset.light = 'true';
+            btn.appendChild(chip);
+          }
           btn.appendChild(document.createTextNode(val));
 
           btn.addEventListener('click', () => {
@@ -225,12 +232,21 @@
           }, 150);
         }
       }
-      addBtn.disabled = !variant.available;
-    } else {
-      addBtn.disabled = true;
     }
 
-    addBtnLabel.textContent = 'ADD TO CART';
+    // Check if any option is not yet selected (e.g. Size is null)
+    const hasUnselectedOption = selectedOptions.some(opt => opt === null);
+
+    if (hasUnselectedOption) {
+      addBtn.disabled = true;
+      addBtnLabel.textContent = 'ADD TO CART';
+    } else if (variant) {
+      addBtn.disabled = !variant.available;
+      addBtnLabel.textContent = variant.available ? 'ADD TO CART' : 'SOLD OUT';
+    } else {
+      addBtn.disabled = true;
+      addBtnLabel.textContent = 'UNAVAILABLE';
+    }
   }
 
   window.openProductPopup = function (handle) {
