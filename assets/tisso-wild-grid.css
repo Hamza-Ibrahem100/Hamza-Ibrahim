@@ -268,6 +268,11 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Specific override for the Plaid Shirt (Card 3) to sit exactly at top: 19px (4.86px parent top offset) */
+  .tisso-wild__item:nth-child(3) .tisso-wild__hotspot {
+    top: 4.86px !important;
+  }
+
   .tisso-wild__hotspot::after {
     content: "";
     position: absolute;
