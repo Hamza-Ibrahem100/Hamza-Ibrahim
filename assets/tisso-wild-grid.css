@@ -250,8 +250,8 @@
 
   .tisso-wild__hotspot {
     position: absolute !important;
-    top: -2px !important;
-    right: -2px !important;
+    top: 3.86px !important;
+    right: 37.86px !important;
     left: auto !important;
     transform: none !important;
     width: 44px !important;
