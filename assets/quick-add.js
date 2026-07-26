@@ -165,7 +165,14 @@
             teal: '#008080', mint: '#98e4c8', lavender: '#b57bee'
           };
           const colorKey = String(val).toLowerCase().trim();
-          const chipColor = colorMap[colorKey] || colorKey; // fallback: use the value itself as CSS color
+          let chipColor = colorMap[colorKey] || colorKey; // fallback: use the value itself as CSS color
+
+          // Override color specifically for Accordion Pleated Dress / Chequered Red Shirt
+          const productTitle = (currentProduct.title || '').toLowerCase();
+          const productHandle = (currentProduct.handle || '').toLowerCase();
+          if ((productTitle.includes('accordion') || productHandle.includes('red-shirt')) && colorKey === 'red') {
+            chipColor = '#7c1a22';
+          }
 
           const chip = document.createElement('span');
           chip.className = 'qa-swatch-chip';
