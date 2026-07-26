@@ -237,10 +237,18 @@
   }
 
   .tisso-wild__title {
-    font-size: 28px;
-    align-self: center;
+    font-family: 'Lustria', var(--font-heading--family, Georgia, serif);
+    font-size: 20px;
+    line-height: 20px;
+    width: 248px;
+    max-width: calc(100% - 94px);
+    height: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
+    text-transform: none;
   }
 
   .tisso-wild__grid {
