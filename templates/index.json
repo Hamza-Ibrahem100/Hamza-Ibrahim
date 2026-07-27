@@ -1,8 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "gift_guide_hero": {
       "type": "gift-guide-hero",
       "settings": {
+        "top_logo_text": "TISSO VISON",
+        "top_subtext": "Find the ideal gift for your loved ones.",
+        "top_btn_text": "CHOOSE GIFT",
+        "top_btn_link": "",
         "bg_color": "#ffffff",
         "heading": "The Gift Guide",
         "heading_color": "#000000",
@@ -94,28 +107,6 @@
             "product_price": "$199.00",
             "product_link": ""
           }
-        },
-        "wild_image_5": {
-          "type": "image",
-          "settings": {
-            "product": "floral-white-top",
-            "position_left": 10,
-            "position_top": 90,
-            "product_name": "Varsity Jacket",
-            "product_price": "$120.00",
-            "product_link": ""
-          }
-        },
-        "wild_image_6": {
-          "type": "image",
-          "settings": {
-            "product": "led-high-tops",
-            "position_left": 88,
-            "position_top": 9,
-            "product_name": "Denim Utility Jacket",
-            "product_price": "$95.00",
-            "product_link": ""
-          }
         }
       },
       "block_order": [
@@ -124,9 +115,7 @@
         "image_cCU94L",
         "wild_image_2",
         "wild_image_3",
-        "wild_image_4",
-        "wild_image_5",
-        "wild_image_6"
+        "wild_image_4"
       ],
       "settings": {
         "heading": "Tisso vison in the wild",
@@ -314,6 +303,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "t:names.product_list",
       "settings": {
         "collection": "all",
