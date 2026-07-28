@@ -6,29 +6,6 @@
      Step 3: Full modal handles variant selection + Add to Cart.
      ═══════════════════════════════════════════════════════════════════════ -->
 
-<!-- ── STEP 1 & 2: Mini-Card (NO close button, anchors to hotspot) ────── -->
-<!--   JS moves this element to <body> on load so position:absolute        -->
-<!--   works in document coordinates and scrolls with the page.            -->
-
-<div
-  id="hotspot-mini-card"
-  class="hotspot-mini-card"
-  role="complementary"
-  aria-label="Product quick view — click to see full details"
-  hidden
->
-  <!-- Entire row is clickable (triggers Full Modal via JS) -->
-  <div class="mini-card__row">
-    <div class="mini-card__image-wrap">
-      <img id="mini-card-image" class="mini-card__image" src="" alt="" loading="lazy">
-    </div>
-    <div class="mini-card__info">
-      <p id="mini-card-title" class="mini-card__title"></p>
-      <p id="mini-card-price" class="mini-card__price"></p>
-    </div>
-  </div>
-</div>
-
 
 <!-- ── STEP 3: Full Modal (centred overlay, dimmed backdrop) ──────────── -->
 

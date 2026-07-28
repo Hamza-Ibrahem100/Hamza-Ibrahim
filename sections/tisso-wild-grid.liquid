@@ -62,7 +62,7 @@
               </div>
             {% endif %}
 
-            <!-- Hotspot / Plus Button -->
+            <!-- Hotspot / Plus Button & Mini-Card Container -->
             <div class="hotspot-container" style="position: absolute; left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%; z-index: 10;">
               {% if p_link != blank %}
                 <a href="{{ p_link }}" class="tisso-wild__hotspot hotspot-marker" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}">
@@ -73,6 +73,27 @@
                   <span class="hotspot-marker__icon">+</span>
                 </button>
               {% endif %}
+
+              <!-- Independent Mini-Card for this Hotspot -->
+              <div
+                class="hotspot-mini-card"
+                data-product-handle="{{ product_item.handle }}"
+                role="complementary"
+                aria-label="Product quick view — click to see full details"
+                hidden
+              >
+                <div class="mini-card__row">
+                  <div class="mini-card__image-wrap">
+                    {% if grid_image != blank %}
+                      <img class="mini-card__image" src="{{ grid_image | image_url: width: 150 }}" alt="{{ p_name }}" loading="lazy">
+                    {% endif %}
+                  </div>
+                  <div class="mini-card__info">
+                    <p class="mini-card__title">{{ p_name }}</p>
+                    <p class="mini-card__price">{{ p_price }}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Product tooltip on hover -->

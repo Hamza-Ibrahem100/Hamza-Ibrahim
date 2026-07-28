@@ -7,8 +7,8 @@
    ========================================================================== */
 
 let currentProduct  = null;
-let activeHotspot   = null;
 let selectedOptions = {};
+window.productCache = window.productCache || {};
 
 /* ─── Price Formatter ──────────────────────────────────────────────────── */
 
@@ -16,19 +16,17 @@ function formatPrice(cents) {
   return (cents / 100).toFixed(2).replace('.', ',') + '\u20ac';
 }
 
-/* ─── Close: Mini-Card ──────────────────────────────────────────────────── */
-/*    Collapses the mini-card and resets the hotspot back to +.              */
+/* ─── Close: Mini-Cards ─────────────────────────────────────────────────── */
+/*    Collapses all open mini-cards and resets their hotspots back to +.     */
 
-function closeMiniCard() {
-  const card = document.getElementById('hotspot-mini-card');
-  if (card) {
+function closeAllMiniCards() {
+  document.querySelectorAll('.hotspot-mini-card.is-visible').forEach(card => {
     card.classList.remove('is-visible');
     card.addEventListener('transitionend', () => { card.hidden = true; }, { once: true });
-  }
-  if (activeHotspot) {
-    activeHotspot.classList.remove('is-active');
-    activeHotspot = null;
-  }
+  });
+  document.querySelectorAll('.hotspot-marker.is-active').forEach(btn => {
+    btn.classList.remove('is-active');
+  });
 }
 
 /* ─── Close: Full Modal ─────────────────────────────────────────────────── */
@@ -44,58 +42,33 @@ function closeFullModal() {
 
 /* ─── Step 1: Hotspot click → show / hide mini-card ────────────────────── */
 
-async function openHotspot(btn, handle) {
-  const card = document.getElementById('hotspot-mini-card');
+function openHotspot(btn, handle) {
+  // Find the mini-card strictly within its own parent container
+  const container = btn.closest('.hotspot-container');
+  if (!container) return;
+  const card = container.querySelector('.hotspot-mini-card');
   if (!card) return;
 
-  /* ── Toggle: clicking the same hotspot again closes the mini-card ── */
-  if (activeHotspot === btn) {
-    closeMiniCard();
+  /* ── Toggle: clicking the same hotspot again closes its mini-card ── */
+  if (btn.classList.contains('is-active')) {
+    btn.classList.remove('is-active');
+    card.classList.remove('is-visible');
+    card.addEventListener('transitionend', () => { card.hidden = true; }, { once: true });
     return;
   }
 
-  /* ── Close any previously open mini-card from another hotspot ── */
-  if (activeHotspot) activeHotspot.classList.remove('is-active');
-
-  activeHotspot = btn;
+  /* ── Independent Toggling: Open this hotspot's mini-card ── */
+  // We do NOT close other active mini-cards so multiple can be open
   btn.classList.add('is-active');
-
-  /* ── Append mini-card to the new relative container ── */
-  const container = btn.closest('.hotspot-container');
-  if (container) {
-    container.appendChild(card);
-  }
-
-  /* ── Reset mini-card content ── */
-  const imgEl   = document.getElementById('mini-card-image');
-  const titleEl = document.getElementById('mini-card-title');
-  const priceEl = document.getElementById('mini-card-price');
-
-  if (imgEl)   { imgEl.src = ''; imgEl.alt = ''; }
-  if (titleEl) titleEl.textContent = '\u2026';
-  if (priceEl) priceEl.textContent = '';
-  currentProduct = null;
-  card.dataset.productHandle = handle || '';
-
-  /* ── Show card (CSS top/right handles positioning) ── */
   card.hidden = false;
   requestAnimationFrame(() => card.classList.add('is-visible'));
 
-  if (!handle) return;
-
-  /* ── Fetch product data from Shopify AJAX API ── */
-  try {
-    const res = await fetch('/products/' + handle + '.js');
-    if (!res.ok) throw new Error('Not found');
-    currentProduct = await res.json();
-
-    if (imgEl)   { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
-    if (titleEl) titleEl.textContent = currentProduct.title  || '';
-    if (priceEl) priceEl.textContent = formatPrice(currentProduct.price);
-
-  } catch (err) {
-    console.error('[Tisso] Product fetch failed:', err);
-    if (titleEl) titleEl.textContent = 'Unavailable';
+  /* ── Pre-fetch product data for the Full Modal ── */
+  if (handle && !window.productCache[handle]) {
+    fetch('/products/' + handle + '.js')
+      .then(res => res.json())
+      .then(data => { window.productCache[handle] = data; })
+      .catch(err => console.error('[Tisso] Pre-fetch failed:', err));
   }
 }
 
@@ -278,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ── Step 2: Mini-card click (Event Delegation) ── */
-  document.addEventListener('click', e => {
+  document.addEventListener('click', async e => {
     const cardWrap = e.target.closest('.hotspot-mini-card');
     if (cardWrap) {
       e.preventDefault();
@@ -286,12 +259,27 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopImmediatePropagation();
       
       const pHandle = cardWrap.dataset.productHandle;
-      console.log('Mini card clicked!', pHandle);
       
       // Prevent mobile ghost-clicks or accidental double-taps opening modal instantly
       if (Date.now() - lastHotspotClickTime < 400) return;
       
-      if (currentProduct) openFullModal();
+      window.productCache = window.productCache || {};
+      let pData = window.productCache[pHandle];
+      
+      if (!pData && pHandle) {
+        try {
+          const res = await fetch('/products/' + pHandle + '.js');
+          if (res.ok) {
+            pData = await res.json();
+            window.productCache[pHandle] = pData;
+          }
+        } catch (err) {}
+      }
+      
+      if (pData) {
+        currentProduct = pData;
+        openFullModal();
+      }
     }
   });
 
@@ -308,13 +296,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── Escape key:
-        - If full modal is open → close modal only (mini-card stays)
-        - If mini-card is open but no modal → close mini-card           ── */
+        - If full modal is open → close modal only
+        - If mini-card is open but no modal → close all mini-cards ── */
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     const o = document.getElementById('full-modal-overlay');
     if (o && !o.hidden) closeFullModal();
-    else closeMiniCard();
+    else closeAllMiniCards();
   });
 
   /* ── Add to Cart (Full Modal) ── */
@@ -354,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (span) span.textContent = 'ADDED!';
         setTimeout(() => {
           closeFullModal();
-          closeMiniCard();
+          closeAllMiniCards();
           if (span) span.textContent = originalTxt;
           e.currentTarget.disabled = false;
         }, 1500);
