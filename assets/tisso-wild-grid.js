@@ -43,13 +43,6 @@ function closeFullModal() {
 /* ─── Step 1: Hotspot click → show / hide mini-card ────────────────────── */
 
 function openHotspot(btn, handle) {
-  /* ── Mobile Bypass Logic: Skip mini-card on small screens ── */
-  if (window.innerWidth <= 768) {
-    if (window.openFullModalByHandle) {
-      window.openFullModalByHandle(handle);
-    }
-    return;
-  }
 
   // Find the mini-card strictly within its own parent container
   const container = btn.closest('.hotspot-container');
@@ -322,10 +315,19 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
+      
       lastHotspotClickTime = Date.now();
-      openHotspot(btn, btn.dataset.productHandle || '');
+      const pHandle = btn.dataset.productHandle || '';
+      
+      if (window.innerWidth <= 768) {
+        // MOBILE EXCLUSIVE LOGIC: Open full modal, bypass mini-card
+        openFullModalByHandle(pHandle);
+      } else {
+        // DESKTOP EXCLUSIVE LOGIC: Toggle mini-card only
+        openHotspot(btn, pHandle);
+      }
     }
-  });
+  }, true);
 
   /* ── Step 2: Mini-card click (Event Delegation) ── */
   document.addEventListener('click', e => {
