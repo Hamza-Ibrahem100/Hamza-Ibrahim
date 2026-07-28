@@ -141,16 +141,60 @@ function renderModalOptions() {
     group.appendChild(label);
 
     if (nameLower.includes('size')) {
-      const select = document.createElement('select');
-      select.className = 'modal-size-select';
-      select.innerHTML =
-        `<option value="">Choose your size</option>` +
-        values.map(v => `<option value="${v}">${v}</option>`).join('');
-      select.addEventListener('change', e => {
-        selectedOptions[optionName] = e.target.value;
-        updateModalVariant();
+      const customSelectWrap = document.createElement('div');
+      customSelectWrap.className = 'modal-custom-select-wrap';
+      customSelectWrap.style.position = 'relative';
+      customSelectWrap.style.width = '100%';
+
+      const customSelectBtn = document.createElement('button');
+      customSelectBtn.type = 'button';
+      customSelectBtn.className = 'modal-size-select';
+      customSelectBtn.textContent = 'Choose your size';
+
+      const customSelectList = document.createElement('div');
+      customSelectList.className = 'modal-custom-select-list';
+      customSelectList.style.position = 'absolute';
+      customSelectList.style.top = '100%';
+      customSelectList.style.left = '0';
+      customSelectList.style.width = '100%';
+      customSelectList.style.zIndex = '100';
+      customSelectList.style.display = 'none';
+
+      values.forEach(v => {
+        const opt = document.createElement('div');
+        opt.className = 'modal-custom-select-option';
+        opt.textContent = v;
+        opt.addEventListener('click', () => {
+          customSelectBtn.textContent = v;
+          customSelectList.style.display = 'none';
+          customSelectBtn.classList.remove('is-open');
+          selectedOptions[optionName] = v;
+          updateModalVariant();
+        });
+        customSelectList.appendChild(opt);
       });
-      group.appendChild(select);
+
+      customSelectBtn.addEventListener('click', () => {
+        const isOpen = customSelectList.style.display === 'block';
+        customSelectList.style.display = isOpen ? 'none' : 'block';
+        if (!isOpen) {
+          customSelectBtn.classList.add('is-open');
+        } else {
+          customSelectBtn.classList.remove('is-open');
+        }
+      });
+
+      // Close if clicked outside
+      document.addEventListener('click', (e) => {
+        if (!customSelectWrap.contains(e.target)) {
+          customSelectList.style.display = 'none';
+          customSelectBtn.classList.remove('is-open');
+        }
+      });
+
+      customSelectWrap.appendChild(customSelectBtn);
+      customSelectWrap.appendChild(customSelectList);
+      group.appendChild(customSelectWrap);
 
     } else {
       const row = document.createElement('div');
