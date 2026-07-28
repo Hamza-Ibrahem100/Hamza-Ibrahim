@@ -596,6 +596,18 @@
   gap: 0;
 }
 
+.modal-swatch,
+.modal-swatch:hover,
+.modal-swatch:focus,
+.modal-swatch:active,
+.modal-swatch.is-selected,
+.modal-swatch.is-selected:hover,
+.modal-swatch.active,
+.modal-swatch.active:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
 .modal-swatch {
   flex: 1;
   height: 42px;
@@ -621,13 +633,14 @@
   border-left: none;
 }
 
-.modal-swatch.is-selected {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #d1d5db;
-  border-left: 3px solid var(--swatch-accent, #1e6fe0);
-  padding-left: 12px;
-  font-weight: 500;
+.modal-swatch.is-selected,
+.modal-swatch.active {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #d1d5db !important;
+  border-left: 3px solid var(--swatch-accent, #1e6fe0) !important;
+  padding-left: 12px !important;
+  font-weight: 500 !important;
 }
 
 /* Size Selector UI: Attached square button on right with upward caret */
@@ -681,7 +694,8 @@
 }
 
 /* Dropdown Menu List: Black border, centered text, generous padding */
-.modal-custom-select-list {
+.modal-custom-select-list,
+.modal-custom-select-list ul {
   position: absolute;
   top: 100%;
   left: 0;
@@ -690,6 +704,11 @@
   background: #ffffff;
   border: 1px solid #000000;
   margin-top: -1px;
+  padding: 0 !important;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  list-style: none !important;
   box-sizing: border-box;
   display: none;
 }
@@ -698,10 +717,10 @@
   padding: 12px 16px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 14px;
-  color: #000000;
+  color: #000000 !important;
   text-align: center;
   cursor: pointer;
-  background: #ffffff;
+  background: #ffffff !important;
   border-bottom: 1px solid #eeeeee;
   transition: background 0.15s ease;
 }
@@ -710,8 +729,10 @@
   border-bottom: none;
 }
 
-.modal-custom-select-option:hover {
-  background: #f5f5f5;
+.modal-custom-select-option:hover,
+.modal-custom-select-option:focus {
+  background: #f9f9f9 !important;
+  color: #000000 !important;
 }
 
 /* Add to Cart Button */

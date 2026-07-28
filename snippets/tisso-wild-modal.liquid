@@ -1,6 +1,51 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Full Product Modal (Reference Layout)
+     Tisso Wild — Full Product Modal (CSS Overrides & Fixes)
      ═══════════════════════════════════════════════════════════════════════ -->
+
+<style>
+  /* 1. Fix Color Variant Hover/Active State */
+  .modal-swatch,
+  .modal-swatch:hover,
+  .modal-swatch:focus,
+  .modal-swatch:active,
+  .modal-swatch.is-selected,
+  .modal-swatch.is-selected:hover,
+  .modal-swatch.active,
+  .modal-swatch.active:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .modal-swatch.is-selected,
+  .modal-swatch.active {
+    border: 1px solid #d1d5db !important;
+    border-left: 3px solid var(--swatch-accent, #1e6fe0) !important;
+    padding-left: 12px !important;
+    font-weight: 500 !important;
+  }
+
+  /* 2. Fix Size Dropdown Hover State */
+  .modal-custom-select-option {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .modal-custom-select-option:hover,
+  .modal-custom-select-option:focus {
+    background: #f9f9f9 !important;
+    color: #000000 !important;
+  }
+
+  /* 3. Fix Dropdown Bottom Padding */
+  .modal-custom-select-list,
+  .modal-custom-select-list ul {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    list-style: none !important;
+  }
+</style>
 
 <div id="full-modal-overlay" class="full-modal-overlay" hidden>
   <div class="full-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
