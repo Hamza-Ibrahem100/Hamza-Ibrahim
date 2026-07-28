@@ -19,12 +19,16 @@ function formatPrice(cents) {
 /* ─── Close: Mini-Cards ─────────────────────────────────────────────────── */
 /*    Collapses all open mini-cards and resets their hotspots back to +.     */
 
-function closeAllMiniCards() {
-  document.querySelectorAll('.hotspot-mini-card.is-visible').forEach(card => {
+function closeAllMiniCards(forceInstant = false) {
+  document.querySelectorAll('.hotspot-mini-card').forEach(card => {
     card.classList.remove('is-visible');
-    card.addEventListener('transitionend', () => { card.hidden = true; }, { once: true });
+    if (forceInstant) {
+      card.hidden = true;
+    } else {
+      card.addEventListener('transitionend', () => { card.hidden = true; }, { once: true });
+    }
   });
-  document.querySelectorAll('.hotspot-marker.is-active').forEach(btn => {
+  document.querySelectorAll('.hotspot-marker').forEach(btn => {
     btn.classList.remove('is-active');
   });
 }
@@ -315,8 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Step 1: Hotspot click (Event Delegation) ── */
   document.addEventListener('click', async e => {
-    const btn = e.target.closest('.hotspot-marker');
+    const btn = e.target.closest('.hotspot-marker, .hotspot-button');
     if (btn) {
+      // Step 1: Stop double-firing & kill unwanted default handlers or links
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
@@ -325,29 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
       
       if (window.innerWidth <= 768) {
-        // MOBILE EXCLUSIVE LOGIC: Open full modal, bypass mini-card
-        console.log('Mobile hotspot clicked. Handle:', pHandle);
+        // Step 3: State Cleanup - forcefully close/hide any active mini-cards or open modals
+        closeAllMiniCards(true);
+        closeFullModal();
+
         if (!pHandle) return;
         
-        window.productCache = window.productCache || {};
-        let pData = window.productCache[pHandle];
-        
-        if (!pData) {
-          try {
-            const res = await fetch('/products/' + pHandle + '.js');
-            if (res.ok) {
-              pData = await res.json();
-              window.productCache[pHandle] = pData;
-            }
-          } catch (err) {
-            console.error('[Tisso] Fetch failed for handle:', pHandle, err);
-          }
-        }
-        
-        if (pData) {
-          currentProduct = pData;
-          openFullModal();
-        }
+        // Step 2: Force Desktop Modal logic (populates and shows #full-modal-overlay)
+        await openFullModalByHandle(pHandle);
       } else {
         // DESKTOP EXCLUSIVE LOGIC: Toggle mini-card only
         openHotspot(btn, pHandle);
