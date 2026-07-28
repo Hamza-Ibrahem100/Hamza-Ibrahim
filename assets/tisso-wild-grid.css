@@ -99,9 +99,15 @@
   opacity: 0.25;
 }
 
+/* Hotspot Container */
+.hotspot-container {
+  /* position: absolute set inline */
+  z-index: 10;
+}
+
 /* Hotspot / Plus Button */
 .tisso-wild__hotspot {
-  position: absolute;
+  position: relative;
   transform: translate(-50%, -50%);
   width: 22px;
   height: 22px;
@@ -342,7 +348,10 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 .hotspot-mini-card {
-  position: absolute;      /* document coords — anchors to hotspot on scroll */
+  position: absolute;
+  /* Align bottom-left of the button center (which is the .hotspot-container) */
+  top: 14px;
+  right: 14px;
   z-index: 999;
   width: auto;
   min-width: 240px;

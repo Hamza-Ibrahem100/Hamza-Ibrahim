@@ -63,15 +63,17 @@
             {% endif %}
 
             <!-- Hotspot / Plus Button -->
-            {% if p_link != blank %}
-              <a href="{{ p_link }}" class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}">
-                <span class="hotspot-marker__icon">+</span>
-              </a>
-            {% else %}
-              <button class="tisso-wild__hotspot hotspot-marker" style="left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%;" data-product-handle="{{ product_item.handle }}" aria-label="View details" type="button">
-                <span class="hotspot-marker__icon">+</span>
-              </button>
-            {% endif %}
+            <div class="hotspot-container" style="position: absolute; left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%; z-index: 10;">
+              {% if p_link != blank %}
+                <a href="{{ p_link }}" class="tisso-wild__hotspot hotspot-marker" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}">
+                  <span class="hotspot-marker__icon">+</span>
+                </a>
+              {% else %}
+                <button class="tisso-wild__hotspot hotspot-marker" data-product-handle="{{ product_item.handle }}" aria-label="View details" type="button">
+                  <span class="hotspot-marker__icon">+</span>
+                </button>
+              {% endif %}
+            </div>
 
             <!-- Product tooltip on hover -->
             {% if p_name != blank %}

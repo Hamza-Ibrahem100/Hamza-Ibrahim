@@ -16,36 +16,6 @@ function formatPrice(cents) {
   return (cents / 100).toFixed(2).replace('.', ',') + '\u20ac';
 }
 
-/* ─── Anchor mini-card to hotspot in document coordinates ─────────────── */
-/*    Uses absolute positioning so the card scrolls WITH the page,         */
-/*    staying anchored to its hotspot button regardless of scroll position. */
-
-function positionMiniCard(card, btn) {
-  const rect   = btn.getBoundingClientRect();
-  const scrollX = window.pageXOffset;
-  const scrollY = window.pageYOffset;
-
-  // Measure card (may be 0 on first call — we call again after paint)
-  const cardW  = card.offsetWidth  || 260;
-  const cardH  = card.offsetHeight || 110;
-  const margin = 12;
-
-  // Default: to the right, centred vertically on the hotspot
-  let left = rect.right  + scrollX + margin;
-  let top  = rect.top    + scrollY + (rect.height / 2) - (cardH / 2);
-
-  // Flip left if right edge clips the viewport
-  if (rect.right + cardW + margin > window.innerWidth) {
-    left = rect.left + scrollX - cardW - margin;
-  }
-  // Hard-clamp left to visible viewport band (in document coords)
-  const minLeft = scrollX + margin;
-  if (left < minLeft) left = minLeft;
-
-  card.style.left = left + 'px';
-  card.style.top  = top  + 'px';
-}
-
 /* ─── Close: Mini-Card ──────────────────────────────────────────────────── */
 /*    Collapses the mini-card and resets the hotspot back to +.              */
 
@@ -90,6 +60,12 @@ async function openHotspot(btn, handle) {
   activeHotspot = btn;
   btn.classList.add('is-active');
 
+  /* ── Append mini-card to the new relative container ── */
+  const container = btn.closest('.hotspot-container');
+  if (container) {
+    container.appendChild(card);
+  }
+
   /* ── Reset mini-card content ── */
   const imgEl   = document.getElementById('mini-card-image');
   const titleEl = document.getElementById('mini-card-title');
@@ -100,14 +76,9 @@ async function openHotspot(btn, handle) {
   if (priceEl) priceEl.textContent = '';
   currentProduct = null;
 
-  /* ── Show card and position it (absolute, document-space coords) ── */
+  /* ── Show card (CSS top/right handles positioning) ── */
   card.hidden = false;
-  positionMiniCard(card, btn);
-  requestAnimationFrame(() => {
-    card.classList.add('is-visible');
-    // Re-measure after paint for accurate sizing
-    positionMiniCard(card, btn);
-  });
+  requestAnimationFrame(() => card.classList.add('is-visible'));
 
   if (!handle) return;
 
@@ -120,9 +91,6 @@ async function openHotspot(btn, handle) {
     if (imgEl)   { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
     if (titleEl) titleEl.textContent = currentProduct.title  || '';
     if (priceEl) priceEl.textContent = formatPrice(currentProduct.price);
-
-    // Re-position after content is painted (card may have resized)
-    requestAnimationFrame(() => positionMiniCard(card, btn));
 
   } catch (err) {
     console.error('[Tisso] Product fetch failed:', err);
@@ -293,10 +261,7 @@ async function getBundleVariantId() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* Move mini-card to <body> so position:absolute works in
-     document coordinates (scrolls with page, anchors to hotspot). */
   const miniCard = document.getElementById('hotspot-mini-card');
-  if (miniCard) document.body.appendChild(miniCard);
 
   /* ── Step 1: Hotspot click → toggle mini-card ── */
   document.querySelectorAll('.hotspot-marker').forEach(btn => {
