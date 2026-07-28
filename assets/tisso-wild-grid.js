@@ -112,7 +112,7 @@ function renderOptions() {
     colorGroup.innerHTML = `
       <label class="popup-option-label">Color</label>
       <div class="popup-swatch-row">
-        <button class="popup-swatch is-selected" type="button">White</button>
+        <button class="popup-swatch is-selected" type="button">Blue</button>
         <button class="popup-swatch" type="button">Black</button>
       </div>
     `;
