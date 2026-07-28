@@ -115,6 +115,32 @@ function openFullModal() {
   requestAnimationFrame(() => overlay.classList.add('is-visible'));
 }
 
+/* ─── Helper: Open Full Modal via Handle ────────────────────────────────── */
+
+async function openFullModalByHandle(handle) {
+  if (!handle) return;
+  window.productCache = window.productCache || {};
+  let pData = window.productCache[handle];
+  
+  if (!pData) {
+    try {
+      const res = await fetch('/products/' + handle + '.js');
+      if (res.ok) {
+        pData = await res.json();
+        window.productCache[handle] = pData;
+      }
+    } catch (err) {
+      console.error('[Tisso] Fetch failed for handle:', handle, err);
+    }
+  }
+  
+  if (pData) {
+    currentProduct = pData;
+    openFullModal();
+  }
+}
+window.openFullModalByHandle = openFullModalByHandle;
+
 /* ─── Render Variant Options inside Full Modal ──────────────────────────── */
 
 function hasRealOptions(product) {
@@ -286,51 +312,26 @@ async function getBundleVariantId() {
 /* ─── DOMContentLoaded ──────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const miniCard = document.getElementById('hotspot-mini-card');
-
   let lastHotspotClickTime = 0;
 
-  /* ── Step 1: Hotspot click → toggle mini-card ── */
-  document.querySelectorAll('.hotspot-marker').forEach(btn => {
-    btn.addEventListener('click', e => {
+  /* ── Step 1: Hotspot click (Event Delegation) ── */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.hotspot-marker');
+    if (btn) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
       lastHotspotClickTime = Date.now();
       openHotspot(btn, btn.dataset.productHandle || '');
-    });
+    }
   });
-
-  /* ── Helper: Open Full Modal via Handle ── */
-  async function openFullModalByHandle(handle) {
-    if (!handle) return;
-    window.productCache = window.productCache || {};
-    let pData = window.productCache[handle];
-    
-    if (!pData) {
-      try {
-        const res = await fetch('/products/' + handle + '.js');
-        if (res.ok) {
-          pData = await res.json();
-          window.productCache[handle] = pData;
-        }
-      } catch (err) {}
-    }
-    
-    if (pData) {
-      currentProduct = pData;
-      openFullModal();
-    }
-  }
-
-  // Make helper globally available so openHotspot can use it
-  window.openFullModalByHandle = openFullModalByHandle;
 
   /* ── Step 2: Mini-card click (Event Delegation) ── */
   document.addEventListener('click', e => {
     const cardWrap = e.target.closest('.hotspot-mini-card');
     if (cardWrap) {
+      // Ignore clicks on the 'View details' if it's a link, though we removed it
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
