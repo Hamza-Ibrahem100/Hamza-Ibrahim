@@ -46,7 +46,7 @@
           "type": "image",
           "settings": {
             "product": "black-leather-bag",
-            "position_left": 50,
+            "position_left": 56,
             "position_top": 60,
             "product_name": "Leather Crossbody Bag",
             "product_price": "$89.00",
@@ -57,8 +57,8 @@
           "type": "image",
           "settings": {
             "product": "blue-silk-tuxedo",
-            "position_left": 88,
-            "position_top": 50,
+            "position_left": 90,
+            "position_top": 53,
             "product_name": "",
             "product_price": "",
             "product_link": ""
@@ -69,7 +69,7 @@
           "settings": {
             "product": "chequered-red-shirt",
             "position_left": 65,
-            "position_top": 20,
+            "position_top": 22,
             "product_name": "",
             "product_price": "",
             "product_link": ""
@@ -79,8 +79,8 @@
           "type": "image",
           "settings": {
             "product": "classic-leather-jacket",
-            "position_left": 80,
-            "position_top": 17,
+            "position_left": 75,
+            "position_top": 18,
             "product_name": "Classic Bow Tie",
             "product_price": "$35.00",
             "product_link": ""
@@ -90,8 +90,8 @@
           "type": "image",
           "settings": {
             "product": "classic-varsity-top",
-            "position_left": 50,
-            "position_top": 25,
+            "position_left": 52,
+            "position_top": 27,
             "product_name": "Plaid Flannel Shirt",
             "product_price": "$65.00",
             "product_link": ""
@@ -101,8 +101,8 @@
           "type": "image",
           "settings": {
             "product": "dark-denim-top",
-            "position_left": 80,
-            "position_top": 40,
+            "position_left": 44,
+            "position_top": 61,
             "product_name": "Leather Biker Jacket",
             "product_price": "$199.00",
             "product_link": ""
