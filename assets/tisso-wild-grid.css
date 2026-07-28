@@ -148,6 +148,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s ease, height 0.25s ease;
 }
 
 .hotspot-marker__icon::before {
@@ -158,6 +159,17 @@
 .hotspot-marker__icon::after {
   width: 1.5px;
   height: 8.46px;
+}
+
+/* Active state: + rotates into × */
+.tisso-wild__hotspot.is-active .hotspot-marker__icon::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 9px;
+}
+
+.tisso-wild__hotspot.is-active .hotspot-marker__icon::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  height: 9px;
 }
 
 
@@ -322,35 +334,60 @@
   }
 }
 
-/* Product Popup Styles - Matching Figma Specs */
-.product-popup-overlay {
+/* ── Product Popup Styles ─────────────────────────────────────────────── */
+
+/* Transparent backdrop: catches outside clicks without dimming */
+.product-popup-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  z-index: 998;
+  background: transparent;
 }
 
-.product-popup-overlay[hidden] {
+.product-popup-backdrop[hidden] {
   display: none;
 }
 
-.product-popup {
-  background: rgba(255, 255, 255, 1);
+/* Floating card – positioned by JS near the hotspot */
+.product-popup-card {
+  position: fixed;
+  z-index: 999;
   width: 311px;
-  height: 447px;
-  max-width: 92vw;
+  max-width: calc(100vw - 24px);
   max-height: 90vh;
   overflow-y: auto;
-  position: relative;
+  background: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.10);
   padding: 36px 20px 24px 17px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  opacity: 1;
+  /* Entry animation */
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
 }
+
+.product-popup-card[hidden] {
+  display: none;
+}
+
+.product-popup-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Loading / error states */
+.popup-loading,
+.popup-error {
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  color: #999;
+}
+.popup-error { color: #c00; }
 
 .product-popup__close {
   position: absolute;
