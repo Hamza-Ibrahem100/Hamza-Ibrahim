@@ -58,19 +58,33 @@
     list-style: none !important;
   }
 
-  /* 5. 'Add to Cart' Button Styling: Solid black, no hover fade */
-  .full-modal__add-btn:not(:disabled),
+  /* 5. 'Add to Cart' Button Styling: White in Normal & Hover states, Black ONLY when clicked (:active) */
+  .full-modal__add-btn:not(:disabled) {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    opacity: 1 !important;
+  }
+
   .full-modal__add-btn:not(:disabled):hover,
-  .full-modal__add-btn:not(:disabled):focus,
+  .full-modal__add-btn:not(:disabled):focus {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    opacity: 1 !important;
+  }
+
   .full-modal__add-btn:not(:disabled):active {
-    background: #000000 !important;
+    background-color: #000000 !important;
     color: #ffffff !important;
+    border: 1px solid #000000 !important;
     opacity: 1 !important;
   }
 
   .full-modal__add-btn:disabled {
-    background: #999999 !important;
-    color: #ffffff !important;
+    background: #f5f5f5 !important;
+    color: #999999 !important;
+    border: 1px solid #cccccc !important;
     cursor: not-allowed !important;
     opacity: 1 !important;
   }
