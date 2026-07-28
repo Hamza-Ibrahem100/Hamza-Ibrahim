@@ -317,11 +317,16 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopImmediatePropagation();
       
       lastHotspotClickTime = Date.now();
-      const pHandle = btn.dataset.productHandle || '';
+      const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
       
       if (window.innerWidth <= 768) {
         // MOBILE EXCLUSIVE LOGIC: Open full modal, bypass mini-card
-        openFullModalByHandle(pHandle);
+        console.log('Mobile hotspot clicked. Handle:', pHandle);
+        if (window.openFullModalByHandle) {
+          window.openFullModalByHandle(pHandle);
+        } else {
+          openFullModalByHandle(pHandle);
+        }
       } else {
         // DESKTOP EXCLUSIVE LOGIC: Toggle mini-card only
         openHotspot(btn, pHandle);
