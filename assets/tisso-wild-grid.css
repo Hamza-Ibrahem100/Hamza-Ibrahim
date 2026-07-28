@@ -359,7 +359,7 @@
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.14), 0 1px 6px rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
-  padding: 0;
+  padding: 20px;
   overflow: hidden;
   cursor: pointer;         /* whole card clickable → Full Modal */
   /* Entry animation */
@@ -385,12 +385,13 @@
 .mini-card__row {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
+  gap: 15px;
 }
 
 .mini-card__image-wrap {
-  width: 90px;
-  min-height: 100px;
+  width: 70px;
+  height: 70px;
   flex-shrink: 0;
   overflow: hidden;
   background: #f3f3f3;
@@ -407,9 +408,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 14px 16px 14px 12px;
-  gap: 4px;
+  padding: 0;
+  gap: 0;
   min-width: 0;
+  text-align: left;
 }
 
 .mini-card__title {
@@ -418,7 +420,7 @@
   font-weight: 300;
   line-height: 1.3;
   color: #000;
-  margin: 0;
+  margin: 0 0 8px 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -641,4 +643,4 @@
 .full-modal__add-btn:disabled { background: #999; cursor: not-allowed; }
 .full-modal__add-btn svg      { width: 20px; height: 20px; }
 
-
+
