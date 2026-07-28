@@ -1,29 +1,23 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Two-Step Hotspot UI
-     Step 1: Mini-Card (floating beside hotspot)
-     Step 2: Full Modal (centred overlay, full product details)
+     Tisso Wild — 3-Step Hotspot UI
+     Step 1: Hotspot (+/×) is the SOLE toggle for the mini-card.
+             No close button on the mini-card itself.
+     Step 2: Mini-card is clickable → opens full modal.
+     Step 3: Full modal handles variant selection + Add to Cart.
      ═══════════════════════════════════════════════════════════════════════ -->
 
-<!-- ── STEP 1: Floating Mini-Card ─────────────────────────────────────── -->
-
-<!-- Transparent backdrop: clicking outside closes the mini-card -->
-<div id="mini-card-backdrop" class="mini-card-backdrop" hidden></div>
+<!-- ── STEP 1 & 2: Mini-Card (NO close button, anchors to hotspot) ────── -->
+<!--   JS moves this element to <body> on load so position:absolute        -->
+<!--   works in document coordinates and scrolls with the page.            -->
 
 <div
   id="hotspot-mini-card"
   class="hotspot-mini-card"
   role="complementary"
-  aria-label="Product quick view"
+  aria-label="Product quick view — click to see full details"
   hidden
 >
-  <!-- Circular × close button overflowing top-right corner -->
-  <button id="mini-card-close" class="mini-card__close" aria-label="Close">
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1L9 9M9 1L1 9" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-  </button>
-
-  <!-- Content: image left, text right (click anywhere to open Full Modal) -->
+  <!-- Entire row is clickable (triggers Full Modal via JS) -->
   <div class="mini-card__row">
     <div class="mini-card__image-wrap">
       <img id="mini-card-image" class="mini-card__image" src="" alt="" loading="lazy">
@@ -31,21 +25,21 @@
     <div class="mini-card__info">
       <p id="mini-card-title" class="mini-card__title"></p>
       <p id="mini-card-price" class="mini-card__price"></p>
-      <span class="mini-card__cta">View details →</span>
+      <span class="mini-card__cta">View details &rarr;</span>
     </div>
   </div>
 </div>
 
 
-<!-- ── STEP 2: Full Modal (centred overlay) ───────────────────────────── -->
+<!-- ── STEP 3: Full Modal (centred overlay, dimmed backdrop) ──────────── -->
 
 <div id="full-modal-overlay" class="full-modal-overlay" hidden>
   <div class="full-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
 
-    <!-- × close button top-right -->
+    <!-- × closes Full Modal only -->
     <button id="full-modal-close" class="full-modal__close" aria-label="Close">&times;</button>
 
-    <!-- Top row: image + info -->
+    <!-- Top row -->
     <div class="full-modal__top-row">
       <div class="full-modal__image-wrap">
         <img id="modal-product-image" class="full-modal__image" src="" alt="" loading="lazy">
@@ -57,7 +51,7 @@
       </div>
     </div>
 
-    <!-- Color swatches + Size dropdown (rendered by JS) -->
+    <!-- Variant options injected by JS -->
     <div id="modal-options-wrap"></div>
 
     <!-- Add to Cart -->

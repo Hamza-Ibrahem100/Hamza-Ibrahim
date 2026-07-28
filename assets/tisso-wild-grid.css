@@ -335,31 +335,24 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   STEP 1 — Mini-Card (floating beside the hotspot)
+   STEP 1 — Mini-Card
+   • position: absolute  → lives in document coordinates, scrolls WITH page
+   • No backdrop, no close button — hotspot button is the sole toggle
+   • Whole card is cursor:pointer → triggers Full Modal (Step 3)
    ══════════════════════════════════════════════════════════════════════════ */
 
-/* Transparent backdrop: catches outside clicks */
-.mini-card-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 998;
-  background: transparent;
-}
-.mini-card-backdrop[hidden] { display: none; }
-
-/* Floating card — positioned by JS */
 .hotspot-mini-card {
-  position: fixed;
+  position: absolute;      /* document coords — anchors to hotspot on scroll */
   z-index: 999;
   width: auto;
   min-width: 240px;
   max-width: calc(100vw - 24px);
   background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13), 0 1px 5px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.14), 0 1px 6px rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
   padding: 0;
-  overflow: visible;
-  cursor: pointer; /* whole card is clickable → Step 2 */
+  overflow: hidden;
+  cursor: pointer;         /* whole card clickable → Full Modal */
   /* Entry animation */
   opacity: 0;
   transform: translateY(5px) scale(0.97);
@@ -373,27 +366,11 @@
   pointer-events: auto;
 }
 
-/* Circular × — overflows top-right corner */
-.mini-card__close {
-  position: absolute;
-  top: -13px;
-  right: -13px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 0;
-  z-index: 10;
-  transition: transform 0.15s ease;
+/* Hover lift — reinforces the card is clickable */
+.hotspot-mini-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.09);
+  transform: translateY(-1px) scale(1);
 }
-.mini-card__close:hover { transform: scale(1.12); }
-.mini-card__close svg   { display: block; flex-shrink: 0; }
 
 /* Row: image left + text right */
 .mini-card__row {
@@ -460,7 +437,7 @@
 
 
 /* ══════════════════════════════════════════════════════════════════════════
-   STEP 2 — Full Modal (centred overlay)
+   STEP 3 — Full Modal (centred overlay, dimmed backdrop)
    ══════════════════════════════════════════════════════════════════════════ */
 
 .full-modal-overlay {
@@ -471,7 +448,6 @@
   align-items: center;
   justify-content: center;
   z-index: 1100;
-  /* Fade in */
   opacity: 0;
   transition: opacity 0.22s ease;
   pointer-events: none;
@@ -494,7 +470,6 @@
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
   box-sizing: border-box;
-  /* Slide up */
   transform: translateY(12px);
   transition: transform 0.22s ease;
 }
@@ -576,9 +551,7 @@
 }
 
 /* Option groups */
-.modal-option-group {
-  margin-bottom: 14px;
-}
+.modal-option-group  { margin-bottom: 14px; }
 
 .modal-option-label {
   font-family: 'Jost', sans-serif;
@@ -668,4 +641,5 @@
 .full-modal__add-btn:hover    { opacity: 0.88; }
 .full-modal__add-btn:disabled { background: #999; cursor: not-allowed; }
 .full-modal__add-btn svg      { width: 20px; height: 20px; }
+
 

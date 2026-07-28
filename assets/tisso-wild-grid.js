@@ -1,8 +1,9 @@
 // @ts-nocheck
 /* ==========================================================================
-   Tisso In The Wild Grid — Two-Step Hotspot Interaction
-   Step 1: Click hotspot → Mini-Card (image + title + price)
-   Step 2: Click Mini-Card → Full Modal (full details + ATC)
+   Tisso In The Wild Grid — 3-Step Hotspot Interaction
+   Step 1: Hotspot (+/×) is the SOLE toggle for the mini-card.
+   Step 2: Click mini-card → open full modal.
+   Step 3: Full modal handles variant selection + AJAX Add to Cart.
    ========================================================================== */
 
 let currentProduct  = null;
@@ -15,43 +16,45 @@ function formatPrice(cents) {
   return (cents / 100).toFixed(2).replace('.', ',') + '\u20ac';
 }
 
-/* ─── Mini-Card Positioning (beside the hotspot) ───────────────────────── */
+/* ─── Anchor mini-card to hotspot in document coordinates ─────────────── */
+/*    Uses absolute positioning so the card scrolls WITH the page,         */
+/*    staying anchored to its hotspot button regardless of scroll position. */
 
 function positionMiniCard(card, btn) {
   const rect   = btn.getBoundingClientRect();
-  const cardW  = card.offsetWidth  || 270;
-  const cardH  = card.offsetHeight || 120;
-  const margin = 14;
+  const scrollX = window.pageXOffset;
+  const scrollY = window.pageYOffset;
 
-  // Default: place to the right of the hotspot, vertically centred on it
-  let left = rect.right + margin;
-  let top  = rect.top + (rect.height / 2) - (cardH / 2);
+  // Measure card (may be 0 on first call — we call again after paint)
+  const cardW  = card.offsetWidth  || 260;
+  const cardH  = card.offsetHeight || 110;
+  const margin = 12;
 
-  // Flip left if it overflows the right viewport edge
-  if (left + cardW > window.innerWidth - margin) {
-    left = rect.left - cardW - margin;
+  // Default: to the right, centred vertically on the hotspot
+  let left = rect.right  + scrollX + margin;
+  let top  = rect.top    + scrollY + (rect.height / 2) - (cardH / 2);
+
+  // Flip left if right edge clips the viewport
+  if (rect.right + cardW + margin > window.innerWidth) {
+    left = rect.left + scrollX - cardW - margin;
   }
-  // Clamp edges
-  if (left < margin) left = margin;
-  if (top + cardH > window.innerHeight - margin) top = window.innerHeight - cardH - margin;
-  if (top < margin) top = margin;
+  // Hard-clamp left to visible viewport band (in document coords)
+  const minLeft = scrollX + margin;
+  if (left < minLeft) left = minLeft;
 
   card.style.left = left + 'px';
   card.style.top  = top  + 'px';
 }
 
 /* ─── Close: Mini-Card ──────────────────────────────────────────────────── */
+/*    Collapses the mini-card and resets the hotspot back to +.              */
 
 function closeMiniCard() {
-  const card     = document.getElementById('hotspot-mini-card');
-  const backdrop = document.getElementById('mini-card-backdrop');
-
+  const card = document.getElementById('hotspot-mini-card');
   if (card) {
     card.classList.remove('is-visible');
     card.addEventListener('transitionend', () => { card.hidden = true; }, { once: true });
   }
-  if (backdrop) backdrop.hidden = true;
-
   if (activeHotspot) {
     activeHotspot.classList.remove('is-active');
     activeHotspot = null;
@@ -69,33 +72,25 @@ function closeFullModal() {
   selectedOptions = {};
 }
 
-/* ─── Close Everything ──────────────────────────────────────────────────── */
-
-function closeAll() {
-  closeMiniCard();
-  closeFullModal();
-}
-
-/* ─── Step 1: Open Hotspot → Show Mini-Card ────────────────────────────── */
+/* ─── Step 1: Hotspot click → show / hide mini-card ────────────────────── */
 
 async function openHotspot(btn, handle) {
-  const card     = document.getElementById('hotspot-mini-card');
-  const backdrop = document.getElementById('mini-card-backdrop');
-  if (!card || !backdrop) return;
+  const card = document.getElementById('hotspot-mini-card');
+  if (!card) return;
 
-  // Toggle: same hotspot → close
+  /* ── Toggle: clicking the same hotspot again closes the mini-card ── */
   if (activeHotspot === btn) {
     closeMiniCard();
     return;
   }
 
-  // Close previous hotspot if any
+  /* ── Close any previously open mini-card from another hotspot ── */
   if (activeHotspot) activeHotspot.classList.remove('is-active');
 
   activeHotspot = btn;
   btn.classList.add('is-active');
 
-  // Reset mini-card content to loading state
+  /* ── Reset mini-card content ── */
   const imgEl   = document.getElementById('mini-card-image');
   const titleEl = document.getElementById('mini-card-title');
   const priceEl = document.getElementById('mini-card-price');
@@ -105,27 +100,28 @@ async function openHotspot(btn, handle) {
   if (priceEl) priceEl.textContent = '';
   currentProduct = null;
 
-  // Show card immediately (measure → position → animate)
-  card.hidden    = false;
-  backdrop.hidden = false;
+  /* ── Show card and position it (absolute, document-space coords) ── */
+  card.hidden = false;
   positionMiniCard(card, btn);
-  requestAnimationFrame(() => card.classList.add('is-visible'));
+  requestAnimationFrame(() => {
+    card.classList.add('is-visible');
+    // Re-measure after paint for accurate sizing
+    positionMiniCard(card, btn);
+  });
 
   if (!handle) return;
 
+  /* ── Fetch product data from Shopify AJAX API ── */
   try {
     const res = await fetch('/products/' + handle + '.js');
     if (!res.ok) throw new Error('Not found');
     currentProduct = await res.json();
 
-    if (imgEl) {
-      imgEl.src = currentProduct.featured_image || '';
-      imgEl.alt = currentProduct.title || '';
-    }
+    if (imgEl)   { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
     if (titleEl) titleEl.textContent = currentProduct.title  || '';
     if (priceEl) priceEl.textContent = formatPrice(currentProduct.price);
 
-    // Re-position now content is painted
+    // Re-position after content is painted (card may have resized)
     requestAnimationFrame(() => positionMiniCard(card, btn));
 
   } catch (err) {
@@ -136,7 +132,7 @@ async function openHotspot(btn, handle) {
 
 window.openHotspot = openHotspot;
 
-/* ─── Step 2: Open Full Modal ───────────────────────────────────────────── */
+/* ─── Step 2: Mini-card click → open full modal ────────────────────────── */
 
 function openFullModal() {
   if (!currentProduct) return;
@@ -146,12 +142,12 @@ function openFullModal() {
 
   selectedOptions = {};
 
-  // Populate modal fields
-  const imgEl   = document.getElementById('modal-product-image');
-  const titleEl = document.getElementById('modal-product-title');
-  const priceEl = document.getElementById('modal-product-price');
-  const descEl  = document.getElementById('modal-product-description');
-  const addBtn  = document.getElementById('modal-add-to-cart');
+  /* Populate modal fields */
+  const imgEl  = document.getElementById('modal-product-image');
+  const titleEl= document.getElementById('modal-product-title');
+  const priceEl= document.getElementById('modal-product-price');
+  const descEl = document.getElementById('modal-product-description');
+  const addBtn = document.getElementById('modal-add-to-cart');
 
   if (imgEl)  { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
   if (titleEl) titleEl.textContent = currentProduct.title || '';
@@ -159,19 +155,17 @@ function openFullModal() {
   if (descEl) {
     descEl.innerHTML =
       currentProduct.description && currentProduct.description.trim() !== ''
-        ? currentProduct.description
-        : '';
+        ? currentProduct.description : '';
   }
   if (addBtn) { addBtn.disabled = true; delete addBtn.dataset.variantId; }
 
   renderModalOptions();
 
-  // Show overlay
   overlay.hidden = false;
   requestAnimationFrame(() => overlay.classList.add('is-visible'));
 }
 
-/* ─── Render Variant Options (inside Full Modal) ────────────────────────── */
+/* ─── Render Variant Options inside Full Modal ──────────────────────────── */
 
 function hasRealOptions(product) {
   return (
@@ -188,7 +182,6 @@ function renderModalOptions() {
   wrap.innerHTML = '';
 
   if (!hasRealOptions(currentProduct)) {
-    // Single-variant: enable ATC immediately
     updateModalVariant();
     return;
   }
@@ -206,7 +199,6 @@ function renderModalOptions() {
     group.appendChild(label);
 
     if (nameLower.includes('size')) {
-      /* Size: native <select> */
       const select = document.createElement('select');
       select.className = 'modal-size-select';
       select.innerHTML =
@@ -219,7 +211,6 @@ function renderModalOptions() {
       group.appendChild(select);
 
     } else {
-      /* Color / other: swatch buttons */
       const row = document.createElement('div');
       row.className = 'modal-swatch-row';
       values.forEach((val, vIdx) => {
@@ -234,7 +225,7 @@ function renderModalOptions() {
           updateModalVariant();
         });
         row.appendChild(btn);
-        if (vIdx === 0) btn.click(); // auto-select first
+        if (vIdx === 0) btn.click(); // auto-select first value
       });
       group.appendChild(row);
     }
@@ -243,7 +234,7 @@ function renderModalOptions() {
   });
 }
 
-/* ─── Update Variant (Full Modal) ───────────────────────────────────────── */
+/* ─── Update Selected Variant ───────────────────────────────────────────── */
 
 function updateModalVariant() {
   const addBtn = document.getElementById('modal-add-to-cart');
@@ -265,7 +256,6 @@ function updateModalVariant() {
   const variant = currentProduct.variants.find(v =>
     currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[opt])
   );
-
   if (variant) {
     addBtn.disabled          = !variant.available;
     addBtn.dataset.variantId = variant.id;
@@ -303,7 +293,12 @@ async function getBundleVariantId() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── Hotspot click → Step 1 ── */
+  /* Move mini-card to <body> so position:absolute works in
+     document coordinates (scrolls with page, anchors to hotspot). */
+  const miniCard = document.getElementById('hotspot-mini-card');
+  if (miniCard) document.body.appendChild(miniCard);
+
+  /* ── Step 1: Hotspot click → toggle mini-card ── */
   document.querySelectorAll('.hotspot-marker').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -311,29 +306,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Mini-card click → Step 2 ── */
-  const miniCard = document.getElementById('hotspot-mini-card');
+  /* ── Step 2: Mini-card click → open full modal ── */
   if (miniCard) {
-    miniCard.addEventListener('click', e => {
-      // Don't fire if clicking the close button
-      if (e.target.closest('#mini-card-close')) return;
-      openFullModal();
+    miniCard.addEventListener('click', () => {
+      if (currentProduct) openFullModal();
     });
   }
 
-  /* ── Mini-card close button ── */
-  const miniClose = document.getElementById('mini-card-close');
-  if (miniClose) miniClose.addEventListener('click', e => { e.stopPropagation(); closeMiniCard(); });
-
-  /* ── Mini-card backdrop ── */
-  const miniBackdrop = document.getElementById('mini-card-backdrop');
-  if (miniBackdrop) miniBackdrop.addEventListener('click', closeMiniCard);
-
-  /* ── Full modal close button ── */
+  /* ── Full modal × button ── */
   const modalClose = document.getElementById('full-modal-close');
   if (modalClose) modalClose.addEventListener('click', closeFullModal);
 
-  /* ── Full modal overlay backdrop click ── */
+  /* ── Full modal backdrop click ── */
   const overlay = document.getElementById('full-modal-overlay');
   if (overlay) {
     overlay.addEventListener('click', e => {
@@ -341,14 +325,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Escape key ── */
+  /* ── Escape key:
+        - If full modal is open → close modal only (mini-card stays)
+        - If mini-card is open but no modal → close mini-card           ── */
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      // Close modal first; if not open, close mini-card
-      const o = document.getElementById('full-modal-overlay');
-      if (o && !o.hidden) closeFullModal();
-      else closeMiniCard();
-    }
+    if (e.key !== 'Escape') return;
+    const o = document.getElementById('full-modal-overlay');
+    if (o && !o.hidden) closeFullModal();
+    else closeMiniCard();
   });
 
   /* ── Add to Cart (Full Modal) ── */
@@ -387,7 +371,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (span) span.textContent = 'ADDED!';
         setTimeout(() => {
-          closeAll();
+          closeFullModal();
+          closeMiniCard();
           if (span) span.textContent = originalTxt;
           e.currentTarget.disabled = false;
         }, 1500);
