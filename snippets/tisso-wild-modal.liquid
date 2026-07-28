@@ -1,32 +1,72 @@
-<!-- Product Popup Card Snippet — minimal floating card (image + title + price only) -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     Tisso Wild — Two-Step Hotspot UI
+     Step 1: Mini-Card (floating beside hotspot)
+     Step 2: Full Modal (centred overlay, full product details)
+     ═══════════════════════════════════════════════════════════════════════ -->
 
-<!-- Transparent backdrop catches outside clicks -->
-<div id="product-popup-backdrop" class="product-popup-backdrop" hidden></div>
+<!-- ── STEP 1: Floating Mini-Card ─────────────────────────────────────── -->
 
-<!-- Floating popup card -->
+<!-- Transparent backdrop: clicking outside closes the mini-card -->
+<div id="mini-card-backdrop" class="mini-card-backdrop" hidden></div>
+
 <div
-  id="product-popup-card"
-  class="product-popup-card"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup-product-title"
+  id="hotspot-mini-card"
+  class="hotspot-mini-card"
+  role="complementary"
+  aria-label="Product quick view"
   hidden
 >
-  <!-- Close button — circular, overlaps top-right corner of card -->
-  <button class="product-popup__close" id="product-popup-close" aria-label="Close">
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1L11 11M11 1L1 11" stroke="#000" stroke-width="1.75" stroke-linecap="round"/>
+  <!-- Circular × close button overflowing top-right corner -->
+  <button id="mini-card-close" class="mini-card__close" aria-label="Close">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L9 9M9 1L1 9" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
   </button>
 
-  <!-- Content row: image left, text right -->
-  <div class="product-popup__row">
-    <div class="product-popup__image-wrap">
-      <img id="popup-product-image" class="product-popup__image" src="" alt="" loading="lazy">
+  <!-- Content: image left, text right (click anywhere to open Full Modal) -->
+  <div class="mini-card__row">
+    <div class="mini-card__image-wrap">
+      <img id="mini-card-image" class="mini-card__image" src="" alt="" loading="lazy">
     </div>
-    <div class="product-popup__info">
-      <h3 id="popup-product-title" class="product-popup__title"></h3>
-      <p  id="popup-product-price" class="product-popup__price"></p>
+    <div class="mini-card__info">
+      <p id="mini-card-title" class="mini-card__title"></p>
+      <p id="mini-card-price" class="mini-card__price"></p>
+      <span class="mini-card__cta">View details →</span>
     </div>
+  </div>
+</div>
+
+
+<!-- ── STEP 2: Full Modal (centred overlay) ───────────────────────────── -->
+
+<div id="full-modal-overlay" class="full-modal-overlay" hidden>
+  <div class="full-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
+
+    <!-- × close button top-right -->
+    <button id="full-modal-close" class="full-modal__close" aria-label="Close">&times;</button>
+
+    <!-- Top row: image + info -->
+    <div class="full-modal__top-row">
+      <div class="full-modal__image-wrap">
+        <img id="modal-product-image" class="full-modal__image" src="" alt="" loading="lazy">
+      </div>
+      <div class="full-modal__info">
+        <h3 id="modal-product-title" class="full-modal__title"></h3>
+        <p  id="modal-product-price" class="full-modal__price"></p>
+        <div id="modal-product-description" class="full-modal__description"></div>
+      </div>
+    </div>
+
+    <!-- Color swatches + Size dropdown (rendered by JS) -->
+    <div id="modal-options-wrap"></div>
+
+    <!-- Add to Cart -->
+    <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
+      <span>ADD TO CART</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12H20M20 12L13 5M20 12L13 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
   </div>
 </div>
