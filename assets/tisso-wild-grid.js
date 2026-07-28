@@ -166,17 +166,41 @@ function renderModalOptions() {
     return;
   }
 
-  currentProduct.options.forEach((rawOption, index) => {
-    const optionName = getOptionName(rawOption);
-    const safeName   = optionName.toLowerCase();
-    const values     = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+  // Sort option indices so 'Color' options appear above 'Size' options
+  const optionIndices = currentProduct.options.map((opt, idx) => {
+    const name = getOptionName(opt);
+    return {
+      rawOption: opt,
+      index: idx,
+      name: name,
+      titleName: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+      safeName: name.toLowerCase()
+    };
+  });
+
+  optionIndices.sort((a, b) => {
+    const aIsColor = a.safeName.includes('color');
+    const bIsColor = b.safeName.includes('color');
+    if (aIsColor && !bIsColor) return -1;
+    if (!aIsColor && bIsColor) return 1;
+
+    const aIsSize = a.safeName.includes('size');
+    const bIsSize = b.safeName.includes('size');
+    if (aIsSize && !bIsSize) return 1;
+    if (!aIsSize && bIsSize) return -1;
+
+    return a.index - b.index;
+  });
+
+  optionIndices.forEach(({ index, name: optionName, titleName, safeName }) => {
+    const values = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
 
     const group = document.createElement('div');
     group.className = 'modal-option-group';
 
     const label = document.createElement('label');
     label.className   = 'modal-option-label';
-    label.textContent = optionName;
+    label.textContent = titleName; // Title Case: 'Color', 'Size'
     group.appendChild(label);
 
     if (safeName.includes('size')) {
@@ -196,7 +220,7 @@ function renderModalOptions() {
       arrowBtn.className = 'modal-size-select-arrow';
       arrowBtn.setAttribute('aria-label', 'Toggle size options');
       arrowBtn.innerHTML = `
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       `;
@@ -247,6 +271,17 @@ function renderModalOptions() {
         btn.className   = 'modal-swatch';
         btn.type        = 'button';
         btn.textContent = val;
+
+        const lowerVal = String(val).toLowerCase();
+        let accentColor = '#1e6fe0';
+        if (lowerVal.includes('black')) accentColor = '#000000';
+        else if (lowerVal.includes('white')) accentColor = '#cccccc';
+        else if (lowerVal.includes('blue')) accentColor = '#1e6fe0';
+        else if (lowerVal.includes('red')) accentColor = '#e01e1e';
+        else if (lowerVal.includes('green')) accentColor = '#1ee054';
+        else if (lowerVal.includes('grey') || lowerVal.includes('gray')) accentColor = '#888888';
+        btn.style.setProperty('--swatch-accent', accentColor);
+
         btn.addEventListener('click', () => {
           selectedOptions[optionName] = val;
           row.querySelectorAll('.modal-swatch').forEach(b => b.classList.remove('is-selected'));

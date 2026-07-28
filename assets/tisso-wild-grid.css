@@ -445,7 +445,7 @@
 
 
 /* ══════════════════════════════════════════════════════════════════════════
-   STEP 3 — Full Modal (Reference Design)
+   STEP 3 — Full Modal (Design image_0acdb6.png)
    ══════════════════════════════════════════════════════════════════════════ */
 
 .full-modal-overlay {
@@ -470,7 +470,7 @@
   pointer-events: auto;
 }
 
-/* Modal white card container */
+/* Modal white container */
 .full-modal {
   background: #ffffff;
   width: 330px;
@@ -510,7 +510,7 @@
   opacity: 0.6;
 }
 
-/* Top Section: Flexbox layout with square image */
+/* Top Section: Image on left, Title/Price/Description on right */
 .full-modal__top-row {
   display: flex;
   gap: 16px;
@@ -578,18 +578,18 @@
   margin-bottom: 16px;
 }
 
+/* Title Case Labels: 'Color', 'Size' with light weight */
 .modal-option-label {
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 300;
   color: #000000;
   display: block;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-bottom: 7px;
+  text-transform: none;
 }
 
-/* Middle Section: Block-style Color Variant Selector */
+/* Color Selector UI: Adjoined blocks, Active = White bg, black text, thick left border */
 .modal-swatch-row {
   display: flex;
   width: 100%;
@@ -598,18 +598,18 @@
 
 .modal-swatch {
   flex: 1;
-  height: 44px;
+  height: 42px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 14px;
   background: #ffffff;
   color: #000000;
-  border: 1px solid #000000;
+  border: 1px solid #d1d5db;
   cursor: pointer;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 14px;
   font-weight: 400;
-  text-align: center;
   transition: all 0.15s ease;
   user-select: none;
   outline: none;
@@ -618,17 +618,19 @@
 }
 
 .modal-swatch + .modal-swatch {
-  margin-left: -1px;
+  border-left: none;
 }
 
 .modal-swatch.is-selected {
-  background: #000000;
-  color: #ffffff;
-  border: 1px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #d1d5db;
+  border-left: 3px solid var(--swatch-accent, #1e6fe0);
+  padding-left: 12px;
   font-weight: 500;
 }
 
-/* Bottom Section: Custom Size Dropdown with Attached Square Chevron Button */
+/* Size Selector UI: Attached square button on right with upward caret */
 .modal-custom-select-wrap {
   position: relative;
   width: 100%;
@@ -678,6 +680,7 @@
   background: #f7f7f7;
 }
 
+/* Dropdown Menu List: Black border, centered text, generous padding */
 .modal-custom-select-list {
   position: absolute;
   top: 100%;
