@@ -43,6 +43,14 @@ function closeFullModal() {
 /* ─── Step 1: Hotspot click → show / hide mini-card ────────────────────── */
 
 function openHotspot(btn, handle) {
+  /* ── Mobile Bypass Logic: Skip mini-card on small screens ── */
+  if (window.innerWidth <= 768) {
+    if (window.openFullModalByHandle) {
+      window.openFullModalByHandle(handle);
+    }
+    return;
+  }
+
   // Find the mini-card strictly within its own parent container
   const container = btn.closest('.hotspot-container');
   if (!container) return;
@@ -294,8 +302,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── Helper: Open Full Modal via Handle ── */
+  async function openFullModalByHandle(handle) {
+    if (!handle) return;
+    window.productCache = window.productCache || {};
+    let pData = window.productCache[handle];
+    
+    if (!pData) {
+      try {
+        const res = await fetch('/products/' + handle + '.js');
+        if (res.ok) {
+          pData = await res.json();
+          window.productCache[handle] = pData;
+        }
+      } catch (err) {}
+    }
+    
+    if (pData) {
+      currentProduct = pData;
+      openFullModal();
+    }
+  }
+
+  // Make helper globally available so openHotspot can use it
+  window.openFullModalByHandle = openFullModalByHandle;
+
   /* ── Step 2: Mini-card click (Event Delegation) ── */
-  document.addEventListener('click', async e => {
+  document.addEventListener('click', e => {
     const cardWrap = e.target.closest('.hotspot-mini-card');
     if (cardWrap) {
       e.preventDefault();
@@ -307,23 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Prevent mobile ghost-clicks or accidental double-taps opening modal instantly
       if (Date.now() - lastHotspotClickTime < 400) return;
       
-      window.productCache = window.productCache || {};
-      let pData = window.productCache[pHandle];
-      
-      if (!pData && pHandle) {
-        try {
-          const res = await fetch('/products/' + pHandle + '.js');
-          if (res.ok) {
-            pData = await res.json();
-            window.productCache[pHandle] = pData;
-          }
-        } catch (err) {}
-      }
-      
-      if (pData) {
-        currentProduct = pData;
-        openFullModal();
-      }
+      openFullModalByHandle(pHandle);
     }
   });
 
