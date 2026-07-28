@@ -1,9 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Full Product Modal (CSS Overrides & Fixes)
+     Tisso Wild — Full Product Modal (CSS Adjustments)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
-  /* 1. Fix Color Variant Hover/Active State */
+  /* 1. Color Variant Hover/Active State */
   .modal-swatch,
   .modal-swatch:hover,
   .modal-swatch:focus,
@@ -24,7 +24,7 @@
     font-weight: 500 !important;
   }
 
-  /* 2. Fix Size Dropdown Hover State */
+  /* 2. Size Dropdown Item Hover State: Solid Black background, White text */
   .modal-custom-select-option {
     background: #ffffff !important;
     color: #000000 !important;
@@ -32,11 +32,23 @@
 
   .modal-custom-select-option:hover,
   .modal-custom-select-option:focus {
-    background: #f9f9f9 !important;
-    color: #000000 !important;
+    background: #000000 !important;
+    color: #ffffff !important;
   }
 
-  /* 3. Fix Dropdown Bottom Padding */
+  /* 3. Static Dropdown Caret Button: Completely static, no hover state */
+  .modal-size-select-arrow,
+  .modal-size-select-arrow:hover,
+  .modal-size-select-arrow:focus,
+  .modal-size-select-arrow:active {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    margin-left: -1px !important;
+    opacity: 1 !important;
+  }
+
+  /* 4. Dropdown Bottom Padding */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
     padding: 0 !important;
@@ -44,6 +56,23 @@
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
     list-style: none !important;
+  }
+
+  /* 5. 'Add to Cart' Button Styling: Solid black, no hover fade */
+  .full-modal__add-btn:not(:disabled),
+  .full-modal__add-btn:not(:disabled):hover,
+  .full-modal__add-btn:not(:disabled):focus,
+  .full-modal__add-btn:not(:disabled):active {
+    background: #000000 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  .full-modal__add-btn:disabled {
+    background: #999999 !important;
+    color: #ffffff !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
   }
 </style>
 
