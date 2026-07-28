@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastHotspotClickTime = 0;
 
   /* ── Step 1: Hotspot click (Event Delegation) ── */
-  document.addEventListener('click', e => {
+  document.addEventListener('click', async e => {
     const btn = e.target.closest('.hotspot-marker');
     if (btn) {
       e.preventDefault();
@@ -322,10 +322,26 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window.innerWidth <= 768) {
         // MOBILE EXCLUSIVE LOGIC: Open full modal, bypass mini-card
         console.log('Mobile hotspot clicked. Handle:', pHandle);
-        if (window.openFullModalByHandle) {
-          window.openFullModalByHandle(pHandle);
-        } else {
-          openFullModalByHandle(pHandle);
+        if (!pHandle) return;
+        
+        window.productCache = window.productCache || {};
+        let pData = window.productCache[pHandle];
+        
+        if (!pData) {
+          try {
+            const res = await fetch('/products/' + pHandle + '.js');
+            if (res.ok) {
+              pData = await res.json();
+              window.productCache[pHandle] = pData;
+            }
+          } catch (err) {
+            console.error('[Tisso] Fetch failed for handle:', pHandle, err);
+          }
+        }
+        
+        if (pData) {
+          currentProduct = pData;
+          openFullModal();
         }
       } else {
         // DESKTOP EXCLUSIVE LOGIC: Toggle mini-card only
