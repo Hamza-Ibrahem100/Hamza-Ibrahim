@@ -136,13 +136,17 @@ window.openFullModalByHandle = openFullModalByHandle;
 
 /* ─── Render Variant Options inside Full Modal ──────────────────────────── */
 
+function getOptionName(opt) {
+  if (typeof opt === 'object' && opt !== null) {
+    return opt.name || '';
+  }
+  return opt ? String(opt) : '';
+}
+
 function hasRealOptions(product) {
-  return (
-    product &&
-    product.options &&
-    product.options.length > 0 &&
-    !(product.options.length === 1 && product.options[0] === 'Title')
-  );
+  if (!product || !product.options || product.options.length === 0) return false;
+  const firstOpt = getOptionName(product.options[0]);
+  return !(product.options.length === 1 && firstOpt === 'Title');
 }
 
 function renderModalOptions() {
@@ -155,9 +159,10 @@ function renderModalOptions() {
     return;
   }
 
-  currentProduct.options.forEach((optionName, index) => {
-    const nameLower = optionName.toLowerCase();
-    const values    = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+  currentProduct.options.forEach((rawOption, index) => {
+    const optionName = getOptionName(rawOption);
+    const safeName   = optionName.toLowerCase();
+    const values     = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
 
     const group = document.createElement('div');
     group.className = 'modal-option-group';
@@ -167,7 +172,7 @@ function renderModalOptions() {
     label.textContent = optionName;
     group.appendChild(label);
 
-    if (nameLower.includes('size')) {
+    if (safeName.includes('size')) {
       const customSelectWrap = document.createElement('div');
       customSelectWrap.className = 'modal-custom-select-wrap';
       customSelectWrap.style.position = 'relative';
@@ -263,11 +268,11 @@ function updateModalVariant() {
     return;
   }
 
-  const allSelected = currentProduct.options.every(opt => selectedOptions[opt]);
+  const allSelected = currentProduct.options.every(opt => selectedOptions[getOptionName(opt)]);
   if (!allSelected) { addBtn.disabled = true; return; }
 
   const variant = currentProduct.variants.find(v =>
-    currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[opt])
+    currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[getOptionName(opt)])
   );
   if (variant) {
     addBtn.disabled          = !variant.available;
