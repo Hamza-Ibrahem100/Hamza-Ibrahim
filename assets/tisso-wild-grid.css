@@ -434,16 +434,6 @@
   line-height: 1.2;
 }
 
-.mini-card__cta {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  color: #555;
-  margin-top: 4px;
-  display: block;
-}
-
 
 /* ══════════════════════════════════════════════════════════════════════════
    STEP 3 — Full Modal (centred overlay, dimmed backdrop)
