@@ -75,6 +75,7 @@ async function openHotspot(btn, handle) {
   if (titleEl) titleEl.textContent = '\u2026';
   if (priceEl) priceEl.textContent = '';
   currentProduct = null;
+  card.dataset.productHandle = handle || '';
 
   /* ── Show card (CSS top/right handles positioning) ── */
   card.hidden = false;
@@ -276,17 +277,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Step 2: Mini-card click → open full modal ── */
-  if (miniCard) {
-    miniCard.addEventListener('click', e => {
+  /* ── Step 2: Mini-card click (Event Delegation) ── */
+  document.addEventListener('click', e => {
+    const cardWrap = e.target.closest('.hotspot-mini-card');
+    if (cardWrap) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
+      
+      const pHandle = cardWrap.dataset.productHandle;
+      console.log('Mini card clicked!', pHandle);
+      
       // Prevent mobile ghost-clicks or accidental double-taps opening modal instantly
       if (Date.now() - lastHotspotClickTime < 400) return;
+      
       if (currentProduct) openFullModal();
-    });
-  }
+    }
+  });
 
   /* ── Full modal × button ── */
   const modalClose = document.getElementById('full-modal-close');
