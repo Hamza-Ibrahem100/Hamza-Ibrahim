@@ -48,6 +48,9 @@ function closeFullModal() {
 
 function openHotspot(btn, handle) {
 
+  // Mobile guard clause: strictly bypass mini-card on mobile screens
+  if (window.innerWidth <= 768) return;
+
   // Find the mini-card strictly within its own parent container
   const container = btn.closest('.hotspot-container');
   if (!container) return;
@@ -317,50 +320,61 @@ document.addEventListener('DOMContentLoaded', () => {
   const miniCard = document.getElementById('hotspot-mini-card');
   let lastHotspotClickTime = 0;
 
-  /* ── Step 1: Hotspot click (Event Delegation) ── */
-  document.addEventListener('click', async e => {
-    const btn = e.target.closest('.hotspot-marker, .hotspot-button');
-    if (btn) {
-      // Step 1: Stop double-firing & kill unwanted default handlers or links
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      
-      lastHotspotClickTime = Date.now();
-      const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
-      
-      if (window.innerWidth <= 768) {
-        // Step 3: State Cleanup - forcefully close/hide any active mini-cards or open modals
-        closeAllMiniCards(true);
-        closeFullModal();
+  /* ── Step 1: Hotspot interaction (Event Delegation across touch & click events) ── */
+  ['click', 'touchstart', 'touchend', 'pointerdown', 'pointerup'].forEach(eventType => {
+    document.addEventListener(eventType, async e => {
+      const btn = e.target.closest('.hotspot-marker, .hotspot-button, .tisso-wild__hotspot');
+      if (btn) {
+        // Aggressively prevent default, stop propagation, and stop immediate propagation on all touch/pointer/click events
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
 
-        if (!pHandle) return;
-        
-        // Step 2: Force Desktop Modal logic (populates and shows #full-modal-overlay)
-        await openFullModalByHandle(pHandle);
-      } else {
-        // DESKTOP EXCLUSIVE LOGIC: Toggle mini-card only
-        openHotspot(btn, pHandle);
+        // Prevent duplicate execution across multiple event types (e.g. pointerdown + touchend + click)
+        const now = Date.now();
+        if (now - lastHotspotClickTime < 350) return;
+
+        // Process modal trigger on click, touchend, or pointerdown (only once per user tap)
+        if (eventType !== 'click' && eventType !== 'pointerdown' && eventType !== 'touchend') return;
+        lastHotspotClickTime = now;
+
+        const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
+
+        if (window.innerWidth <= 768) {
+          // MOBILE EXCLUSIVE: Forcefully close any mini-card/popups and directly open Desktop Full Modal ONLY
+          closeAllMiniCards(true);
+          closeFullModal();
+
+          if (!pHandle) return;
+          await openFullModalByHandle(pHandle);
+        } else {
+          // DESKTOP EXCLUSIVE: Toggle mini-card only
+          openHotspot(btn, pHandle);
+        }
       }
-    }
-  }, true);
+    }, true);
+  });
 
-  /* ── Step 2: Mini-card click (Event Delegation) ── */
-  document.addEventListener('click', e => {
-    const cardWrap = e.target.closest('.hotspot-mini-card');
-    if (cardWrap) {
-      // Ignore clicks on the 'View details' if it's a link, though we removed it
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      
-      const pHandle = cardWrap.dataset.productHandle;
-      
-      // Prevent mobile ghost-clicks or accidental double-taps opening modal instantly
-      if (Date.now() - lastHotspotClickTime < 400) return;
-      
-      openFullModalByHandle(pHandle);
-    }
+  /* ── Step 2: Mini-card click (Event Delegation for Desktop) ── */
+  ['click', 'touchend', 'pointerdown'].forEach(eventType => {
+    document.addEventListener(eventType, e => {
+      const cardWrap = e.target.closest('.hotspot-mini-card');
+      if (cardWrap) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        if (window.innerWidth <= 768) {
+          closeAllMiniCards(true);
+          return;
+        }
+
+        const pHandle = cardWrap.dataset.productHandle;
+        if (Date.now() - lastHotspotClickTime < 400) return;
+
+        openFullModalByHandle(pHandle);
+      }
+    }, true);
   });
 
   /* ── Full modal × button ── */
