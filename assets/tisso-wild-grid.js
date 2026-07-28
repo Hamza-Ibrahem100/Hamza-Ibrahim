@@ -182,22 +182,30 @@ function renderModalOptions() {
     if (safeName.includes('size')) {
       const customSelectWrap = document.createElement('div');
       customSelectWrap.className = 'modal-custom-select-wrap';
-      customSelectWrap.style.position = 'relative';
-      customSelectWrap.style.width = '100%';
+
+      const selectBox = document.createElement('div');
+      selectBox.className = 'modal-size-select-box';
 
       const customSelectBtn = document.createElement('button');
       customSelectBtn.type = 'button';
-      customSelectBtn.className = 'modal-size-select';
+      customSelectBtn.className = 'modal-size-select-main';
       customSelectBtn.textContent = 'Choose your size';
+
+      const arrowBtn = document.createElement('button');
+      arrowBtn.type = 'button';
+      arrowBtn.className = 'modal-size-select-arrow';
+      arrowBtn.setAttribute('aria-label', 'Toggle size options');
+      arrowBtn.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+
+      selectBox.appendChild(customSelectBtn);
+      selectBox.appendChild(arrowBtn);
 
       const customSelectList = document.createElement('div');
       customSelectList.className = 'modal-custom-select-list';
-      customSelectList.style.position = 'absolute';
-      customSelectList.style.top = '100%';
-      customSelectList.style.left = '0';
-      customSelectList.style.width = '100%';
-      customSelectList.style.zIndex = '100';
-      customSelectList.style.display = 'none';
 
       values.forEach(v => {
         const opt = document.createElement('div');
@@ -206,32 +214,28 @@ function renderModalOptions() {
         opt.addEventListener('click', () => {
           customSelectBtn.textContent = v;
           customSelectList.style.display = 'none';
-          customSelectBtn.classList.remove('is-open');
           selectedOptions[optionName] = v;
           updateModalVariant();
         });
         customSelectList.appendChild(opt);
       });
 
-      customSelectBtn.addEventListener('click', () => {
+      const toggleDropdown = () => {
         const isOpen = customSelectList.style.display === 'block';
         customSelectList.style.display = isOpen ? 'none' : 'block';
-        if (!isOpen) {
-          customSelectBtn.classList.add('is-open');
-        } else {
-          customSelectBtn.classList.remove('is-open');
-        }
-      });
+      };
+
+      customSelectBtn.addEventListener('click', toggleDropdown);
+      arrowBtn.addEventListener('click', toggleDropdown);
 
       // Close if clicked outside
       document.addEventListener('click', (e) => {
         if (!customSelectWrap.contains(e.target)) {
           customSelectList.style.display = 'none';
-          customSelectBtn.classList.remove('is-open');
         }
       });
 
-      customSelectWrap.appendChild(customSelectBtn);
+      customSelectWrap.appendChild(selectBox);
       customSelectWrap.appendChild(customSelectList);
       group.appendChild(customSelectWrap);
 
