@@ -263,17 +263,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const miniCard = document.getElementById('hotspot-mini-card');
 
+  let lastHotspotClickTime = 0;
+
   /* ── Step 1: Hotspot click → toggle mini-card ── */
   document.querySelectorAll('.hotspot-marker').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      lastHotspotClickTime = Date.now();
       openHotspot(btn, btn.dataset.productHandle || '');
     });
   });
 
   /* ── Step 2: Mini-card click → open full modal ── */
   if (miniCard) {
-    miniCard.addEventListener('click', () => {
+    miniCard.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      // Prevent mobile ghost-clicks or accidental double-taps opening modal instantly
+      if (Date.now() - lastHotspotClickTime < 400) return;
       if (currentProduct) openFullModal();
     });
   }
