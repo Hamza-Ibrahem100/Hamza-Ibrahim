@@ -99,40 +99,51 @@
   opacity: 0.25;
 }
 
-/* Hotspot Container */
+/* Hotspot Container: Top 8px, Right 8px on every product card */
 .hotspot-container {
-  /* position: absolute set inline */
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  left: auto !important;
+  bottom: auto !important;
   z-index: 10;
 }
 
-/* Hotspot / Plus Button */
-.tisso-wild__hotspot {
+/* Hotspot / Plus Button: Fixed 20px x 20px, 50% border radius, centered icon */
+.tisso-wild__hotspot,
+.hotspot-marker,
+button.quick-add__button {
   position: relative;
-  transform: translate(-50%, -50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  border-radius: 50% !important;
   background: rgba(248, 248, 248, 0.9);
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   cursor: pointer;
   box-shadow: none;
   transition: transform 0.2s ease;
   z-index: 3;
   text-decoration: none;
-  padding: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   color: #000;
   box-sizing: border-box;
   user-select: none;
   -webkit-user-select: none;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  transform: none;
 }
 
-.tisso-wild__hotspot:hover {
-  transform: translate(-50%, -50%) scale(1.15);
+.tisso-wild__hotspot:hover,
+.hotspot-marker:hover,
+button.quick-add__button:hover {
+  transform: scale(1.1);
 }
 
 .hotspot-marker__icon {
