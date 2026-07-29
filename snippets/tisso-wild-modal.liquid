@@ -145,7 +145,7 @@
     text-transform: none;
   }
 
-  /* Color Section: Equal-width adjoined rectangular blocks */
+  /* Option Swatch Button: White background, 1px black border, centered text */
   .modal-swatch-row {
     display: flex;
     width: 100%;
@@ -153,6 +153,7 @@
   }
 
   .modal-swatch {
+    position: relative;
     flex: 1;
     height: 44px;
     display: flex;
@@ -166,45 +167,53 @@
     font-size: 14px;
     font-weight: 400;
     text-align: center;
-    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
     user-select: none;
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
+    transition: transform 0.15s ease, opacity 0.15s ease;
   }
 
   .modal-swatch + .modal-swatch {
-    border-left: none;
+    border-left: none !important;
   }
 
   .modal-swatch:active {
     transform: scale(0.98);
-    opacity: 0.92;
+  }
+
+  /* Thin Vertical Rectangle Indicator on Far Left Inside Button */
+  .modal-swatch-indicator {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px !important;
+    height: 75% !important;
+    border-radius: 2px !important;
+    background-color: transparent !important;
+    transition: background-color 200ms ease, opacity 200ms ease;
+    pointer-events: none;
+  }
+
+  /* Selected State: Blue Indicator (#2563EB), White Background, Black Text */
+  .modal-swatch.is-selected .modal-swatch-indicator,
+  .modal-swatch.active .modal-swatch-indicator {
+    background-color: #2563EB !important;
   }
 
   .modal-swatch.is-selected,
   .modal-swatch.active {
-    background: #000000 !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     border-color: #000000 !important;
     font-weight: 500 !important;
   }
 
-  .modal-swatch.has-blue-indicator.is-selected {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border-left: 3px solid #1e6fe0 !important;
-  }
-
-  .modal-swatch-color-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-    flex-shrink: 0;
-    pointer-events: none;
-    transition: none !important;
+  .modal-swatch-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
   }
 
   /* Size Section: Custom Select Input + Attached Right Caret Button */

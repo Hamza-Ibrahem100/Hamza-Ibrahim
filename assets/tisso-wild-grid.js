@@ -294,24 +294,12 @@ function renderModalOptions() {
         btn.className   = 'modal-swatch';
         btn.type        = 'button';
 
-        const lowerVal = String(val).toLowerCase();
-        let dotColor = '#1e6fe0';
-        if (lowerVal.includes('black')) dotColor = '#000000';
-        else if (lowerVal.includes('white')) dotColor = '#ffffff';
-        else if (lowerVal.includes('blue')) dotColor = '#1e6fe0';
-        else if (lowerVal.includes('red')) dotColor = '#e01e1e';
-        else if (lowerVal.includes('green')) dotColor = '#1ee054';
-        else if (lowerVal.includes('grey') || lowerVal.includes('gray')) dotColor = '#888888';
-
-        const dot = document.createElement('span');
-        dot.className = 'modal-swatch-color-dot';
-        dot.style.backgroundColor = dotColor;
-        if (lowerVal.includes('white')) {
-          dot.style.border = '1px solid #cccccc';
-        }
-        btn.appendChild(dot);
+        const indicator = document.createElement('span');
+        indicator.className = 'modal-swatch-indicator';
+        btn.appendChild(indicator);
 
         const textSpan = document.createElement('span');
+        textSpan.className = 'modal-swatch-text';
         textSpan.textContent = val;
         btn.appendChild(textSpan);
 
