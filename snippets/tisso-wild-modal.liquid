@@ -28,23 +28,25 @@
 
   .full-modal {
     background: #ffffff;
-    width: 340px;
+    width: 311px;
     max-width: 92vw;
-    max-height: 90vh;
+    height: auto;
+    max-height: 447px;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
     overflow: hidden !important;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
     position: relative;
-    padding: 24px;
+    padding: 20px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
-    transform: translateY(12px);
+    transform: translateY(12px) rotate(0deg);
     transition: transform 0.22s ease;
+    opacity: 1;
   }
 
   .full-modal::-webkit-scrollbar {
@@ -388,10 +390,12 @@
     justify-content: center;
     padding: 0 44px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
     cursor: pointer;
     box-sizing: border-box;
     opacity: 1;
@@ -452,7 +456,7 @@
 
     <!-- Add to Cart Button -->
     <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
-      <span>ADD TO CART</span>
+      <span>Add To Cart</span>
       <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 6H22M22 6L16 1M22 6L16 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>

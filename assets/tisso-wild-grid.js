@@ -220,7 +220,10 @@ function renderModalOptions() {
   });
 
   optionIndices.forEach(({ index, name: optionName, titleName, safeName }) => {
-    const values = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+    let values = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+    if (safeName.includes('size')) {
+      values = ['XS', 'S', 'M', 'L', 'XL'];
+    }
 
     const group = document.createElement('div');
     group.className = 'modal-option-group';
@@ -429,9 +432,12 @@ function updateModalVariant() {
     return;
   }
 
-  const variant = currentProduct.variants.find(v =>
+  let variant = currentProduct.variants.find(v =>
     currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[getOptionName(opt)])
   );
+  if (!variant) {
+    variant = currentProduct.variants.find(v => v.available) || currentProduct.variants[0];
+  }
   if (variant) {
     addBtn.disabled          = !variant.available;
     addBtn.dataset.variantId = variant.id;
