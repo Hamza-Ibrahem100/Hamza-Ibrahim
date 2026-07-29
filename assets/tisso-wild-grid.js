@@ -205,6 +205,17 @@ function renderModalOptions() {
     };
   });
 
+  const hasSizeOpt = optionIndices.some(item => item.safeName.includes('size'));
+  if (!hasSizeOpt) {
+    optionIndices.push({
+      rawOption: 'Size',
+      index: currentProduct.options ? currentProduct.options.length : 0,
+      name: 'Size',
+      titleName: 'Size',
+      safeName: 'size'
+    });
+  }
+
   optionIndices.sort((a, b) => {
     const aIsColor = a.safeName.includes('color');
     const bIsColor = b.safeName.includes('color');
