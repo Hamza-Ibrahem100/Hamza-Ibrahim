@@ -693,7 +693,7 @@
   transition: none !important;
 }
 
-/* Dropdown Menu List: Black border, centered text, generous padding */
+/* Dropdown Menu List: Black border, centered text, generous padding and bottom spacing */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
@@ -706,7 +706,7 @@
   margin-top: -1px;
   padding: 0 !important;
   margin: 0 !important;
-  padding-bottom: 0 !important;
+  padding-bottom: 24px !important;
   margin-bottom: 0 !important;
   list-style: none !important;
   box-sizing: border-box;
