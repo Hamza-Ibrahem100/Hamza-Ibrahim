@@ -471,6 +471,7 @@
 }
 
 /* Modal white container: 340px width, 8px border radius, thin light-gray border, soft shadow */
+/* Modal white container: Fixed spacing, 340px width, 8px border radius, thin light-gray border, soft shadow */
 .full-modal {
   background: #ffffff;
   width: 340px;
@@ -485,16 +486,11 @@
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-sizing: border-box;
   transform: translateY(12px);
-  transition: transform 0.22s ease, padding-bottom 0.25s ease;
+  transition: transform 0.22s ease;
 }
 
 .full-modal-overlay.is-visible .full-modal {
   transform: translateY(0);
-}
-
-/* Card Auto Expansion: Expands card height when dropdown opens so list is 100% enclosed inside white card */
-.full-modal.is-dropdown-open {
-  padding-bottom: 75px !important;
 }
 
 /* Minimal 'X' Close Icon */
@@ -749,7 +745,7 @@
   transform: rotate(180deg); /* Points UP when open */
 }
 
-/* Dropdown Menu List: Always opens BELOW input, max-height 140px with scroll, thin #D9D9D9 border, 8px radius, 200ms fade-and-slide-down */
+/* Dropdown Menu List: Always opens BELOW input, max-height 180px, HIDDEN SCROLLBAR across all browsers */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
@@ -757,9 +753,11 @@
   left: 0;
   width: 100%;
   max-width: 100%;
-  max-height: 140px;
+  max-height: 180px;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
   box-sizing: border-box;
   z-index: 1000;
   background: #ffffff;
@@ -775,6 +773,14 @@
   transform: translateY(-8px);
   pointer-events: none;
   transition: opacity 200ms ease, transform 200ms ease;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.modal-custom-select-list::-webkit-scrollbar,
+.modal-custom-select-list ul::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .modal-custom-select-list.is-visible {
@@ -807,7 +813,7 @@
   color: #ffffff !important;
 }
 
-/* Add To Cart Button: ALWAYS PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
+/* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES, TEXT PERFECTLY CENTERED, ARROW ABSOLUTE RIGHT */
 .full-modal__add-btn,
 .full-modal__add-btn:hover,
 .full-modal__add-btn:active,
@@ -816,6 +822,7 @@
 .full-modal__add-btn:disabled,
 .full-modal__add-btn.is-loading,
 .full-modal__add-btn.is-added {
+  position: relative;
   width: 100%;
   height: 48px;
   margin-top: 20px;
@@ -825,8 +832,8 @@
   border: none !important;
   display: flex !important;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
+  justify-content: center; /* Perfect horizontal & vertical centering */
+  padding: 0 44px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 13px;
   font-weight: 500;
@@ -848,8 +855,23 @@
   opacity: 0.95 !important;
 }
 
-.full-modal__add-btn svg,
-.full-modal__add-btn svg path {
+.full-modal__add-btn span {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+/* Arrow Aligned to Far Right of Button Independently */
+.full-modal__add-btn svg {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 12px;
   color: #ffffff !important;
   stroke: #ffffff !important;
+  pointer-events: none;
 }

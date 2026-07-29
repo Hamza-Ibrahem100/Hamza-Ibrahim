@@ -248,8 +248,6 @@ function renderModalOptions() {
           customSelectBtn.textContent = v;
           customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
-          const modalCard = document.querySelector('.full-modal');
-          if (modalCard) modalCard.classList.remove('is-dropdown-open');
 
           setTimeout(() => {
             if (!customSelectList.classList.contains('is-visible')) {
@@ -269,12 +267,10 @@ function renderModalOptions() {
           e.stopPropagation();
           e.stopImmediatePropagation();
         }
-        const modalCard = document.querySelector('.full-modal');
         const isOpen = customSelectList.classList.contains('is-visible');
         if (isOpen) {
           customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
-          if (modalCard) modalCard.classList.remove('is-dropdown-open');
 
           setTimeout(() => {
             if (!customSelectList.classList.contains('is-visible')) {
@@ -283,7 +279,6 @@ function renderModalOptions() {
           }, 200);
         } else {
           customSelectList.style.display = 'block';
-          if (modalCard) modalCard.classList.add('is-dropdown-open');
 
           // Trigger reflow for CSS transition
           void customSelectList.offsetWidth;
@@ -300,8 +295,6 @@ function renderModalOptions() {
         if (!customSelectWrap.contains(e.target)) {
           customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
-          const modalCard = document.querySelector('.full-modal');
-          if (modalCard) modalCard.classList.remove('is-dropdown-open');
 
           setTimeout(() => {
             if (!customSelectList.classList.contains('is-visible')) {
