@@ -617,6 +617,7 @@
   outline: none;
   box-sizing: border-box;
   border-radius: 0;
+  overflow: hidden;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
@@ -628,24 +629,26 @@
   transform: scale(0.98);
 }
 
-/* Thin Vertical Rectangle Indicator on Far Left Inside Button */
+/* Full-Height 5px Left Selection Bar Flush With Left Edge */
 .modal-swatch-indicator {
   position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px !important;
-  height: 75% !important;
-  border-radius: 2px !important;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px !important;
+  height: 100% !important;
+  border-radius: 0 !important;
   background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
   transition: background-color 200ms ease, opacity 200ms ease;
   pointer-events: none;
 }
 
-/* Selected State: Blue Indicator (#2563EB), White Background, Black Text */
+/* Selected State: Solid Black Selection Bar (#000000), White Background, Bold Text */
 .modal-swatch.is-selected .modal-swatch-indicator,
 .modal-swatch.active .modal-swatch-indicator {
-  background-color: #2563EB !important;
+  background-color: #000000 !important;
 }
 
 .modal-swatch.is-selected,
@@ -653,7 +656,7 @@
   background: #ffffff !important;
   color: #000000 !important;
   border-color: #000000 !important;
-  font-weight: 500 !important;
+  font-weight: 700 !important;
 }
 
 .modal-swatch-text {
