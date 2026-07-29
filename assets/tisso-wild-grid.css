@@ -757,7 +757,8 @@
   left: 0;
   width: 100%;
   max-width: 100%;
-  max-height: 180px;
+  max-height: 220px;
+  height: auto;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
