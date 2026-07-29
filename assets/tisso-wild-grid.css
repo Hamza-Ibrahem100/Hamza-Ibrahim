@@ -476,22 +476,19 @@
   background: #ffffff;
   width: 311px;
   max-width: 92vw;
+  min-height: 447px;
   height: auto;
-  max-height: 447px;
+  max-height: none !important;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-  overflow: hidden !important;
-  overflow-x: hidden !important;
-  overflow-y: hidden !important;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+  overflow: visible !important;
   position: relative;
   padding: 20px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-sizing: border-box;
   transform: translateY(12px) rotate(0deg);
-  transition: transform 0.22s ease;
+  transition: transform 0.22s ease, min-height 0.25s ease;
   opacity: 1;
 }
 
@@ -749,32 +746,41 @@
   transform: rotate(180deg); /* Points UP when open */
 }
 
-/* Dropdown Menu List: Always opens BELOW input, max-height 180px, HIDDEN SCROLLBAR across all browsers */
+/* Parent Option Containers: Unclipped layout */
+#modal-options-wrap,
+.modal-option-group,
+.modal-custom-select-wrap {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  clip-path: none !important;
+}
+
+/* Dropdown Menu List: Relative positioning in flow when open so it pushes Add to Cart down naturally */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
-  position: absolute;
-  top: 100%;
+  position: relative;
+  top: 0;
   left: 0;
   width: 100%;
   max-width: 100%;
-  max-height: 180px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   box-sizing: border-box;
-  z-index: 1000;
+  z-index: 10;
   background: #ffffff;
   border: 1px solid #D9D9D9;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  margin-top: 4px;
+  margin-top: 6px;
+  margin-bottom: 6px;
   padding: 0 !important;
-  margin-bottom: 0 !important;
   list-style: none !important;
   display: none;
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   pointer-events: none;
   transition: opacity 200ms ease, transform 200ms ease;
 }

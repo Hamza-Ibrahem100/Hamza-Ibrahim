@@ -6,7 +6,7 @@
    Step 3: Full modal handles variant selection + AJAX Add to Cart.
    ========================================================================== */
 
-let currentProduct  = null;
+let currentProduct = null;
 let selectedOptions = {};
 window.productCache = window.productCache || {};
 
@@ -116,13 +116,13 @@ function openFullModal() {
   selectedOptions = {};
 
   /* Populate modal fields */
-  const imgEl  = document.getElementById('modal-product-image');
-  const titleEl= document.getElementById('modal-product-title');
-  const priceEl= document.getElementById('modal-product-price');
+  const imgEl = document.getElementById('modal-product-image');
+  const titleEl = document.getElementById('modal-product-title');
+  const priceEl = document.getElementById('modal-product-price');
   const descEl = document.getElementById('modal-product-description');
   const addBtn = document.getElementById('modal-add-to-cart');
 
-  if (imgEl)  { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
+  if (imgEl) { imgEl.src = currentProduct.featured_image || ''; imgEl.alt = currentProduct.title || ''; }
   if (titleEl) titleEl.textContent = currentProduct.title || '';
   if (priceEl) priceEl.textContent = formatPrice(currentProduct.price);
   if (descEl) {
@@ -148,7 +148,7 @@ async function openFullModalByHandle(handle) {
   if (!handle) return;
   window.productCache = window.productCache || {};
   let pData = window.productCache[handle];
-  
+
   if (!pData) {
     try {
       const res = await fetch('/products/' + handle + '.js');
@@ -160,7 +160,7 @@ async function openFullModalByHandle(handle) {
       console.error('[Tisso] Fetch failed for handle:', handle, err);
     }
   }
-  
+
   if (pData) {
     currentProduct = pData;
     openFullModal();
@@ -240,7 +240,7 @@ function renderModalOptions() {
     group.className = 'modal-option-group';
 
     const label = document.createElement('label');
-    label.className   = 'modal-option-label';
+    label.className = 'modal-option-label';
     label.textContent = titleName; // Title Case: 'Color', 'Size'
     group.appendChild(label);
 
@@ -359,8 +359,8 @@ function renderModalOptions() {
 
       values.forEach((val, vIdx) => {
         const btn = document.createElement('button');
-        btn.className   = 'modal-swatch';
-        btn.type        = 'button';
+        btn.className = 'modal-swatch';
+        btn.type = 'button';
 
         // Stationary 5px Left Vertical Rectangle with Variant Color
         const indicator = document.createElement('span');
@@ -430,7 +430,7 @@ function updateModalVariant() {
   if (!hasRealOptions(currentProduct)) {
     const variant = currentProduct.variants[0];
     if (variant) {
-      addBtn.disabled          = !variant.available;
+      addBtn.disabled = !variant.available;
       addBtn.dataset.variantId = variant.id;
       updateModalPrice(variant.price);
     }
@@ -450,7 +450,7 @@ function updateModalVariant() {
     variant = currentProduct.variants.find(v => v.available) || currentProduct.variants[0];
   }
   if (variant) {
-    addBtn.disabled          = !variant.available;
+    addBtn.disabled = !variant.available;
     addBtn.dataset.variantId = variant.id;
     updateModalPrice(variant.price);
   }
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastHotspotInteractionTime = now;
 
         const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
-        
+
         // UNIFIED FLOW: Hotspot (+) ALWAYS opens/toggles the mini-card (First Popup)
         openHotspot(btn, pHandle);
       }
@@ -563,12 +563,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!variantId) return;
 
       if (btn) btn.disabled = true;
-      const span        = btn ? btn.querySelector('span') : null;
+      const span = btn ? btn.querySelector('span') : null;
       const originalTxt = span ? span.textContent : 'Add To Cart';
       if (span) span.textContent = 'ADDING…';
 
       try {
-        const itemsToAdd      = [{ id: variantId, quantity: 1 }];
+        const itemsToAdd = [{ id: variantId, quantity: 1 }];
         const selectedVariant = currentProduct && currentProduct.variants.find(
           v => String(v.id) === String(variantId)
         );
@@ -579,9 +579,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const response = await fetch('/cart/add.js', {
-          method:  'POST',
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ items: itemsToAdd })
+          body: JSON.stringify({ items: itemsToAdd })
         });
 
         if (response.ok) {

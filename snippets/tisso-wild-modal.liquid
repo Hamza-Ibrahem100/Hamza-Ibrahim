@@ -1,9 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Sliding Glider + Variant Color Indicators)
+     Tisso Wild — Product Quick View Modal (Auto-Expanding Card & Natural Dropdown Push)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
-  /* Modal Overlay & Card Container: No card scrollbar, overflow hidden */
+  /* Modal Overlay Container */
   .full-modal-overlay {
     position: fixed;
     inset: 0;
@@ -26,26 +26,24 @@
     pointer-events: auto;
   }
 
+  /* Quick View Modal Card: 311px width, min-height 447px, auto-grows vertically when dropdown opens */
   .full-modal {
     background: #ffffff;
     width: 311px;
     max-width: 92vw;
+    min-height: 447px;
     height: auto;
-    max-height: 447px;
+    max-height: none !important;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
+    overflow: visible !important;
     position: relative;
     padding: 20px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px) rotate(0deg);
-    transition: transform 0.22s ease;
+    transition: transform 0.22s ease, min-height 0.25s ease;
     opacity: 1;
   }
 
@@ -56,7 +54,7 @@
   }
 
   .full-modal-overlay.is-visible .full-modal {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0deg);
   }
 
   /* Minimal Close Icon 'X' */
@@ -142,7 +140,16 @@
     overflow: hidden;
   }
 
-  /* Option Group Labels */
+  /* Parent Option Containers: Unclipped layout */
+  #modal-options-wrap,
+  .modal-option-group,
+  .modal-custom-select-wrap {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    clip-path: none !important;
+  }
+
   .modal-option-group {
     margin-bottom: 16px;
   }
@@ -179,7 +186,7 @@
     will-change: transform;
   }
 
-  /* Option Swatch Button: Transparent background so glider shows through */
+  /* Option Swatch Button */
   .modal-swatch {
     position: relative;
     z-index: 2;
@@ -220,7 +227,7 @@
     pointer-events: none;
   }
 
-  /* Swatch Text: Transition color 280ms cubic-bezier(0.22, 1, 0.36, 1) */
+  /* Swatch Text */
   .modal-swatch-text {
     position: relative;
     z-index: 3;
@@ -301,32 +308,31 @@
     transform: rotate(180deg);
   }
 
-  /* Dropdown Menu List: Always opens BELOW input, max-height 180px, HIDDEN SCROLLBAR across all browsers */
+  /* Dropdown Menu List: Relative positioning in flow when open so it pushes Add to Cart down naturally */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
-    position: absolute;
-    top: 100%;
+    position: relative;
+    top: 0;
     left: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 180px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    max-height: none !important;
+    overflow: visible !important;
     scrollbar-width: none;
     -ms-overflow-style: none;
     box-sizing: border-box;
-    z-index: 1000;
+    z-index: 10;
     background: #ffffff;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    margin-top: 4px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     padding: 0 !important;
-    margin-bottom: 0 !important;
     list-style: none !important;
     display: none;
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     pointer-events: none;
     transition: opacity 200ms ease, transform 200ms ease;
   }
@@ -368,7 +374,7 @@
     color: #ffffff !important;
   }
 
-  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES, TEXT PERFECTLY CENTERED, ARROW ABSOLUTE RIGHT */
+  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
   .full-modal__add-btn,
   .full-modal__add-btn:hover,
   .full-modal__add-btn:active,
