@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Sliding Glider & Fade-Down Dropdown)
+     Tisso Wild — Product Quick View Modal
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -178,7 +178,7 @@
     background: #ffffff;
   }
 
-  /* Option Swatch Button: Transparent background so glider shows through */
+  /* Option Swatch Button */
   .modal-swatch {
     position: relative;
     z-index: 2;
@@ -217,7 +217,7 @@
     pointer-events: none;
   }
 
-  /* Swatch Text: Transition color 250ms cubic-bezier(0.22, 1, 0.36, 1) */
+  /* Swatch Text */
   .modal-swatch-text {
     position: relative;
     z-index: 3;
@@ -232,7 +232,7 @@
     font-weight: 600 !important;
   }
 
-  /* Size Dropdown Styling: Always opens below input, 8px radius, thin light-gray border, soft shadow, fade & slide down 200ms ease */
+  /* Size Dropdown Styling: Always opens BELOW input, thin #D9D9D9 border, 8px radius, max-height 140px with scroll */
   .modal-custom-select-wrap {
     position: relative;
     width: 100%;
@@ -291,14 +291,14 @@
 
   .modal-caret-icon {
     transition: transform 0.2s ease;
-    transform: rotate(0deg); /* Points DOWN when closed */
+    transform: rotate(0deg);
   }
 
   .modal-size-select-box.is-open .modal-caret-icon {
-    transform: rotate(180deg); /* Points UP when open */
+    transform: rotate(180deg);
   }
 
-  /* Dropdown Menu List: Always opens BELOW input, max-height 160px with scroll, fade-and-slide-down (200ms ease) */
+  /* Dropdown Menu List: Always opens BELOW input, max-height 140px with scroll, thin #D9D9D9 border, 8px radius, 200ms fade-and-slide-down */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
     position: absolute;
@@ -306,15 +306,15 @@
     left: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 160px;
+    max-height: 140px;
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
     z-index: 1000;
     background: #ffffff;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #D9D9D9;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     margin-top: 4px;
     padding: 0 !important;
     margin-bottom: 0 !important;
@@ -356,14 +356,22 @@
     color: #ffffff !important;
   }
 
-  /* Bottom Add to Cart Button */
-  .full-modal__add-btn {
+  /* Add To Cart Button: ALWAYS PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
+  .full-modal__add-btn,
+  .full-modal__add-btn:hover,
+  .full-modal__add-btn:active,
+  .full-modal__add-btn:focus,
+  .full-modal__add-btn:visited,
+  .full-modal__add-btn:disabled,
+  .full-modal__add-btn.is-loading,
+  .full-modal__add-btn.is-added {
     width: 100%;
     height: 48px;
     margin-top: 20px;
     background: #000000 !important;
+    background-color: #000000 !important;
     color: #ffffff !important;
-    border: none;
+    border: none !important;
     display: flex !important;
     align-items: center;
     justify-content: space-between;
@@ -376,30 +384,23 @@
     cursor: pointer;
     box-sizing: border-box;
     opacity: 1;
-    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    outline: none !important;
+    box-shadow: none;
   }
 
-  .full-modal__add-btn:not(:disabled):hover {
-    background: #111111 !important;
+  .full-modal__add-btn:hover {
+    opacity: 0.9 !important;
+  }
+
+  .full-modal__add-btn:active {
+    opacity: 0.95 !important;
+  }
+
+  .full-modal__add-btn svg,
+  .full-modal__add-btn svg path {
     color: #ffffff !important;
-  }
-
-  .full-modal__add-btn:not(:disabled):active {
-    transform: scale(0.98);
-    opacity: 0.88;
-    background: #000000 !important;
-  }
-
-  .full-modal__add-btn:disabled {
-    background: #999999 !important;
-    color: #ffffff !important;
-    cursor: not-allowed !important;
-    opacity: 0.75;
-  }
-
-  .full-modal__add-btn svg {
-    width: 24px;
-    height: 12px;
+    stroke: #ffffff !important;
   }
 </style>
 
@@ -424,7 +425,7 @@
     <!-- Variant Options (Color swatches & Size custom dropdown injected by JS) -->
     <div id="modal-options-wrap"></div>
 
-    <!-- Add to Cart Button -->
+    <!-- Add to Cart Button (Permanently Solid Black in All States) -->
     <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
       <span>ADD TO CART</span>
       <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -744,7 +744,7 @@
   transform: rotate(180deg); /* Points UP when open */
 }
 
-/* Dropdown Menu List: Always opens BELOW input, max-height 160px with scroll, fade-and-slide-down (200ms ease) */
+/* Dropdown Menu List: Always opens BELOW input, max-height 140px with scroll, thin #D9D9D9 border, 8px radius, 200ms fade-and-slide-down */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
@@ -752,18 +752,31 @@
   left: 0;
   width: 100%;
   max-width: 100%;
+  max-height: 140px;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 1000;
   background: #ffffff;
-  border: 1px solid #000000;
-  margin-top: -1px;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 4px;
   padding: 0 !important;
-  margin: 0 !important;
-  padding-bottom: 24px !important;
   margin-bottom: 0 !important;
   list-style: none !important;
-  overflow: hidden;
   display: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.modal-custom-select-list.is-visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .modal-custom-select-option {
@@ -776,7 +789,7 @@
   background: #ffffff !important;
   border-bottom: 1px solid #eeeeee;
   box-sizing: border-box;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .modal-custom-select-option:last-child {
@@ -789,18 +802,22 @@
   color: #ffffff !important;
 }
 
-.modal-custom-select-option:active {
-  transform: scale(0.99);
-}
-
-/* Add to Cart Button: Full-width, solid black, white uppercase text, white arrow aligned right */
-.full-modal__add-btn {
+/* Add To Cart Button: ALWAYS PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
+.full-modal__add-btn,
+.full-modal__add-btn:hover,
+.full-modal__add-btn:active,
+.full-modal__add-btn:focus,
+.full-modal__add-btn:visited,
+.full-modal__add-btn:disabled,
+.full-modal__add-btn.is-loading,
+.full-modal__add-btn.is-added {
   width: 100%;
   height: 48px;
   margin-top: 20px;
   background: #000000 !important;
+  background-color: #000000 !important;
   color: #ffffff !important;
-  border: none;
+  border: none !important;
   display: flex !important;
   align-items: center;
   justify-content: space-between;
@@ -813,28 +830,21 @@
   cursor: pointer;
   box-sizing: border-box;
   opacity: 1;
-  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+  outline: none !important;
+  box-shadow: none;
 }
 
-.full-modal__add-btn:not(:disabled):hover {
-  background: #111111 !important;
+.full-modal__add-btn:hover {
+  opacity: 0.9 !important;
+}
+
+.full-modal__add-btn:active {
+  opacity: 0.95 !important;
+}
+
+.full-modal__add-btn svg,
+.full-modal__add-btn svg path {
   color: #ffffff !important;
-}
-
-.full-modal__add-btn:not(:disabled):active {
-  transform: scale(0.98);
-  opacity: 0.88;
-  background: #000000 !important;
-}
-
-.full-modal__add-btn:disabled {
-  background: #999999 !important;
-  color: #ffffff !important;
-  cursor: not-allowed !important;
-  opacity: 0.75;
-}
-
-.full-modal__add-btn svg {
-  width: 24px;
-  height: 12px;
+  stroke: #ffffff !important;
 }
