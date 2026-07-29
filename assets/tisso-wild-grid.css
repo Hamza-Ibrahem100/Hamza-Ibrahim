@@ -135,6 +135,29 @@
   transform: translate(-50%, -50%) scale(1.15);
 }
 
+/* Mobile Quick Add (+) Button Positioning (max-width: 749px) */
+@media screen and (max-width: 749px) {
+  .hotspot-container {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .tisso-wild__hotspot {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    transform: none !important;
+  }
+
+  .tisso-wild__hotspot:hover {
+    transform: scale(1.15) !important;
+  }
+}
+
 .hotspot-marker__icon {
   position: relative;
   width: 8.46px;
