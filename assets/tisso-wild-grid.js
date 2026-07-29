@@ -246,8 +246,13 @@ function renderModalOptions() {
             e.stopImmediatePropagation();
           }
           customSelectBtn.textContent = v;
-          customSelectList.style.display = 'none';
+          customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
+          setTimeout(() => {
+            if (!customSelectList.classList.contains('is-visible')) {
+              customSelectList.style.display = 'none';
+            }
+          }, 200);
 
           selectedOptions[optionName] = v;
           updateModalVariant();
@@ -261,25 +266,20 @@ function renderModalOptions() {
           e.stopPropagation();
           e.stopImmediatePropagation();
         }
-        const isOpen = customSelectList.style.display === 'block';
+        const isOpen = customSelectList.classList.contains('is-visible');
         if (isOpen) {
-          customSelectList.style.display = 'none';
+          customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
-          customSelectList.classList.remove('open-upward');
-        } else {
-          // Check position relative to modal window for auto directional opening
-          const rect = customSelectWrap.getBoundingClientRect();
-          const modalEl = document.querySelector('.full-modal');
-          if (modalEl) {
-            const modalRect = modalEl.getBoundingClientRect();
-            const spaceBelow = modalRect.bottom - rect.bottom;
-            if (spaceBelow < 190) {
-              customSelectList.classList.add('open-upward');
-            } else {
-              customSelectList.classList.remove('open-upward');
+          setTimeout(() => {
+            if (!customSelectList.classList.contains('is-visible')) {
+              customSelectList.style.display = 'none';
             }
-          }
+          }, 200);
+        } else {
           customSelectList.style.display = 'block';
+          // Trigger reflow for CSS transition
+          void customSelectList.offsetWidth;
+          customSelectList.classList.add('is-visible');
           selectBox.classList.add('is-open');
         }
       };
@@ -290,9 +290,13 @@ function renderModalOptions() {
       // Close if clicked outside
       document.addEventListener('click', (e) => {
         if (!customSelectWrap.contains(e.target)) {
-          customSelectList.style.display = 'none';
+          customSelectList.classList.remove('is-visible');
           selectBox.classList.remove('is-open');
-          customSelectList.classList.remove('open-upward');
+          setTimeout(() => {
+            if (!customSelectList.classList.contains('is-visible')) {
+              customSelectList.style.display = 'none';
+            }
+          }, 200);
         }
       });
 
@@ -303,6 +307,18 @@ function renderModalOptions() {
     } else {
       const row = document.createElement('div');
       row.className = 'modal-swatch-row';
+
+      // Shared Single Active Background Glider Layer
+      const glider = document.createElement('div');
+      glider.className = 'modal-swatch-glider';
+      const gliderIndicator = document.createElement('div');
+      gliderIndicator.className = 'modal-swatch-glider-indicator';
+      glider.appendChild(gliderIndicator);
+      row.appendChild(glider);
+
+      const count = values.length || 1;
+      glider.style.width = `calc(100% / ${count})`;
+
       values.forEach((val, vIdx) => {
         const btn = document.createElement('button');
         btn.className   = 'modal-swatch';
@@ -326,10 +342,19 @@ function renderModalOptions() {
           selectedOptions[optionName] = val;
           row.querySelectorAll('.modal-swatch').forEach(b => b.classList.remove('is-selected'));
           btn.classList.add('is-selected');
+
+          // Slide active background glider using GPU-accelerated transform: translateX
+          glider.style.transform = `translateX(${vIdx * 100}%)`;
+
           updateModalVariant();
         });
         row.appendChild(btn);
-        if (vIdx === 0) btn.click(); // auto-select first value
+
+        if (vIdx === 0) {
+          btn.classList.add('is-selected');
+          glider.style.transform = 'translateX(0%)';
+          selectedOptions[optionName] = val;
+        }
       });
       group.appendChild(row);
     }
