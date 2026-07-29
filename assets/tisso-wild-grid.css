@@ -479,17 +479,22 @@
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  overflow: visible;
+  overflow-y: auto;
   position: relative;
   padding: 24px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-sizing: border-box;
   transform: translateY(12px);
-  transition: transform 0.22s ease;
+  transition: transform 0.22s ease, padding-bottom 0.25s ease;
 }
 
 .full-modal-overlay.is-visible .full-modal {
   transform: translateY(0);
+}
+
+/* Card Auto Expansion: Expands card height when dropdown opens so list is 100% enclosed inside white card */
+.full-modal.is-dropdown-open {
+  padding-bottom: 75px !important;
 }
 
 /* Minimal 'X' Close Icon */

@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal
+     Tisso Wild — Product Quick View Modal (Auto-Expanding Card for Dropdown)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -26,6 +26,7 @@
     pointer-events: auto;
   }
 
+  /* White Card Container: Expands padding-bottom smoothly when dropdown is open */
   .full-modal {
     background: #ffffff;
     width: 340px;
@@ -34,17 +35,22 @@
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    overflow: visible;
+    overflow-y: auto;
     position: relative;
     padding: 24px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px);
-    transition: transform 0.22s ease;
+    transition: transform 0.22s ease, padding-bottom 0.25s ease;
   }
 
   .full-modal-overlay.is-visible .full-modal {
     transform: translateY(0);
+  }
+
+  /* Card Auto Expansion: Expands card height when dropdown opens so list is 100% enclosed inside white card */
+  .full-modal.is-dropdown-open {
+    padding-bottom: 75px !important;
   }
 
   /* Minimal Close Icon 'X' */
@@ -232,7 +238,7 @@
     font-weight: 600 !important;
   }
 
-  /* Size Dropdown Styling: Always opens BELOW input, thin #D9D9D9 border, 8px radius, max-height 140px with scroll */
+  /* Size Dropdown Styling */
   .modal-custom-select-wrap {
     position: relative;
     width: 100%;
@@ -298,7 +304,7 @@
     transform: rotate(180deg);
   }
 
-  /* Dropdown Menu List: Always opens BELOW input, max-height 140px with scroll, thin #D9D9D9 border, 8px radius, 200ms fade-and-slide-down */
+  /* Dropdown Menu List: Max-height 110px with scroll, 100% enclosed within expanding card */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
     position: absolute;
@@ -306,11 +312,11 @@
     left: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 140px;
+    max-height: 110px;
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
-    z-index: 1000;
+    z-index: 10;
     background: #ffffff;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
