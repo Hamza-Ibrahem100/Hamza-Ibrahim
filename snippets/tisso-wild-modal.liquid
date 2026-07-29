@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Dynamic Color Indicators)
+     Tisso Wild — Product Quick View Modal (Sliding Glider + Variant Color Indicators)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -155,23 +155,38 @@
     text-transform: none;
   }
 
-  /* Variant Selector Buttons */
+  /* Segmented Control Row with iOS-Style Sliding Active Background Glider */
   .modal-swatch-row {
     position: relative;
     display: flex;
     width: 100%;
     gap: 0;
+    overflow: hidden;
   }
 
+  /* Single Shared Sliding Active Background Glider (GPU Accelerated 280ms bezier) */
+  .modal-swatch-glider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #000000;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  /* Option Swatch Button: Transparent background so glider shows through */
   .modal-swatch {
     position: relative;
+    z-index: 2;
     flex: 1;
     height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff !important;
-    color: #000000 !important;
+    background: transparent !important;
     border: 1px solid #000000 !important;
     cursor: pointer;
     font-family: 'Jost', var(--font-body--family, sans-serif);
@@ -182,39 +197,13 @@
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
-    overflow: hidden;
-    transition: background-color 250ms ease, color 250ms ease;
   }
 
   .modal-swatch + .modal-swatch {
     border-left: none !important;
   }
 
-  /* Selected State: Solid Black background, White text */
-  .modal-swatch.is-selected,
-  .modal-swatch.active {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border-color: #000000 !important;
-  }
-
-  /* Swatch Text */
-  .modal-swatch-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #000000 !important;
-    font-weight: 400;
-    transition: color 250ms ease, font-weight 250ms ease;
-  }
-
-  .modal-swatch.is-selected .modal-swatch-text,
-  .modal-swatch.active .modal-swatch-text {
-    color: #ffffff !important;
-    font-weight: 600 !important;
-  }
-
-  /* 5px Vertical Rectangle Attached to Left Edge (Color set dynamically by JS based on variant name) */
+  /* Stationary 5px Left Vertical Rectangle Attached to Button (Variant Color, Never Moves) */
   .modal-swatch-indicator {
     position: absolute;
     left: 0;
@@ -227,6 +216,21 @@
     padding: 0 !important;
     z-index: 5;
     pointer-events: none;
+  }
+
+  /* Swatch Text: Transition color 280ms cubic-bezier(0.22, 1, 0.36, 1) */
+  .modal-swatch-text {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #000000 !important;
+    font-weight: 400;
+    transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .modal-swatch.is-selected .modal-swatch-text {
+    color: #ffffff !important;
+    font-weight: 600 !important;
   }
 
   /* Size Dropdown Styling */
@@ -362,7 +366,7 @@
     color: #ffffff !important;
   }
 
-  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
+  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES, TEXT PERFECTLY CENTERED, ARROW ABSOLUTE RIGHT */
   .full-modal__add-btn,
   .full-modal__add-btn:hover,
   .full-modal__add-btn:active,

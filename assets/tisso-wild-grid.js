@@ -335,15 +335,23 @@ function renderModalOptions() {
       const row = document.createElement('div');
       row.className = 'modal-swatch-row';
 
+      // Shared Single Active Background Glider Layer (GPU Accelerated 280ms cubic-bezier)
+      const glider = document.createElement('div');
+      glider.className = 'modal-swatch-glider';
+      row.appendChild(glider);
+
+      const count = values.length || 1;
+      glider.style.width = `calc(100% / ${count})`;
+
       values.forEach((val, vIdx) => {
         const btn = document.createElement('button');
         btn.className   = 'modal-swatch';
         btn.type        = 'button';
 
+        // Stationary 5px Left Vertical Rectangle with Variant Color
         const indicator = document.createElement('span');
         indicator.className = 'modal-swatch-indicator';
 
-        // Map variant value name to color HEX code
         const hexColor = getVariantColorHex(val);
         indicator.style.backgroundColor = hexColor;
         if (String(val).toLowerCase().trim() === 'white') {
@@ -366,6 +374,10 @@ function renderModalOptions() {
           selectedOptions[optionName] = val;
           row.querySelectorAll('.modal-swatch').forEach(b => b.classList.remove('is-selected'));
           btn.classList.add('is-selected');
+
+          // Slide active glider using GPU-accelerated transform: translateX(vIdx * 100%)
+          glider.style.transform = `translateX(${vIdx * 100}%)`;
+
           updateModalVariant();
         });
 
@@ -373,6 +385,7 @@ function renderModalOptions() {
 
         if (vIdx === 0) {
           btn.classList.add('is-selected');
+          glider.style.transform = 'translateX(0%)';
           selectedOptions[optionName] = val;
         }
       });
