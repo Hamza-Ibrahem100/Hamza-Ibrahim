@@ -589,7 +589,7 @@
   text-transform: none;
 }
 
-/* Color Selector UI: Adjoined blocks, Selected = Solid Black background & White text */
+/* Color Selector UI: Adjoined blocks, Fixed Color Swatch Indicator */
 .modal-swatch-row {
   display: flex;
   width: 100%;
@@ -610,7 +610,7 @@
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
   user-select: none;
   outline: none;
   box-sizing: border-box;
@@ -621,6 +621,11 @@
   border-left: none;
 }
 
+.modal-swatch:active {
+  transform: scale(0.98);
+  opacity: 0.92;
+}
+
 .modal-swatch.is-selected,
 .modal-swatch.active {
   background: #000000 !important;
@@ -629,15 +634,28 @@
   font-weight: 500 !important;
 }
 
-/* Size Selector UI: Attached square button with caret toggle */
+.modal-swatch-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  flex-shrink: 0;
+  pointer-events: none;
+  transition: none !important;
+}
+
+/* Size Selector UI: Attached square button with caret toggle & soft click interaction */
 .modal-custom-select-wrap {
   position: relative;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .modal-size-select-box {
   display: flex;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .modal-size-select-main {
@@ -656,6 +674,11 @@
   outline: none;
   box-sizing: border-box;
   border-radius: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.modal-size-select-main:active {
+  transform: scale(0.98);
 }
 
 .modal-size-select-arrow {
@@ -672,7 +695,11 @@
   outline: none;
   box-sizing: border-box;
   border-radius: 0;
-  transition: background 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.modal-size-select-arrow:active {
+  transform: scale(0.98);
 }
 
 .modal-caret-icon {
@@ -684,13 +711,15 @@
   transform: rotate(180deg); /* Points UP when open */
 }
 
-/* Dropdown Menu List: Solid border, centered text, generous padding */
+/* Dropdown Menu List: Strict Boundaries (Width 100%, No Overflow), Bottom Padding 24px */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   z-index: 100;
   background: #ffffff;
   border: 1px solid #000000;
@@ -700,7 +729,7 @@
   padding-bottom: 24px !important;
   margin-bottom: 0 !important;
   list-style: none !important;
-  box-sizing: border-box;
+  overflow: hidden;
   display: none;
 }
 
@@ -713,7 +742,8 @@
   cursor: pointer !important;
   background: #ffffff !important;
   border-bottom: 1px solid #eeeeee;
-  transition: background 0.15s ease, color 0.15s ease;
+  box-sizing: border-box;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .modal-custom-select-option:last-child {
@@ -726,7 +756,11 @@
   color: #ffffff !important;
 }
 
-/* Add to Cart Button: Appears ONLY after size selection, Arrow aligned right, Click active feedback */
+.modal-custom-select-option:active {
+  transform: scale(0.99);
+}
+
+/* Add to Cart Button: Permanently Visible at all times with Soft Click Effect */
 .full-modal__add-btn {
   width: 100%;
   height: 50px;
@@ -734,7 +768,7 @@
   background: #000000 !important;
   color: #ffffff !important;
   border: 1px solid #000000 !important;
-  display: none; /* Hidden by default until size is selected */
+  display: flex !important; /* PERMANENTLY VISIBLE AT ALL TIMES */
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
@@ -746,7 +780,7 @@
   cursor: pointer;
   box-sizing: border-box;
   opacity: 1;
-  transition: transform 0.1s ease, opacity 0.1s ease, background 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
 }
 
 .full-modal__add-btn:not(:disabled):hover {
@@ -764,7 +798,7 @@
   background: #999999 !important;
   color: #ffffff !important;
   cursor: not-allowed !important;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .full-modal__add-btn svg {

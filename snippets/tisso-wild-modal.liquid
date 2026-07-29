@@ -3,7 +3,7 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
-  /* 1. Color Selector UI: Adjoined blocks, Default = White, Selected = Solid Black */
+  /* 1. Color Selector UI: Adjoined blocks, Fixed Color Indicator Dot */
   .modal-swatch-row {
     display: flex;
     width: 100%;
@@ -24,7 +24,7 @@
     font-size: 14px;
     font-weight: 400;
     text-align: center;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
     user-select: none;
     outline: none;
     box-sizing: border-box;
@@ -35,6 +35,12 @@
     border-left: none;
   }
 
+  /* Smooth Soft Active Click Effect */
+  .modal-swatch:active {
+    transform: scale(0.98);
+    opacity: 0.92;
+  }
+
   .modal-swatch.is-selected,
   .modal-swatch.active {
     background: #000000 !important;
@@ -43,15 +49,29 @@
     font-weight: 500 !important;
   }
 
-  /* 2. Size Dropdown: Caret icon toggle (DOWN when closed, UP when open) */
+  /* Fixed Color Swatch Indicator (NO hover effects, stays static) */
+  .modal-swatch-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    flex-shrink: 0;
+    pointer-events: none;
+    transition: none !important;
+  }
+
+  /* 2. Size Dropdown: Caret icon toggle & Soft Click Interaction */
   .modal-custom-select-wrap {
     position: relative;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .modal-size-select-box {
     display: flex;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .modal-size-select-main {
@@ -70,6 +90,11 @@
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+  }
+
+  .modal-size-select-main:active {
+    transform: scale(0.98);
   }
 
   .modal-size-select-arrow {
@@ -86,7 +111,11 @@
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
-    transition: background 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+  }
+
+  .modal-size-select-arrow:active {
+    transform: scale(0.98);
   }
 
   .modal-caret-icon {
@@ -98,13 +127,15 @@
     transform: rotate(180deg); /* Points UP when open */
   }
 
-  /* Dropdown List & Hover State: Solid Black on Hover, White Text */
+  /* Dropdown List: Strict Boundaries (Width 100%, No Overflow), Bottom Padding 24px */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     z-index: 100;
     background: #ffffff;
     border: 1px solid #000000;
@@ -114,7 +145,7 @@
     padding-bottom: 24px !important;
     margin-bottom: 0 !important;
     list-style: none !important;
-    box-sizing: border-box;
+    overflow: hidden;
     display: none;
   }
 
@@ -127,7 +158,8 @@
     cursor: pointer !important;
     background: #ffffff !important;
     border-bottom: 1px solid #eeeeee;
-    transition: background 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
   }
 
   .modal-custom-select-option:last-child {
@@ -140,7 +172,11 @@
     color: #ffffff !important;
   }
 
-  /* 3. Add to Cart Button: Appears ONLY when size is selected, Arrow aligned right */
+  .modal-custom-select-option:active {
+    transform: scale(0.99);
+  }
+
+  /* 3. Add to Cart Button: Permanently Visible at all times with Soft Click Effect */
   .full-modal__add-btn {
     width: 100%;
     height: 50px;
@@ -148,7 +184,7 @@
     background: #000000 !important;
     color: #ffffff !important;
     border: 1px solid #000000 !important;
-    display: none; /* Hidden by default until size is selected */
+    display: flex !important; /* PERMANENTLY VISIBLE AT ALL TIMES */
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
@@ -160,7 +196,7 @@
     cursor: pointer;
     box-sizing: border-box;
     opacity: 1;
-    transition: transform 0.1s ease, opacity 0.1s ease, background 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
   }
 
   .full-modal__add-btn:not(:disabled):hover {
@@ -178,7 +214,7 @@
     background: #999999 !important;
     color: #ffffff !important;
     cursor: not-allowed !important;
-    opacity: 0.7;
+    opacity: 0.75;
   }
 
   .full-modal__add-btn svg {
@@ -208,7 +244,7 @@
     <!-- Variant Options (Color swatches & Size custom dropdown injected by JS) -->
     <div id="modal-options-wrap"></div>
 
-    <!-- Add to Cart Button (Appears only after size selection) -->
+    <!-- Add to Cart Button (Permanently visible) -->
     <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
       <span>ADD TO CART</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

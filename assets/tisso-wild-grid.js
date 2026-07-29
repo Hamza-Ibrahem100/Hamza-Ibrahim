@@ -109,7 +109,7 @@ function openFullModal() {
   }
   if (addBtn) {
     addBtn.disabled = true;
-    addBtn.style.display = 'none'; // Initially hidden until size is selected
+    addBtn.style.display = 'flex'; // Permanently visible at all times
     delete addBtn.dataset.variantId;
   }
 
@@ -293,7 +293,27 @@ function renderModalOptions() {
         const btn = document.createElement('button');
         btn.className   = 'modal-swatch';
         btn.type        = 'button';
-        btn.textContent = val;
+
+        const lowerVal = String(val).toLowerCase();
+        let dotColor = '#1e6fe0';
+        if (lowerVal.includes('black')) dotColor = '#000000';
+        else if (lowerVal.includes('white')) dotColor = '#ffffff';
+        else if (lowerVal.includes('blue')) dotColor = '#1e6fe0';
+        else if (lowerVal.includes('red')) dotColor = '#e01e1e';
+        else if (lowerVal.includes('green')) dotColor = '#1ee054';
+        else if (lowerVal.includes('grey') || lowerVal.includes('gray')) dotColor = '#888888';
+
+        const dot = document.createElement('span');
+        dot.className = 'modal-swatch-color-dot';
+        dot.style.backgroundColor = dotColor;
+        if (lowerVal.includes('white')) {
+          dot.style.border = '1px solid #cccccc';
+        }
+        btn.appendChild(dot);
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = val;
+        btn.appendChild(textSpan);
 
         btn.addEventListener('click', (e) => {
           if (e) {
@@ -322,13 +342,13 @@ function updateModalVariant() {
   const addBtn = document.getElementById('modal-add-to-cart');
   if (!addBtn || !currentProduct) return;
 
+  addBtn.style.display = 'flex'; // Permanently visible at all times
+
   const hasSizeOption = currentProduct.options.some(opt => getOptionName(opt).toLowerCase().includes('size'));
   const sizeOptionName = currentProduct.options.find(opt => getOptionName(opt).toLowerCase().includes('size'));
   const isSizeSelected = sizeOptionName ? Boolean(selectedOptions[getOptionName(sizeOptionName)]) : true;
 
-  // Requirement 3 & 4: Hide Add To Cart button until a size is selected
   if (hasSizeOption && !isSizeSelected) {
-    addBtn.style.display = 'none';
     addBtn.disabled = true;
     return;
   }
@@ -338,7 +358,6 @@ function updateModalVariant() {
     if (variant) {
       addBtn.disabled          = !variant.available;
       addBtn.dataset.variantId = variant.id;
-      addBtn.style.display     = 'flex';
       updateModalPrice(variant.price);
     }
     return;
@@ -346,7 +365,6 @@ function updateModalVariant() {
 
   const allSelected = currentProduct.options.every(opt => selectedOptions[getOptionName(opt)]);
   if (!allSelected) {
-    addBtn.style.display = 'none';
     addBtn.disabled = true;
     return;
   }
@@ -357,7 +375,6 @@ function updateModalVariant() {
   if (variant) {
     addBtn.disabled          = !variant.available;
     addBtn.dataset.variantId = variant.id;
-    addBtn.style.display     = 'flex'; // Show button once size and options are selected
     updateModalPrice(variant.price);
   }
 }
