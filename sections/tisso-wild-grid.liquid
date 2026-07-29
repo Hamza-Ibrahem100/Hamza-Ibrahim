@@ -63,7 +63,7 @@
             {% endif %}
 
             <!-- Hotspot / Plus Button & Mini-Card Container -->
-            <div class="hotspot-container" style="position: absolute; top: 8px; right: 8px; left: auto; z-index: 10;">
+            <div class="hotspot-container" style="position: absolute; left: {{ block.settings.position_left }}%; top: {{ block.settings.position_top }}%; z-index: 10;">
               <button class="tisso-wild__hotspot hotspot-marker" data-product-handle="{{ product_item.handle }}" aria-label="{{ p_name | default: 'View product' }}" type="button">
                 <span class="hotspot-marker__icon">+</span>
               </button>
