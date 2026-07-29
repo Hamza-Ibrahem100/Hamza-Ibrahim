@@ -101,8 +101,16 @@
 
 /* Hotspot Container */
 .hotspot-container {
-  /* position: absolute set inline */
+  position: absolute;
   z-index: 10;
+}
+
+/* Desktop Positioning (> 749px) */
+@media screen and (min-width: 750px) {
+  .hotspot-container {
+    left: var(--desktop-left, 50%);
+    top: var(--desktop-top, 50%);
+  }
 }
 
 /* Hotspot / Plus Button */
@@ -137,6 +145,8 @@
 
 /* Mobile Quick Add (+) Button Positioning (max-width: 749px) */
 @media screen and (max-width: 749px) {
+  .tisso-wild__image-wrapper .hotspot-container,
+  .tisso-wild__item .hotspot-container,
   .hotspot-container {
     position: absolute !important;
     top: 8px !important;
@@ -144,16 +154,31 @@
     left: auto !important;
     bottom: auto !important;
     transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
   }
 
-  .tisso-wild__hotspot {
+  .tisso-wild__image-wrapper .tisso-wild__hotspot,
+  .tisso-wild__item .tisso-wild__hotspot,
+  .tisso-wild__hotspot,
+  .hotspot-marker {
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
     width: 20px !important;
     height: 20px !important;
     border-radius: 50% !important;
     transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .tisso-wild__hotspot:hover {
+  .tisso-wild__hotspot:hover,
+  .hotspot-marker:hover {
     transform: scale(1.15) !important;
   }
 }
