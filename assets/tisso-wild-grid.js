@@ -265,7 +265,20 @@ function renderModalOptions() {
         if (isOpen) {
           customSelectList.style.display = 'none';
           selectBox.classList.remove('is-open');
+          customSelectList.classList.remove('open-upward');
         } else {
+          // Check position relative to modal window for auto directional opening
+          const rect = customSelectWrap.getBoundingClientRect();
+          const modalEl = document.querySelector('.full-modal');
+          if (modalEl) {
+            const modalRect = modalEl.getBoundingClientRect();
+            const spaceBelow = modalRect.bottom - rect.bottom;
+            if (spaceBelow < 190) {
+              customSelectList.classList.add('open-upward');
+            } else {
+              customSelectList.classList.remove('open-upward');
+            }
+          }
           customSelectList.style.display = 'block';
           selectBox.classList.add('is-open');
         }
@@ -279,6 +292,7 @@ function renderModalOptions() {
         if (!customSelectWrap.contains(e.target)) {
           customSelectList.style.display = 'none';
           selectBox.classList.remove('is-open');
+          customSelectList.classList.remove('open-upward');
         }
       });
 
