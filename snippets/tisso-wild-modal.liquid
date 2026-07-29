@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Clear Close Button Spacing & Mobile Bypass)
+     Tisso Wild — Product Quick View Modal (Fixed 311x447 Card with Visually Hidden Scrollbar Dropdown)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -26,25 +26,30 @@
     pointer-events: auto;
   }
 
-  /* Fixed 311px Card Container: Content padded downward to clear Close (X) Icon, comfortable bottom padding */
+  /* Fixed 311px x 447px Card Container: Completely fixed, never scrolls, overflow: hidden */
   .full-modal {
     background: #ffffff;
     width: 311px;
     max-width: 92vw;
-    min-height: 447px;
-    height: auto;
-    max-height: 90vh;
+    height: 447px;
+    max-height: 447px !important;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-    overflow-y: auto;
+    overflow: hidden !important;
     position: relative;
-    padding: 36px 20px 24px 20px; /* 36px top padding for clear close button spacing, 24px bottom padding */
+    padding: 36px 20px 24px 20px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px) rotate(0deg);
     transition: transform 0.22s ease;
     opacity: 1;
+  }
+
+  .full-modal::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .full-modal-overlay.is-visible .full-modal {

@@ -476,13 +476,12 @@
   background: #ffffff;
   width: 311px;
   max-width: 92vw;
-  min-height: 447px;
-  height: auto;
-  max-height: 90vh;
+  height: 447px;
+  max-height: 447px !important;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-  overflow-y: auto;
+  overflow: hidden !important;
   position: relative;
   padding: 36px 20px 24px 20px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
