@@ -16,6 +16,29 @@ function formatPrice(cents) {
   return (cents / 100).toFixed(2).replace('.', ',') + '\u20ac';
 }
 
+/* ─── Color Variant Hex Mapper ─────────────────────────────────────────── */
+
+function getVariantColorHex(valueName) {
+  const val = String(valueName).toLowerCase().trim();
+  if (val.includes('blue')) return '#2563EB';
+  if (val.includes('red')) return '#EF4444';
+  if (val.includes('green')) return '#22C55E';
+  if (val.includes('black')) return '#000000';
+  if (val.includes('white')) return '#FFFFFF';
+  if (val.includes('gray') || val.includes('grey')) return '#9CA3AF';
+  if (val.includes('yellow')) return '#FACC15';
+  if (val.includes('orange')) return '#F97316';
+  if (val.includes('purple')) return '#8B5CF6';
+  if (val.includes('pink')) return '#EC4899';
+  if (val.includes('brown')) return '#8B5A2B';
+  if (val.includes('navy')) return '#1E3A8A';
+  if (val.includes('beige')) return '#F5F5DC';
+  if (val.includes('tan')) return '#D2B48C';
+  if (val.includes('cream')) return '#FFFDD0';
+
+  return '#000000';
+}
+
 /* ─── Close: Mini-Cards ─────────────────────────────────────────────────── */
 /*    Collapses all open mini-cards and resets their hotspots back to +.     */
 
@@ -312,17 +335,6 @@ function renderModalOptions() {
       const row = document.createElement('div');
       row.className = 'modal-swatch-row';
 
-      // Shared Single Active Background Glider Layer
-      const glider = document.createElement('div');
-      glider.className = 'modal-swatch-glider';
-      const gliderIndicator = document.createElement('div');
-      gliderIndicator.className = 'modal-swatch-glider-indicator';
-      glider.appendChild(gliderIndicator);
-      row.appendChild(glider);
-
-      const count = values.length || 1;
-      glider.style.width = `calc(100% / ${count})`;
-
       values.forEach((val, vIdx) => {
         const btn = document.createElement('button');
         btn.className   = 'modal-swatch';
@@ -330,6 +342,14 @@ function renderModalOptions() {
 
         const indicator = document.createElement('span');
         indicator.className = 'modal-swatch-indicator';
+
+        // Map variant value name to color HEX code
+        const hexColor = getVariantColorHex(val);
+        indicator.style.backgroundColor = hexColor;
+        if (String(val).toLowerCase().trim() === 'white') {
+          indicator.style.borderRight = '1px solid #d9d9d9';
+        }
+
         btn.appendChild(indicator);
 
         const textSpan = document.createElement('span');
@@ -346,17 +366,13 @@ function renderModalOptions() {
           selectedOptions[optionName] = val;
           row.querySelectorAll('.modal-swatch').forEach(b => b.classList.remove('is-selected'));
           btn.classList.add('is-selected');
-
-          // Slide active background glider using GPU-accelerated transform: translateX
-          glider.style.transform = `translateX(${vIdx * 100}%)`;
-
           updateModalVariant();
         });
+
         row.appendChild(btn);
 
         if (vIdx === 0) {
           btn.classList.add('is-selected');
-          glider.style.transform = 'translateX(0%)';
           selectedOptions[optionName] = val;
         }
       });

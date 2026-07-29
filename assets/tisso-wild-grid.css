@@ -480,13 +480,23 @@
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  overflow-y: auto;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   position: relative;
   padding: 24px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-sizing: border-box;
   transform: translateY(12px);
   transition: transform 0.22s ease;
+}
+
+.full-modal::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .full-modal-overlay.is-visible .full-modal {
@@ -592,49 +602,23 @@
   text-transform: none;
 }
 
-/* Segmented Control Row with iOS-Style Sliding Active Background Glider */
+/* Variant Selector Buttons */
 .modal-swatch-row {
   position: relative;
   display: flex;
   width: 100%;
   gap: 0;
-  overflow: hidden;
 }
 
-/* Single Shared Sliding Active Background Glider (GPU Accelerated 250ms bezier) */
-.modal-swatch-glider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: #000000;
-  z-index: 1;
-  pointer-events: none;
-  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-/* 5px White Left Vertical Indicator Attached Inside Glider */
-.modal-swatch-glider-indicator {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  height: 100%;
-  background: #ffffff;
-}
-
-/* Option Swatch Button: Transparent background so glider shows through */
 .modal-swatch {
   position: relative;
-  z-index: 2;
   flex: 1;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent !important;
+  background: #ffffff !important;
+  color: #000000 !important;
   border: 1px solid #000000 !important;
   cursor: pointer;
   font-family: 'Jost', var(--font-body--family, sans-serif);
@@ -645,13 +629,39 @@
   outline: none;
   box-sizing: border-box;
   border-radius: 0;
+  overflow: hidden;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
 .modal-swatch + .modal-swatch {
   border-left: none !important;
 }
 
-/* Unselected Static Black Left Indicator on Button */
+/* Selected State: Solid Black background, White text */
+.modal-swatch.is-selected,
+.modal-swatch.active {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* Swatch Text */
+.modal-swatch-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #000000 !important;
+  font-weight: 400;
+  transition: color 250ms ease, font-weight 250ms ease;
+}
+
+.modal-swatch.is-selected .modal-swatch-text,
+.modal-swatch.active .modal-swatch-text {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* 5px Vertical Rectangle Attached to Left Edge (Color set dynamically by JS based on variant name) */
 .modal-swatch-indicator {
   position: absolute;
   left: 0;
@@ -659,24 +669,11 @@
   bottom: 0;
   width: 5px !important;
   height: 100% !important;
-  background-color: #000000 !important;
-  z-index: 2;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 5;
   pointer-events: none;
-}
-
-/* Swatch Text: Transition color 250ms cubic-bezier(0.22, 1, 0.36, 1) */
-.modal-swatch-text {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  color: #000000 !important;
-  font-weight: 400;
-  transition: color 250ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.modal-swatch.is-selected .modal-swatch-text {
-  color: #ffffff !important;
-  font-weight: 600 !important;
 }
 
 /* Size Dropdown Styling: Always opens below input, 8px radius, thin light-gray border, soft shadow, fade & slide down 200ms ease */

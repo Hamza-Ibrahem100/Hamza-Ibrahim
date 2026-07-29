@@ -1,9 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal
+     Tisso Wild — Product Quick View Modal (Dynamic Color Indicators)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
-  /* Modal Overlay & Card Container: Fixed spacing, no dynamic resizing */
+  /* Modal Overlay & Card Container: No card scrollbar, overflow hidden */
   .full-modal-overlay {
     position: fixed;
     inset: 0;
@@ -34,13 +34,23 @@
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    overflow-y: auto;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
     position: relative;
     padding: 24px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px);
     transition: transform 0.22s ease;
+  }
+
+  .full-modal::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .full-modal-overlay.is-visible .full-modal {
@@ -145,49 +155,23 @@
     text-transform: none;
   }
 
-  /* Segmented Control Row with iOS-Style Sliding Active Background Glider */
+  /* Variant Selector Buttons */
   .modal-swatch-row {
     position: relative;
     display: flex;
     width: 100%;
     gap: 0;
-    overflow: hidden;
   }
 
-  /* Single Shared Sliding Active Background Glider (GPU Accelerated 250ms bezier) */
-  .modal-swatch-glider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: #000000;
-    z-index: 1;
-    pointer-events: none;
-    transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
-  }
-
-  /* 5px White Left Vertical Indicator Attached Inside Glider */
-  .modal-swatch-glider-indicator {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    height: 100%;
-    background: #ffffff;
-  }
-
-  /* Option Swatch Button */
   .modal-swatch {
     position: relative;
-    z-index: 2;
     flex: 1;
     height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     border: 1px solid #000000 !important;
     cursor: pointer;
     font-family: 'Jost', var(--font-body--family, sans-serif);
@@ -198,13 +182,39 @@
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
+    overflow: hidden;
+    transition: background-color 250ms ease, color 250ms ease;
   }
 
   .modal-swatch + .modal-swatch {
     border-left: none !important;
   }
 
-  /* Unselected Static Black Left Indicator on Button */
+  /* Selected State: Solid Black background, White text */
+  .modal-swatch.is-selected,
+  .modal-swatch.active {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+  }
+
+  /* Swatch Text */
+  .modal-swatch-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #000000 !important;
+    font-weight: 400;
+    transition: color 250ms ease, font-weight 250ms ease;
+  }
+
+  .modal-swatch.is-selected .modal-swatch-text,
+  .modal-swatch.active .modal-swatch-text {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+  }
+
+  /* 5px Vertical Rectangle Attached to Left Edge (Color set dynamically by JS based on variant name) */
   .modal-swatch-indicator {
     position: absolute;
     left: 0;
@@ -212,24 +222,11 @@
     bottom: 0;
     width: 5px !important;
     height: 100% !important;
-    background-color: #000000 !important;
-    z-index: 2;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 5;
     pointer-events: none;
-  }
-
-  /* Swatch Text */
-  .modal-swatch-text {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: #000000 !important;
-    font-weight: 400;
-    transition: color 250ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .modal-swatch.is-selected .modal-swatch-text {
-    color: #ffffff !important;
-    font-weight: 600 !important;
   }
 
   /* Size Dropdown Styling */
@@ -309,8 +306,8 @@
     max-height: 180px;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     box-sizing: border-box;
     z-index: 1000;
     background: #ffffff;
@@ -328,7 +325,6 @@
     transition: opacity 200ms ease, transform 200ms ease;
   }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
   .modal-custom-select-list::-webkit-scrollbar,
   .modal-custom-select-list ul::-webkit-scrollbar {
     display: none !important;
@@ -366,7 +362,7 @@
     color: #ffffff !important;
   }
 
-  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES, TEXT PERFECTLY CENTERED, ARROW ABSOLUTE RIGHT */
+  /* Add To Cart Button: PERMANENTLY SOLID BLACK (#000000) IN ALL STATES */
   .full-modal__add-btn,
   .full-modal__add-btn:hover,
   .full-modal__add-btn:active,
@@ -385,7 +381,7 @@
     border: none !important;
     display: flex !important;
     align-items: center;
-    justify-content: center; /* Perfect horizontal & vertical centering */
+    justify-content: center;
     padding: 0 44px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     font-size: 13px;
@@ -416,7 +412,6 @@
     display: block;
   }
 
-  /* Arrow Aligned to Far Right of Button Independently */
   .full-modal__add-btn svg {
     position: absolute;
     right: 20px;
@@ -451,7 +446,7 @@
     <!-- Variant Options (Color swatches & Size custom dropdown injected by JS) -->
     <div id="modal-options-wrap"></div>
 
-    <!-- Add to Cart Button (Text Perfectly Centered, Arrow Absolute Right, Always Solid Black) -->
+    <!-- Add to Cart Button -->
     <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
       <span>ADD TO CART</span>
       <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
