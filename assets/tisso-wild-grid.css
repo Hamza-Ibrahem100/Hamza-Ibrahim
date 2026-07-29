@@ -271,64 +271,6 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-
-  .tisso-wild__hotspot {
-    position: absolute !important;
-    top: 3.86px !important;
-    right: 37.86px !important;
-    left: auto !important;
-    transform: none !important;
-    width: 44px !important;
-    height: 44px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 10 !important;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* Specific override for the Plaid Shirt (Card 3) to sit exactly at top: 19px (4.86px parent top offset) */
-  .tisso-wild__item:nth-child(3) .tisso-wild__hotspot {
-    top: 4.86px !important;
-  }
-
-  .tisso-wild__hotspot::after {
-    content: "";
-    position: absolute;
-    width: 15.71px;
-    height: 15.71px;
-    border-radius: 50%;
-    background: rgba(248, 248, 248, 0.9);
-    border: none;
-    box-shadow: none;
-    box-sizing: border-box;
-    z-index: 1;
-    pointer-events: none;
-    transition: transform 0.1s ease;
-  }
-
-  .tisso-wild__hotspot:active::after {
-    transform: scale(0.9);
-  }
-
-  .hotspot-marker__icon {
-    position: relative;
-    width: 6.04px !important;
-    height: 6.04px !important;
-    font-size: 0 !important;
-    color: transparent !important;
-    margin-top: 0 !important;
-    z-index: 2;
-  }
-
-  .tisso-wild__tooltip {
-    display: none;
-  }
 }
 
 /* Very small mobile */
