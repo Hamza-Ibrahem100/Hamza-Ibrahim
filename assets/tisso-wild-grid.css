@@ -591,7 +591,7 @@
   text-transform: none;
 }
 
-/* Variant Buttons: Left-to-Right Animated Background Fill (280ms ease-in-out) */
+/* Variant Buttons: Horizontal Sliding Background Fill Layer (300ms ease-in-out) */
 .modal-swatch-row {
   display: flex;
   width: 100%;
@@ -617,14 +617,14 @@
   box-sizing: border-box;
   border-radius: 0;
   overflow: hidden;
-  transition: border-color 280ms ease-in-out;
+  transition: border-color 300ms ease-in-out;
 }
 
 .modal-swatch + .modal-swatch {
   border-left: none !important;
 }
 
-/* Left-to-Right Animated Black Background Fill Pseudo-Element */
+/* Sliding Black Background Layer Behind Text (Sweeps from left to right) */
 .modal-swatch::before {
   content: '';
   position: absolute;
@@ -636,7 +636,7 @@
   z-index: 0;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 280ms ease-in-out;
+  transition: transform 300ms ease-in-out;
   pointer-events: none;
 }
 
@@ -645,7 +645,7 @@
   transform: scaleX(1);
 }
 
-/* Flush 5px Left Vertical Indicator (100% Height, Flush Left) */
+/* Flush 5px Left Vertical Indicator (100% Height, Z-Index above sliding layer) */
 .modal-swatch-indicator {
   position: absolute;
   left: 0;
@@ -654,27 +654,27 @@
   width: 5px !important;
   height: 100% !important;
   border-radius: 0 !important;
-  background-color: #000000 !important; /* Unselected: Black (matches black text) */
+  background-color: #000000 !important; /* Unselected: Black */
   margin: 0 !important;
   padding: 0 !important;
   z-index: 2;
-  transition: background-color 280ms ease-in-out;
+  transition: background-color 300ms ease-in-out;
   pointer-events: none;
 }
 
 .modal-swatch.is-selected .modal-swatch-indicator,
 .modal-swatch.active .modal-swatch-indicator {
-  background-color: #ffffff !important; /* Selected: White (matches white text) */
+  background-color: #ffffff !important; /* Selected: White */
 }
 
-/* Swatch Text: Color Fade & Semi Bold Font Weight */
+/* Swatch Text: Z-Index above sliding background layer, smooth 300ms color transition */
 .modal-swatch-text {
   position: relative;
   z-index: 1;
   text-align: center;
   color: #000000 !important;
   font-weight: 400;
-  transition: color 280ms ease-in-out, font-weight 280ms ease-in-out;
+  transition: color 300ms ease-in-out, font-weight 300ms ease-in-out;
 }
 
 .modal-swatch.is-selected .modal-swatch-text,
