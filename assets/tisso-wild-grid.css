@@ -755,7 +755,7 @@
   margin-bottom: 16px;
 }
 
-/* Dropdown Menu List: Absolute overlay inside card, max-height 240px, smooth 4px scrollbar */
+/* Dropdown Menu List: Absolute overlay inside card, max-height 240px, scrollable with VISUALLY HIDDEN scrollbar */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
@@ -766,8 +766,8 @@
   max-height: 240px;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: #c1c1c1 #f1f1f1;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
   box-sizing: border-box;
   z-index: 100;
   background: #ffffff;
@@ -785,28 +785,12 @@
   transition: opacity 200ms ease, transform 200ms ease;
 }
 
-/* Smooth Modern 4px Scrollbar */
+/* Visually Hide Scrollbar across WebKit browsers (Chrome, Safari, Edge, Opera) */
 .modal-custom-select-list::-webkit-scrollbar,
 .modal-custom-select-list ul::-webkit-scrollbar {
-  width: 4px !important;
-  display: block !important;
-}
-
-.modal-custom-select-list::-webkit-scrollbar-track,
-.modal-custom-select-list ul::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.modal-custom-select-list::-webkit-scrollbar-thumb,
-.modal-custom-select-list ul::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-.modal-custom-select-list::-webkit-scrollbar-thumb:hover,
-.modal-custom-select-list ul::-webkit-scrollbar-thumb:hover {
-  background: #999999;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .modal-custom-select-list.is-visible {
