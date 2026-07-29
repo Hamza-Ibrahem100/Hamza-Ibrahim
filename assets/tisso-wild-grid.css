@@ -897,3 +897,15 @@
   stroke: #ffffff !important;
   pointer-events: none;
 }
+
+/* ─── Extra Large (XL) Responsive Breakpoint (≥1280px) ─────────────────── */
+@media screen and (min-width: 1280px) {
+  .tisso-wild__container {
+    max-width: 1440px;
+  }
+
+  .tisso-wild__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+}
