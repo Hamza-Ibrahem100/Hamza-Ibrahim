@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Auto-Expanding Card & Natural Dropdown Push)
+     Tisso Wild — Product Quick View Modal (Fixed 311x447 Card with Overlay Scrollable Dropdown)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -26,31 +26,24 @@
     pointer-events: auto;
   }
 
-  /* Quick View Modal Card: 311px width, min-height 447px, auto-grows vertically when dropdown opens */
+  /* Fixed 311px x 447px Card Container: Never resizes, overflow: hidden */
   .full-modal {
     background: #ffffff;
     width: 311px;
     max-width: 92vw;
-    min-height: 447px;
-    height: auto;
-    max-height: none !important;
+    height: 447px;
+    max-height: 447px !important;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-    overflow: visible !important;
+    overflow: hidden !important;
     position: relative;
     padding: 20px;
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px) rotate(0deg);
-    transition: transform 0.22s ease, min-height 0.25s ease;
+    transition: transform 0.22s ease;
     opacity: 1;
-  }
-
-  .full-modal::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
   }
 
   .full-modal-overlay.is-visible .full-modal {
@@ -71,6 +64,7 @@
     cursor: pointer;
     padding: 4px;
     transition: opacity 0.15s ease;
+    z-index: 10;
   }
 
   .full-modal__close:hover {
@@ -140,17 +134,13 @@
     overflow: hidden;
   }
 
-  /* Parent Option Containers: Unclipped layout */
-  #modal-options-wrap,
-  .modal-option-group,
-  .modal-custom-select-wrap {
-    overflow: visible !important;
-    max-height: none !important;
-    height: auto !important;
-    clip-path: none !important;
+  /* Parent Option Containers */
+  #modal-options-wrap {
+    position: relative;
   }
 
   .modal-option-group {
+    position: relative;
     margin-bottom: 16px;
   }
 
@@ -212,7 +202,7 @@
     border-left: none !important;
   }
 
-  /* Stationary 5px Left Vertical Rectangle Attached to Button (Variant Color, Never Moves) */
+  /* Stationary 5px Left Vertical Rectangle Attached to Button */
   .modal-swatch-indicator {
     position: absolute;
     left: 0;
@@ -308,40 +298,58 @@
     transform: rotate(180deg);
   }
 
-  /* Dropdown Menu List: Relative positioning in flow when open so it pushes Add to Cart down naturally */
+  /* Dropdown Menu List: Absolute overlay inside card, max-height 240px, smooth 4px scrollbar */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 100%;
     left: 0;
     width: 100%;
     max-width: 100%;
-    max-height: none !important;
-    overflow: visible !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    max-height: 240px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
     box-sizing: border-box;
-    z-index: 10;
+    z-index: 100;
     background: #ffffff;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 4px;
     padding: 0 !important;
+    margin-bottom: 0 !important;
     list-style: none !important;
     display: none;
     opacity: 0;
-    transform: translateY(-4px);
+    transform: translateY(-8px);
     pointer-events: none;
     transition: opacity 200ms ease, transform 200ms ease;
   }
 
+  /* Smooth Modern 4px Scrollbar */
   .modal-custom-select-list::-webkit-scrollbar,
   .modal-custom-select-list ul::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
+    width: 4px !important;
+    display: block !important;
+  }
+
+  .modal-custom-select-list::-webkit-scrollbar-track,
+  .modal-custom-select-list ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .modal-custom-select-list::-webkit-scrollbar-thumb,
+  .modal-custom-select-list ul::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+
+  .modal-custom-select-list::-webkit-scrollbar-thumb:hover,
+  .modal-custom-select-list ul::-webkit-scrollbar-thumb:hover {
+    background: #999999;
   }
 
   .modal-custom-select-list.is-visible {
