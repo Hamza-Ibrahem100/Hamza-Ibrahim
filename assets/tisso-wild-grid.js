@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const btn = e.target.closest('.hotspot-marker, .hotspot-button, .tisso-wild__hotspot');
       if (btn) {
         // Aggressively prevent default, stop propagation, and stop immediate propagation to kill theme quick-views
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
 
@@ -510,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // UNIFIED FLOW: Hotspot (+) ALWAYS opens/toggles the mini-card (First Popup)
         openHotspot(btn, pHandle);
       }
-    }, true);
+    }, { capture: true, passive: false });
   });
 
   /* ── Step 2: Mini-card interaction (Mini-card -> opens Full Modal on Desktop & Mobile) ── */
@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener(eventType, e => {
       const cardWrap = e.target.closest('.hotspot-mini-card');
       if (cardWrap) {
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
 
@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pHandle = cardWrap.dataset.productHandle;
         openFullModalByHandle(pHandle);
       }
-    }, true);
+    }, { capture: true, passive: false });
   });
 
   /* ── Full modal × button ── */
@@ -558,13 +558,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.getElementById('modal-add-to-cart');
   if (addBtn) {
     addBtn.addEventListener('click', async e => {
-      const variantId = e.currentTarget.dataset.variantId;
+      const btn = e.currentTarget || addBtn;
+      const variantId = btn ? btn.dataset.variantId : null;
       if (!variantId) return;
 
-      e.currentTarget.disabled = true;
-      const span        = e.currentTarget.querySelector('span');
-      const originalTxt = span ? span.textContent : 'ADD TO CART';
-      if (span) span.textContent = 'ADDING\u2026';
+      if (btn) btn.disabled = true;
+      const span        = btn ? btn.querySelector('span') : null;
+      const originalTxt = span ? span.textContent : 'Add To Cart';
+      if (span) span.textContent = 'ADDING…';
 
       try {
         const itemsToAdd      = [{ id: variantId, quantity: 1 }];
@@ -593,13 +594,13 @@ document.addEventListener('DOMContentLoaded', () => {
           closeFullModal();
           closeAllMiniCards();
           if (span) span.textContent = originalTxt;
-          e.currentTarget.disabled = false;
+          if (btn) btn.disabled = false;
         }, 1500);
 
       } catch (err) {
         console.error('[Tisso] Add to cart failed:', err);
-        e.currentTarget.disabled = false;
         if (span) span.textContent = originalTxt;
+        if (btn) btn.disabled = false;
       }
     });
   }
