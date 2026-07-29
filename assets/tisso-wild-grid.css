@@ -476,14 +476,15 @@
   background: #ffffff;
   width: 311px;
   max-width: 92vw;
-  height: 447px;
-  max-height: 447px !important;
+  min-height: 447px;
+  height: auto;
+  max-height: 90vh;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-  overflow: hidden !important;
+  overflow-y: auto;
   position: relative;
-  padding: 20px;
+  padding: 36px 20px 24px 20px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   box-sizing: border-box;
   transform: translateY(12px) rotate(0deg);
@@ -515,6 +516,7 @@
   cursor: pointer;
   padding: 4px;
   transition: opacity 0.15s ease;
+  z-index: 20;
 }
 
 .full-modal__close:hover {

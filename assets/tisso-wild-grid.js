@@ -506,9 +506,16 @@ document.addEventListener('DOMContentLoaded', () => {
         lastHotspotInteractionTime = now;
 
         const pHandle = btn.dataset.productHandle || btn.getAttribute('data-product-handle') || '';
+        const isMobile = window.innerWidth <= 767;
 
-        // UNIFIED FLOW: Hotspot (+) ALWAYS opens/toggles the mini-card (First Popup)
-        openHotspot(btn, pHandle);
+        if (isMobile) {
+          // On mobile screens: skip mini-card (first popup) and open full modal (second popup) immediately
+          closeAllMiniCards(true);
+          openFullModalByHandle(pHandle);
+        } else {
+          // On desktop screens: open/toggle mini-card (first popup)
+          openHotspot(btn, pHandle);
+        }
       }
     }, { capture: true, passive: false });
   });

@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Fixed 311x447 Card with Visually Hidden Scrollbar Dropdown)
+     Tisso Wild — Product Quick View Modal (Clear Close Button Spacing & Mobile Bypass)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -26,19 +26,20 @@
     pointer-events: auto;
   }
 
-  /* Fixed 311px x 447px Card Container: Never resizes, overflow: hidden */
+  /* Fixed 311px Card Container: Content padded downward to clear Close (X) Icon, comfortable bottom padding */
   .full-modal {
     background: #ffffff;
     width: 311px;
     max-width: 92vw;
-    height: 447px;
-    max-height: 447px !important;
+    min-height: 447px;
+    height: auto;
+    max-height: 90vh;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-    overflow: hidden !important;
+    overflow-y: auto;
     position: relative;
-    padding: 20px;
+    padding: 36px 20px 24px 20px; /* 36px top padding for clear close button spacing, 24px bottom padding */
     font-family: 'Jost', var(--font-body--family, sans-serif);
     box-sizing: border-box;
     transform: translateY(12px) rotate(0deg);
@@ -50,7 +51,7 @@
     transform: translateY(0) rotate(0deg);
   }
 
-  /* Minimal Close Icon 'X' */
+  /* Minimal Close Icon 'X' - Fixed at Top Right with Z-Index */
   .full-modal__close {
     position: absolute;
     top: 14px;
@@ -64,7 +65,7 @@
     cursor: pointer;
     padding: 4px;
     transition: opacity 0.15s ease;
-    z-index: 10;
+    z-index: 20;
   }
 
   .full-modal__close:hover {
@@ -75,6 +76,7 @@
   .full-modal__top-row {
     display: flex;
     gap: 16px;
+    margin-top: 4px;
     margin-bottom: 20px;
   }
 
