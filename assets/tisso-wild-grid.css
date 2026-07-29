@@ -470,17 +470,19 @@
   pointer-events: auto;
 }
 
-/* Modal white container */
+/* Modal white container: 340px width, 8px border radius, thin light-gray border, soft shadow */
 .full-modal {
   background: #ffffff;
-  width: 330px;
+  width: 340px;
   max-width: 92vw;
   max-height: 90vh;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   overflow: visible;
   position: relative;
-  padding: 32px 24px 24px 24px;
+  padding: 24px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
   box-sizing: border-box;
   transform: translateY(12px);
   transition: transform 0.22s ease;
@@ -544,15 +546,15 @@
 .full-modal__title {
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.3;
   margin: 0 0 6px 0;
-  color: #000000;
+  color: #111111;
 }
 
 .full-modal__price {
   font-family: 'Lustria', var(--font-heading--family, Georgia, serif);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   color: #000000;
   margin: 0 0 8px 0;
@@ -563,8 +565,8 @@
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 12px;
   font-weight: 300;
-  line-height: 1.4;
-  color: #555555;
+  line-height: 1.45;
+  color: #666666;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -578,18 +580,18 @@
   margin-bottom: 16px;
 }
 
-/* Title Case Labels: 'Color', 'Size' with light weight */
+/* Option Labels: Title Case, thin weight */
 .modal-option-label {
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 13px;
-  font-weight: 300;
-  color: #000000;
+  font-weight: 400;
+  color: #333333;
   display: block;
   margin-bottom: 7px;
   text-transform: none;
 }
 
-/* Color Selector UI: Adjoined blocks, Fixed Color Swatch Indicator */
+/* Color Selector UI: Adjoined blocks, Selected = Solid Black background & White text */
 .modal-swatch-row {
   display: flex;
   width: 100%;
@@ -634,9 +636,15 @@
   font-weight: 500 !important;
 }
 
+.modal-swatch.has-blue-indicator.is-selected {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-left: 3px solid #1e6fe0 !important;
+}
+
 .modal-swatch-color-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 8px;
@@ -760,15 +768,15 @@
   transform: scale(0.99);
 }
 
-/* Add to Cart Button: Permanently Visible at all times with Soft Click Effect */
+/* Add to Cart Button: Full-width, solid black, white uppercase text, white arrow aligned right */
 .full-modal__add-btn {
   width: 100%;
-  height: 50px;
+  height: 48px;
   margin-top: 20px;
   background: #000000 !important;
   color: #ffffff !important;
-  border: 1px solid #000000 !important;
-  display: flex !important; /* PERMANENTLY VISIBLE AT ALL TIMES */
+  border: none;
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
@@ -802,6 +810,6 @@
 }
 
 .full-modal__add-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 12px;
 }
