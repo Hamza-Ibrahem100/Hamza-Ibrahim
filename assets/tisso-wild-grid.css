@@ -589,40 +589,28 @@
   text-transform: none;
 }
 
-/* Color Selector UI: Adjoined blocks, Active = White bg, black text, thick left border */
+/* Color Selector UI: Adjoined blocks, Selected = Solid Black background & White text */
 .modal-swatch-row {
   display: flex;
   width: 100%;
   gap: 0;
 }
 
-.modal-swatch,
-.modal-swatch:hover,
-.modal-swatch:focus,
-.modal-swatch:active,
-.modal-swatch.is-selected,
-.modal-swatch.is-selected:hover,
-.modal-swatch.active,
-.modal-swatch.active:hover {
-  background: #ffffff !important;
-  color: #000000 !important;
-}
-
 .modal-swatch {
   flex: 1;
-  height: 42px;
+  height: 44px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 14px;
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #d1d5db;
+  justify-content: center;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
   cursor: pointer;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 14px;
   font-weight: 400;
-  transition: all 0.15s ease;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   user-select: none;
   outline: none;
   box-sizing: border-box;
@@ -635,15 +623,13 @@
 
 .modal-swatch.is-selected,
 .modal-swatch.active {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 1px solid #d1d5db !important;
-  border-left: 3px solid var(--swatch-accent, #1e6fe0) !important;
-  padding-left: 12px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
   font-weight: 500 !important;
 }
 
-/* Size Selector UI: Attached square button on right with upward caret */
+/* Size Selector UI: Attached square button with caret toggle */
 .modal-custom-select-wrap {
   position: relative;
   width: 100%;
@@ -672,16 +658,13 @@
   border-radius: 0;
 }
 
-.modal-size-select-arrow,
-.modal-size-select-arrow:hover,
-.modal-size-select-arrow:focus,
-.modal-size-select-arrow:active {
+.modal-size-select-arrow {
   width: 44px;
   height: 44px;
-  border: 1px solid #000000 !important;
-  margin-left: -1px !important;
-  background: #ffffff !important;
-  color: #000000 !important;
+  border: 1px solid #000000;
+  margin-left: -1px;
+  background: #ffffff;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -689,11 +672,19 @@
   outline: none;
   box-sizing: border-box;
   border-radius: 0;
-  opacity: 1 !important;
-  transition: none !important;
+  transition: background 0.15s ease;
 }
 
-/* Dropdown Menu List: Black border, centered text, generous padding and bottom spacing */
+.modal-caret-icon {
+  transition: transform 0.2s ease;
+  transform: rotate(0deg); /* Points DOWN when closed */
+}
+
+.modal-size-select-box.is-open .modal-caret-icon {
+  transform: rotate(180deg); /* Points UP when open */
+}
+
+/* Dropdown Menu List: Solid border, centered text, generous padding */
 .modal-custom-select-list,
 .modal-custom-select-list ul {
   position: absolute;
@@ -719,7 +710,7 @@
   font-size: 14px;
   color: #000000 !important;
   text-align: center;
-  cursor: pointer;
+  cursor: pointer !important;
   background: #ffffff !important;
   border-bottom: 1px solid #eeeeee;
   transition: background 0.15s ease, color 0.15s ease;
@@ -735,18 +726,18 @@
   color: #ffffff !important;
 }
 
-/* Add to Cart Button */
+/* Add to Cart Button: Appears ONLY after size selection, Arrow aligned right, Click active feedback */
 .full-modal__add-btn {
   width: 100%;
-  height: 48px;
+  height: 50px;
   margin-top: 20px;
-  background: #ffffff !important;
-  color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
   border: 1px solid #000000 !important;
-  display: flex;
+  display: none; /* Hidden by default until size is selected */
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  padding: 0 20px;
   font-family: 'Jost', var(--font-body--family, sans-serif);
   font-size: 13px;
   font-weight: 500;
@@ -754,34 +745,29 @@
   text-transform: uppercase;
   cursor: pointer;
   box-sizing: border-box;
-  opacity: 1 !important;
-  transition: background 0.1s ease, color 0.1s ease;
+  opacity: 1;
+  transition: transform 0.1s ease, opacity 0.1s ease, background 0.15s ease;
 }
 
-.full-modal__add-btn:not(:disabled):hover,
-.full-modal__add-btn:not(:disabled):focus {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 1px solid #000000 !important;
-  opacity: 1 !important;
+.full-modal__add-btn:not(:disabled):hover {
+  background: #111111 !important;
+  color: #ffffff !important;
 }
 
 .full-modal__add-btn:not(:disabled):active {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-  border: 1px solid #000000 !important;
-  opacity: 1 !important;
+  transform: scale(0.98);
+  opacity: 0.88;
+  background: #000000 !important;
 }
 
 .full-modal__add-btn:disabled {
-  background: #f5f5f5 !important;
-  color: #999999 !important;
-  border: 1px solid #cccccc !important;
+  background: #999999 !important;
+  color: #ffffff !important;
   cursor: not-allowed !important;
-  opacity: 1 !important;
+  opacity: 0.7;
 }
 
 .full-modal__add-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }

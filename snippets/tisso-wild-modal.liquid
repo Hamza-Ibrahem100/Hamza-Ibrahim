@@ -1,33 +1,137 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Full Product Modal (CSS Adjustments)
+     Tisso Wild — Full Product Modal
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
-  /* 1. Color Variant Hover/Active State */
-  .modal-swatch,
-  .modal-swatch:hover,
-  .modal-swatch:focus,
-  .modal-swatch:active,
-  .modal-swatch.is-selected,
-  .modal-swatch.is-selected:hover,
-  .modal-swatch.active,
-  .modal-swatch.active:hover {
+  /* 1. Color Selector UI: Adjoined blocks, Default = White, Selected = Solid Black */
+  .modal-swatch-row {
+    display: flex;
+    width: 100%;
+    gap: 0;
+  }
+
+  .modal-swatch {
+    flex: 1;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff !important;
     color: #000000 !important;
+    border: 1px solid #000000 !important;
+    cursor: pointer;
+    font-family: 'Jost', var(--font-body--family, sans-serif);
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    user-select: none;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  .modal-swatch + .modal-swatch {
+    border-left: none;
   }
 
   .modal-swatch.is-selected,
   .modal-swatch.active {
-    border: 1px solid #d1d5db !important;
-    border-left: 3px solid var(--swatch-accent, #1e6fe0) !important;
-    padding-left: 12px !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
     font-weight: 500 !important;
   }
 
-  /* 2. Size Dropdown Item Hover State: Solid Black background, White text */
+  /* 2. Size Dropdown: Caret icon toggle (DOWN when closed, UP when open) */
+  .modal-custom-select-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .modal-size-select-box {
+    display: flex;
+    width: 100%;
+  }
+
+  .modal-size-select-main {
+    flex: 1;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #000000;
+    background: #ffffff;
+    font-family: 'Jost', var(--font-body--family, sans-serif);
+    font-size: 14px;
+    color: #000000;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  .modal-size-select-arrow {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #000000;
+    margin-left: -1px;
+    background: #ffffff;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 0;
+    transition: background 0.15s ease;
+  }
+
+  .modal-caret-icon {
+    transition: transform 0.2s ease;
+    transform: rotate(0deg); /* Points DOWN when closed */
+  }
+
+  .modal-size-select-box.is-open .modal-caret-icon {
+    transform: rotate(180deg); /* Points UP when open */
+  }
+
+  /* Dropdown List & Hover State: Solid Black on Hover, White Text */
+  .modal-custom-select-list,
+  .modal-custom-select-list ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: #ffffff;
+    border: 1px solid #000000;
+    margin-top: -1px;
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-bottom: 24px !important;
+    margin-bottom: 0 !important;
+    list-style: none !important;
+    box-sizing: border-box;
+    display: none;
+  }
+
   .modal-custom-select-option {
-    background: #ffffff !important;
+    padding: 12px 16px;
+    font-family: 'Jost', var(--font-body--family, sans-serif);
+    font-size: 14px;
     color: #000000 !important;
+    text-align: center;
+    cursor: pointer !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #eeeeee;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .modal-custom-select-option:last-child {
+    border-bottom: none;
   }
 
   .modal-custom-select-option:hover,
@@ -36,57 +140,50 @@
     color: #ffffff !important;
   }
 
-  /* 3. Static Dropdown Caret Button: Completely static, no hover state */
-  .modal-size-select-arrow,
-  .modal-size-select-arrow:hover,
-  .modal-size-select-arrow:focus,
-  .modal-size-select-arrow:active {
-    background: #ffffff !important;
-    color: #000000 !important;
+  /* 3. Add to Cart Button: Appears ONLY when size is selected, Arrow aligned right */
+  .full-modal__add-btn {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    background: #000000 !important;
+    color: #ffffff !important;
     border: 1px solid #000000 !important;
-    margin-left: -1px !important;
-    opacity: 1 !important;
+    display: none; /* Hidden by default until size is selected */
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-family: 'Jost', var(--font-body--family, sans-serif);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: transform 0.1s ease, opacity 0.1s ease, background 0.15s ease;
   }
 
-  /* 4. Dropdown Bottom Padding: 24px comfortable breathing room below last item */
-  .modal-custom-select-list,
-  .modal-custom-select-list ul {
-    padding: 0 !important;
-    margin: 0 !important;
-    padding-bottom: 24px !important;
-    margin-bottom: 0 !important;
-    list-style: none !important;
-  }
-
-  /* 5. 'Add to Cart' Button Styling: White in Normal & Hover states, Black ONLY when clicked (:active) */
-  .full-modal__add-btn:not(:disabled) {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #000000 !important;
-    opacity: 1 !important;
-  }
-
-  .full-modal__add-btn:not(:disabled):hover,
-  .full-modal__add-btn:not(:disabled):focus {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #000000 !important;
-    opacity: 1 !important;
+  .full-modal__add-btn:not(:disabled):hover {
+    background: #111111 !important;
+    color: #ffffff !important;
   }
 
   .full-modal__add-btn:not(:disabled):active {
-    background-color: #000000 !important;
-    color: #ffffff !important;
-    border: 1px solid #000000 !important;
-    opacity: 1 !important;
+    transform: scale(0.98);
+    opacity: 0.88;
+    background: #000000 !important;
   }
 
   .full-modal__add-btn:disabled {
-    background: #f5f5f5 !important;
-    color: #999999 !important;
-    border: 1px solid #cccccc !important;
+    background: #999999 !important;
+    color: #ffffff !important;
     cursor: not-allowed !important;
-    opacity: 1 !important;
+    opacity: 0.7;
+  }
+
+  .full-modal__add-btn svg {
+    width: 18px;
+    height: 18px;
   }
 </style>
 
@@ -111,7 +208,7 @@
     <!-- Variant Options (Color swatches & Size custom dropdown injected by JS) -->
     <div id="modal-options-wrap"></div>
 
-    <!-- Add to Cart Button -->
+    <!-- Add to Cart Button (Appears only after size selection) -->
     <button id="modal-add-to-cart" class="full-modal__add-btn" type="button" disabled>
       <span>ADD TO CART</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -107,7 +107,11 @@ function openFullModal() {
       currentProduct.description && currentProduct.description.trim() !== ''
         ? currentProduct.description : '';
   }
-  if (addBtn) { addBtn.disabled = true; delete addBtn.dataset.variantId; }
+  if (addBtn) {
+    addBtn.disabled = true;
+    addBtn.style.display = 'none'; // Initially hidden until size is selected
+    delete addBtn.dataset.variantId;
+  }
 
   renderModalOptions();
 
@@ -220,8 +224,8 @@ function renderModalOptions() {
       arrowBtn.className = 'modal-size-select-arrow';
       arrowBtn.setAttribute('aria-label', 'Toggle size options');
       arrowBtn.innerHTML = `
-        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="modal-caret-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       `;
 
@@ -235,18 +239,36 @@ function renderModalOptions() {
         const opt = document.createElement('div');
         opt.className = 'modal-custom-select-option';
         opt.textContent = v;
-        opt.addEventListener('click', () => {
+        opt.addEventListener('click', (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+          }
           customSelectBtn.textContent = v;
           customSelectList.style.display = 'none';
+          selectBox.classList.remove('is-open');
+
           selectedOptions[optionName] = v;
           updateModalVariant();
         });
         customSelectList.appendChild(opt);
       });
 
-      const toggleDropdown = () => {
+      const toggleDropdown = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
         const isOpen = customSelectList.style.display === 'block';
-        customSelectList.style.display = isOpen ? 'none' : 'block';
+        if (isOpen) {
+          customSelectList.style.display = 'none';
+          selectBox.classList.remove('is-open');
+        } else {
+          customSelectList.style.display = 'block';
+          selectBox.classList.add('is-open');
+        }
       };
 
       customSelectBtn.addEventListener('click', toggleDropdown);
@@ -256,6 +278,7 @@ function renderModalOptions() {
       document.addEventListener('click', (e) => {
         if (!customSelectWrap.contains(e.target)) {
           customSelectList.style.display = 'none';
+          selectBox.classList.remove('is-open');
         }
       });
 
@@ -272,17 +295,12 @@ function renderModalOptions() {
         btn.type        = 'button';
         btn.textContent = val;
 
-        const lowerVal = String(val).toLowerCase();
-        let accentColor = '#1e6fe0';
-        if (lowerVal.includes('black')) accentColor = '#000000';
-        else if (lowerVal.includes('white')) accentColor = '#cccccc';
-        else if (lowerVal.includes('blue')) accentColor = '#1e6fe0';
-        else if (lowerVal.includes('red')) accentColor = '#e01e1e';
-        else if (lowerVal.includes('green')) accentColor = '#1ee054';
-        else if (lowerVal.includes('grey') || lowerVal.includes('gray')) accentColor = '#888888';
-        btn.style.setProperty('--swatch-accent', accentColor);
-
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+          }
           selectedOptions[optionName] = val;
           row.querySelectorAll('.modal-swatch').forEach(b => b.classList.remove('is-selected'));
           btn.classList.add('is-selected');
@@ -304,18 +322,34 @@ function updateModalVariant() {
   const addBtn = document.getElementById('modal-add-to-cart');
   if (!addBtn || !currentProduct) return;
 
+  const hasSizeOption = currentProduct.options.some(opt => getOptionName(opt).toLowerCase().includes('size'));
+  const sizeOptionName = currentProduct.options.find(opt => getOptionName(opt).toLowerCase().includes('size'));
+  const isSizeSelected = sizeOptionName ? Boolean(selectedOptions[getOptionName(sizeOptionName)]) : true;
+
+  // Requirement 3 & 4: Hide Add To Cart button until a size is selected
+  if (hasSizeOption && !isSizeSelected) {
+    addBtn.style.display = 'none';
+    addBtn.disabled = true;
+    return;
+  }
+
   if (!hasRealOptions(currentProduct)) {
     const variant = currentProduct.variants[0];
     if (variant) {
       addBtn.disabled          = !variant.available;
       addBtn.dataset.variantId = variant.id;
+      addBtn.style.display     = 'flex';
       updateModalPrice(variant.price);
     }
     return;
   }
 
   const allSelected = currentProduct.options.every(opt => selectedOptions[getOptionName(opt)]);
-  if (!allSelected) { addBtn.disabled = true; return; }
+  if (!allSelected) {
+    addBtn.style.display = 'none';
+    addBtn.disabled = true;
+    return;
+  }
 
   const variant = currentProduct.variants.find(v =>
     currentProduct.options.every((opt, i) => v[`option${i + 1}`] === selectedOptions[getOptionName(opt)])
@@ -323,6 +357,7 @@ function updateModalVariant() {
   if (variant) {
     addBtn.disabled          = !variant.available;
     addBtn.dataset.variantId = variant.id;
+    addBtn.style.display     = 'flex'; // Show button once size and options are selected
     updateModalPrice(variant.price);
   }
 }
