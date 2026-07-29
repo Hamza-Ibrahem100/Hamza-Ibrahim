@@ -231,8 +231,10 @@ function renderModalOptions() {
   });
 
   optionIndices.forEach(({ index, name: optionName, titleName, safeName }) => {
-    let rawValues = index >= 0 && currentProduct.variants ? [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))].filter(Boolean) : [];
-    let values = (safeName.includes('size') && rawValues.length > 0) ? rawValues : ['XS', 'S', 'M', 'L', 'XL'];
+    let values = [...new Set(currentProduct.variants.map(v => v[`option${index + 1}`]))];
+    if (safeName.includes('size')) {
+      values = ['XS', 'S', 'M', 'L', 'XL'];
+    }
 
     const group = document.createElement('div');
     group.className = 'modal-option-group';
