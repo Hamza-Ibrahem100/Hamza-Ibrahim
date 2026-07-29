@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
-     Tisso Wild — Product Quick View Modal (Fixed 311x447 Card with Visually Hidden Scrollbar Dropdown)
+     Tisso Wild — Product Quick View Modal (Fixed 311x447 Card with 5-Item Scrollable Dropdown)
      ═══════════════════════════════════════════════════════════════════════ -->
 
 <style>
@@ -26,7 +26,7 @@
     pointer-events: auto;
   }
 
-  /* Fixed 311px x 447px Card Container: Completely fixed, never scrolls, overflow: hidden */
+  /* Fixed 311px x 447px Card Container: Completely fixed, never resizes or scrolls */
   .full-modal {
     background: #ffffff;
     width: 311px;
@@ -305,7 +305,7 @@
     transform: rotate(180deg);
   }
 
-  /* Dropdown Menu List: Absolute overlay inside card, max-height 240px, scrollable with VISUALLY HIDDEN scrollbar */
+  /* Dropdown Menu List: Absolute overlay inside card, max-height 225px (fits exactly 5 items), scrollable with VISUALLY HIDDEN scrollbar */
   .modal-custom-select-list,
   .modal-custom-select-list ul {
     position: absolute;
@@ -313,7 +313,7 @@
     left: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 240px;
+    max-height: 225px;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none !important;
