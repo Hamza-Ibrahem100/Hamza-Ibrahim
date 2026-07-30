@@ -149,8 +149,8 @@
   .tisso-wild__item .hotspot-container,
   .hotspot-container {
     position: absolute !important;
-    top: 8px !important;
-    right: 8px !important;
+    top: 10px !important;
+    right: 10px !important;
     left: auto !important;
     bottom: auto !important;
     transform: none !important;
