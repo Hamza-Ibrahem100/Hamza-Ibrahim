@@ -612,3 +612,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/* ─── Mobile Hotspot Position Enforcer ──────────────────────────────────────
+   Writes top:12px / right:12px as inline styles on mobile so the position is
+   immune to CSS caching and specificity issues from any other stylesheet.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+function enforceMobileHotspotPosition() {
+  if (window.innerWidth > 749) return; // desktop — do nothing
+
+  document.querySelectorAll('.tisso-wild__item .hotspot-container').forEach(function(container) {
+    /* Apply the correct mobile position as inline style (beats all CSS) */
+    container.style.setProperty('position', 'absolute', 'important');
+    container.style.setProperty('top',      '12px',     'important');
+    container.style.setProperty('right',    '12px',     'important');
+    container.style.setProperty('left',     'auto',     'important');
+    container.style.setProperty('bottom',   'auto',     'important');
+    container.style.setProperty('width',    '20px',     'important');
+    container.style.setProperty('height',   '20px',     'important');
+    container.style.setProperty('transform','none',     'important');
+    container.style.setProperty('z-index',  '20',       'important');
+
+    /* Cancel the translate(-50%,-50%) on the button inside */
+    var btn = container.querySelector('.tisso-wild__hotspot, .hotspot-marker');
+    if (btn) {
+      btn.style.setProperty('transform', 'none',     'important');
+      btn.style.setProperty('position',  'relative', 'important');
+      btn.style.setProperty('top',       'auto',     'important');
+      btn.style.setProperty('left',      'auto',     'important');
+    }
+
+    /* Ensure the outer card is the absolute positioning context */
+    var item = container.closest('.tisso-wild__item');
+    if (item) {
+      item.style.setProperty('position', 'relative', 'important');
+      item.style.setProperty('overflow', 'visible',  'important');
+    }
+  });
+}
+
+/* Run once DOM is ready and re-run on resize / device rotation */
+document.addEventListener('DOMContentLoaded', enforceMobileHotspotPosition);
+window.addEventListener('resize', enforceMobileHotspotPosition);

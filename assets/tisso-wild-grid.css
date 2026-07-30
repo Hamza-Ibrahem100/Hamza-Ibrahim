@@ -99,17 +99,22 @@
   opacity: 0.25;
 }
 
-/* Hotspot Container */
+/* ─── Hotspot Container ─────────────────────────────────────────────────── */
+
+/* Base: container is always absolutely positioned */
 .hotspot-container {
   position: absolute;
   z-index: 10;
 }
 
-/* Desktop Positioning (> 749px) */
+/* Desktop (>= 750px): position comes from the Shopify block settings via CSS vars */
 @media screen and (min-width: 750px) {
   .hotspot-container {
     left: var(--desktop-left, 50%);
     top: var(--desktop-top, 50%);
+    width: auto;
+    height: auto;
+    transform: none;
   }
 }
 
@@ -143,40 +148,41 @@
   transform: translate(-50%, -50%) scale(1.15);
 }
 
-/* Mobile Quick Add (+) Button Positioning (max-width: 749px) */
+/* ─── Mobile Hotspot Positioning (max-width: 749px) ─────────────────────── */
+/* Completely overrides all desktop percentage-based positioning.             */
+/* JavaScript in tisso-wild-grid.js also enforces this as a fallback.         */
+
 @media screen and (max-width: 749px) {
-  /* Ensure outer card is the positioning anchor and does NOT clip the button */
+
+  /* The outer card is the sole positioning context for the button */
   .tisso-wild__item {
-    overflow: visible !important;
     position: relative !important;
+    overflow: visible !important;
   }
 
-  /* Re-hide overflow only on the image wrapper, not the outer card */
-  .tisso-wild__image-wrapper {
+  /* Keep the image clipped inside the card */
+  .tisso-wild__item .tisso-wild__image-wrapper {
     overflow: hidden !important;
   }
 
-  /* Place container at top-right of the outer card, ignoring image-wrapper overflow */
-  .tisso-wild__item .hotspot-container,
-  .hotspot-container {
+  /* Lock every (+) button to top-right regardless of hotspot coordinates */
+  .tisso-wild__item .hotspot-container {
     position: absolute !important;
     top: 12px !important;
     right: 12px !important;
     left: auto !important;
     bottom: auto !important;
+    width: 20px !important;
+    height: 20px !important;
     transform: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    width: 20px !important;
-    height: 20px !important;
     z-index: 20 !important;
   }
 
-  /* Cancel the translate(-50%,-50%) centering transform on the button itself */
-  .tisso-wild__item .tisso-wild__hotspot,
-  .tisso-wild__item .hotspot-marker,
-  .tisso-wild__hotspot,
-  .hotspot-marker {
+  /* Kill the legacy translate(-50%,-50%) centering transform on the button */
+  .tisso-wild__item .hotspot-container .tisso-wild__hotspot,
+  .tisso-wild__item .hotspot-container .hotspot-marker {
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -193,10 +199,11 @@
     justify-content: center !important;
   }
 
-  .tisso-wild__hotspot:hover,
-  .hotspot-marker:hover {
+  .tisso-wild__item .hotspot-container .tisso-wild__hotspot:hover,
+  .tisso-wild__item .hotspot-container .hotspot-marker:hover {
     transform: scale(1.1) !important;
   }
+
 }
 
 .hotspot-marker__icon {
