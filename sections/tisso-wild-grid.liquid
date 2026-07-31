@@ -12,7 +12,7 @@
     {% if section.settings.heading != blank %}
       <h2 class="tisso-wild__title">{{ section.settings.heading }}</h2>
     {% endif %}
-
+                    
     <!-- Image Grid - 3x2 -->
     <div class="tisso-wild__grid">
       {% for block in section.blocks %}
@@ -22,7 +22,7 @@
           if grid_image == blank and product_item != blank
             assign grid_image = product_item.featured_image
           endif
-          
+                                    
           assign p_name = block.settings.product_name
           if p_name == blank and product_item != blank
             assign p_name = product_item.title
@@ -53,15 +53,15 @@
                 loading="lazy"
                 width="{{ grid_image.width }}"
                 height="{{ grid_image.height }}"
-                class="tisso-wild__image"
-              >
+                class="tisso-wild__image"                                
+              >              
             {% else %}
               <div class="tisso-wild__placeholder">
                 {%- assign placeholder_num = forloop.index | modulo: 2 | plus: 1 -%}
                 {{ 'lifestyle-' | append: placeholder_num | placeholder_svg_tag: 'tisso-wild__placeholder-svg' }}
               </div>
             {% endif %}
-          </div>
+          </div>                                           
 
           <!-- Hotspot / Plus Button & Mini-Card Container (direct child of card, not image-wrapper) -->
           <div class="hotspot-container" style="--desktop-left: {{ block.settings.position_left }}%; --desktop-top: {{ block.settings.position_top }}%;">
