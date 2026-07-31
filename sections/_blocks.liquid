@@ -12,7 +12,7 @@
 
 {% render 'section',
   section: section,
-  children: children,
+  children: children,             
   section_id: section.id,
   background_color: section.settings.background_color
 %}
@@ -37,8 +37,8 @@
       "type": "header",
       "content": "t:content.layout"
     },
-    {
-      "type": "select",
+    {           
+      "type": "select",               
       "id": "content_direction",
       "label": "t:settings.direction",
       "options": [
@@ -69,17 +69,17 @@
           "value": "flex-start",
           "label": "t:options.left"
         },
-        {
+        {                       
           "value": "center",
           "label": "t:options.center"
-        },
-        {
+        },                   
+        {                        
           "value": "flex-end",
           "label": "t:options.right"
         },
         {
-          "value": "space-between",
-          "label": "t:options.space_between"
+          "value": "space-between",     
+          "label": "t:options.space_between"     
         }
       ],
       "default": "flex-start",
@@ -99,8 +99,8 @@
           "label": "t:options.center"
         },
         {
-          "value": "flex-end",
-          "label": "t:options.bottom"
+          "value": "flex-end",                          
+          "label": "t:options.bottom"             
         }
       ],
       "default": "center",
@@ -113,7 +113,7 @@
       "default": false,
       "visible_if": "{{ section.settings.vertical_alignment == 'flex-end' }}"
     },
-    {
+    {            
       "type": "select",
       "id": "horizontal_alignment_flex_direction_column",
       "label": "t:settings.alignment",
