@@ -1,3 +1,7 @@
+# Shopify Theme Development Assessment
+
+This repository contains a custom Shopify theme implementation built from scratch using Shopify Liquid, HTML, CSS, and Vanilla JavaScript. The project follows Shopify Theme Development best practices with a modular, maintainable, and scalable architecture.
+
 # 📂 Project Features Directory Index
 
 This project has been organized into modular, maintainable, and reusable components following Shopify Theme Development best practices. Each major feature has its own dedicated files, making the codebase easier to understand, maintain, and extend.
@@ -70,6 +74,18 @@ To modify Shopify schema settings, layout structure, or section configuration, e
 
 ---
 
+# ✨ Key Features
+
+- Pixel-perfect implementation based on the provided Figma design.
+- Fully responsive layout.
+- Dynamic product popups.
+- AJAX Add to Cart functionality.
+- Variant selection.
+- Automatic bundle product addition.
+- Modular Shopify sections.
+- Reusable Liquid snippets.
+
+
 # 📁 Project Structure
 
 ```
@@ -109,7 +125,7 @@ assets/
 - Shopify Liquid
 - HTML5
 - CSS3
-- JavaScript (ES6)
-- AJAX Cart
+- Vanilla JavaScript (ES6)
+- AJAX Cart API
 - Responsive Design
 - Shopify Theme Architecture
