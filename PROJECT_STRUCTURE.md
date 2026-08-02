@@ -1,45 +1,115 @@
-# 📂 خريطة وتقسيم ملفات الميزات (Features Directory Index)
+# 📂 Project Features Directory Index
 
-تم تقسيم وتطوير السكشنات والميزات الأساسية في هذا المشروع إلى أجزاء مستقلة ومُنظمة لتسهيل الوصول والتعديل السريع على الكود، مع الالتزام التام بقواعد Shopify الرسمية.
-
----
-
-## 🎯 1. سكشن الشبكة التفاعلية (Tisso In The Wild Grid)
-ميزة عرض الصور في شبكة 3x2 مع زار الـ Hotspot والنوافذ المنبثقة للطلب المباشر مع عروض الـ Bundles.
-
-* 📄 **السكشن الأساسي (Liquid Section)**: 
-  * [`sections/tisso-wild-grid.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/sections/tisso-wild-grid.liquid)
-* 🎨 **ملف التنسيقات (CSS)**: 
-  * [`assets/tisso-wild-grid.css`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/assets/tisso-wild-grid.css)
-* ⚡ **ملف البرمجة والتفاعل (JS)**: 
-  * [`assets/tisso-wild-grid.js`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/assets/tisso-wild-grid.js)
-* 🧩 **مكون النافذة المنبثقة (Popup Modal Snippet)**: 
-  * [`snippets/tisso-wild-modal.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/snippets/tisso-wild-modal.liquid)
+This project has been organized into modular, maintainable, and reusable components following Shopify Theme Development best practices. Each major feature has its own dedicated files, making the codebase easier to understand, maintain, and extend.
 
 ---
 
-## 🎯 2. سكشن منتجات شبكة مخصصة (Custom Product Grid)
-ميزة بطاقات المنتجات المخصصة مع زر الـ Quick View وشريط خيارات الألوان والمقاسات.
+# 🎯 1. Tisso In The Wild Grid
 
-* 📄 **السكشن الأساسي (Liquid Section)**: 
-  * [`sections/custom-grid.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/sections/custom-grid.liquid)
-* 🎨 **ملف التنسيقات (CSS)**: 
-  * [`assets/custom-grid.css`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/assets/custom-grid.css)
-* ⚡ **ملف البرمجة والتفاعل (JS)**: 
-  * [`assets/custom-grid.js`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/assets/custom-grid.js)
-* 🧩 **مكون النافذة المنبثقة (Modal Snippet)**: 
-  * [`snippets/custom-grid-modal.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/snippets/custom-grid-modal.liquid)
+An interactive image grid section featuring hotspot (+) buttons, product popups, Quick Add to Cart functionality, and bundle offers.
+
+### Files
+
+#### Main Section
+- `sections/tisso-wild-grid.liquid`
+
+#### Styles
+- `assets/tisso-wild-grid.css`
+
+#### JavaScript
+- `assets/tisso-wild-grid.js`
+
+#### Popup Snippet
+- `snippets/tisso-wild-modal.liquid`
 
 ---
 
-## 🎯 3. ميزات إضافية ذات صلة (Other Custom Sections)
-* 🖼️ **Gift Guide Hero**: [`sections/gift-guide-hero.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/sections/gift-guide-hero.liquid)
-* 🎨 **Tisso Illustrations Collage**: [`sections/tisso-illustrations-collage.liquid`](file:///c:/Users/Mass/Downloads/theme_export__hamza-ibrahim-48-teststore-myshopify-com-horizon__20JUL2026-0817pm/sections/tisso-illustrations-collage.liquid)
+# 🎯 2. Custom Product Grid
+
+A custom product grid with interactive product cards, Quick View, color swatches, size selector, and Add to Cart popup.
+
+### Files
+
+#### Main Section
+- `sections/custom-grid.liquid`
+
+#### Styles
+- `assets/custom-grid.css`
+
+#### JavaScript
+- `assets/custom-grid.js`
+
+#### Popup Snippet
+- `snippets/custom-grid-modal.liquid`
 
 ---
 
-## 💡 كيف تعدل على أي ميزة بسرعة؟
-1. للتعديل على **التصميم أو الألوان**: افتح ملف `.css` المقابل للميزة في مجلد `assets/`.
-2. للتعديل على **طريقة عمل الـ Popups أو السلة (AJAX/Fetch)**: افتح ملف `.js` المقابل في مجلد `assets/`.
-3. للتعديل على **محتوى النافذة المنبثقة HTML**: افتح ملف الـ `.liquid` الخاص بالـ Modal في مجلد `snippets/`.
-4. للتعديل على **إعدادات الثيم (Schema / Layout)**: افتح ملف السكشن الأساسي في مجلد `sections/`.
+# 🎯 3. Additional Custom Sections
+
+### Gift Guide Hero
+- `sections/gift-guide-hero.liquid`
+
+### Tisso Illustrations Collage
+- `sections/tisso-illustrations-collage.liquid`
+
+---
+
+# 💡 How to Modify Each Feature
+
+### UI / Styling
+To update layouts, colors, spacing, typography, or responsive styles, edit the corresponding CSS file inside the **assets** directory.
+
+### JavaScript Logic
+To modify interactions such as popups, Quick Add, AJAX requests, product selection, or other dynamic behaviors, edit the corresponding JavaScript file inside **assets**.
+
+### Popup Markup
+To update the HTML structure of the product popup or modal, edit the related Liquid snippet inside the **snippets** directory.
+
+### Section Settings
+To modify Shopify schema settings, layout structure, or section configuration, edit the corresponding Liquid file inside the **sections** directory.
+
+---
+
+# 📁 Project Structure
+
+```
+sections/
+    tisso-wild-grid.liquid
+    custom-grid.liquid
+    gift-guide-hero.liquid
+    tisso-illustrations-collage.liquid
+
+snippets/
+    tisso-wild-modal.liquid
+    custom-grid-modal.liquid
+
+assets/
+    tisso-wild-grid.css
+    tisso-wild-grid.js
+    custom-grid.css
+    custom-grid.js
+```
+
+---
+
+# ✅ Development Notes
+
+- Built following Shopify Theme Development best practices.
+- Organized into reusable and maintainable components.
+- Desktop and mobile layouts are handled independently where required.
+- JavaScript and CSS are separated by feature.
+- Popups are implemented as reusable Liquid snippets.
+- Code has been optimized for readability, maintainability, and future scalability.
+- The project is production-ready and suitable for deployment on Shopify.
+
+---
+
+# 🚀 Technologies Used
+
+- Shopify Liquid
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- AJAX Cart
+- Responsive Design
+- Shopify Theme Architecture
