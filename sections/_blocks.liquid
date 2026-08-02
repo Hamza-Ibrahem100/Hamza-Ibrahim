@@ -10,7 +10,7 @@
   {% content_for 'blocks' %}
 {% endcapture %}
 
-{% render 'section',
+{% render 'section',                             
   section: section,
   children: children,             
   section_id: section.id,
@@ -52,7 +52,7 @@
         }
       ],
       "default": "column"
-    },
+    },                     
     {
       "type": "checkbox",
       "id": "vertical_on_mobile",
@@ -130,29 +130,29 @@
           "value": "flex-end",
           "label": "t:options.right"
         }
-      ],
+      ],             
       "default": "flex-start",
       "visible_if": "{{ section.settings.content_direction != 'row' }}"
     },
     {
       "type": "select",
-      "id": "vertical_alignment_flex_direction_column",
+      "id": "vertical_alignment_flex_direction_column",     
       "label": "t:settings.position",
       "options": [
         {
-          "value": "flex-start",
+          "value": "flex-start",     
           "label": "t:options.top"
         },
         {
           "value": "center",
-          "label": "t:options.center"
+          "label": "t:options.center"         
+        },      
+        {
+          "value": "flex-end",            
+          "label": "t:options.bottom"             
         },
         {
-          "value": "flex-end",
-          "label": "t:options.bottom"
-        },
-        {
-          "value": "space-between",
+          "value": "space-between",    
           "label": "t:options.space_between"
         }
       ],
