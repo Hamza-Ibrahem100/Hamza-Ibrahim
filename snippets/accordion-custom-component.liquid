@@ -53,7 +53,7 @@
     data-close-with-escape="true" 
   {% endif %}
   {% if data_filter_param_name %}
-    data-filter-param-name="{{ data_filter_param_name }}"   
+    data-filter-param-name="{{ data_filter_param_name }}"     
   {% endif %}
 >
   {{ children }}
@@ -62,8 +62,8 @@
 {% stylesheet %}       
   accordion-custom {                   
     details {
-      &::details-content,
-      .details-content {
+      &::details-content,           
+      .details-content {    
         block-size: 0;
         overflow-y: clip;
         opacity: 0;
@@ -77,13 +77,13 @@
       /* Disable transitions when the content toggle is not caused by the direct user interaction, e.g. opening the filters on mobile. */
       &:not(:focus-within)::details-content,
       &:not(:focus-within) .details-content {
-        transition: none;
+        transition: none;      
       }
 
       &:not([open]) {
-        &::details-content,
+        &::details-content,    
         .details-content {
-          padding-block: 0;
+          padding-block: 0;   
         }
       }
 
@@ -96,20 +96,20 @@
           @starting-style {
             block-size: 0;
             opacity: 0;
-            overflow-y: clip;
-          }
+            overflow-y: clip;           
+          }                 
 
-          &:focus-within {
-            overflow-y: visible;
+          &:focus-within {    
+            overflow-y: visible;           
           }
         }
       }
     }
   }
 
-  accordion-custom[data-disable-on-mobile='true'] summary {
+  accordion-custom[data-disable-on-mobile='true'] summary {    
     @media screen and (max-width: 749px) {
-      cursor: auto;
+      cursor: auto;  
     }
   }
 
