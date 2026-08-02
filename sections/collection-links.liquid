@@ -130,7 +130,7 @@
     }
 
     &[alignment='right'] {
-      --alignment: flex-end;
+      --alignment: flex-end;    
 
       .text-block {
         text-align: right;
@@ -140,11 +140,11 @@
     &[layout='spotlight'] {
       position: relative;
       grid-template-columns: 1fr var(--template-column-ratio);
-      grid-template-areas: 'text image';
+      grid-template-areas: 'text image'; 
 
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 750px) {    
         &[reverse] {
-          grid-template-areas: 'image text';
+          grid-template-areas: 'image text';    
           grid-template-columns: var(--template-column-ratio) 1fr;
         }
       }
@@ -155,12 +155,12 @@
 
       @media screen and (max-width: 749px) {
         grid-template-columns: 1fr;
-        grid-template-areas: 'text' 'image';
+        grid-template-areas: 'text' 'image';       
         grid-gap: var(--gap-2xl);
 
         .collection-links__container {
           gap: clamp(var(--gap-xs), 1vw, var(--gap-xl)) var(--gap-2xl);
-          justify-content: var(--alignment);
+          justify-content: var(--alignment);           
         }
       }
     }
@@ -178,10 +178,10 @@
     }
   }
 
-  .collection-links__container {
+  .collection-links__container {         
     display: flex;
-    gap: var(--gap-md);
-    flex-direction: column;
+    gap: var(--gap-md);                         
+    flex-direction: column;  
   }
 
   .collection-links__images {
@@ -190,7 +190,7 @@
 
     @media screen and (max-width: 749px) {
       image-block {
-        max-width: 100%;
+        max-width: 100%;          
       }
     }
   }
@@ -198,7 +198,7 @@
 
 {% schema %}
 {
-  "name": "t:names.collection_links",
+  "name": "t:names.collection_links",    
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -214,12 +214,12 @@
     },
     {
       "type": "select",
-      "id": "layout",
-      "label": "t:settings.layout",
+      "id": "layout",      
+      "label": "t:settings.layout",    
       "options": [
         {
           "value": "spotlight",
-          "label": "t:options.spotlight"
+          "label": "t:options.spotlight"          
         },
         {
           "value": "text",
