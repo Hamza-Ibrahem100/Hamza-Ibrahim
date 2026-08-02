@@ -1,7 +1,7 @@
 {%- doc -%}
   Accordion Custom Component
 
-  Renders the accordion-custom custom element wrapper with co-located styles.
+  Renders the accordion--custom custom element wrapper with co-located styles.
 
   @param {string} children - The content to render inside the component (typically a <details> element)
   @param {string} [class] - Additional CSS classes
@@ -21,11 +21,11 @@
       <div class="details-content">Content here</div>
     </details>
   {% endcapture %}
-  {% render 'accordion-custom-component',
+  {% render 'accordion-custom-component',         
     children: accordion_content,
-    open_by_default_on_desktop: true
+    open_by_default_on_desktop: true  
   %}
-{%- enddoc -%}
+{%- enddoc -%}   
 
 <accordion-custom
   {% if class %}
@@ -40,7 +40,7 @@
   {% if open_by_default_on_mobile %}
     open-by-default-on-mobile
   {% endif %}
-  {% if disable_on_desktop %}
+  {% if disable_on_desktop %}               
     data-disable-on-desktop="true"
   {% endif %}
   {% if disable_on_mobile %}
