@@ -1,25 +1,24 @@
 
-
 {% liquid
   assign collection_list = section.settings.collection_list
 
   if collection_list == blank
     assign limit = 4
 
-    for i in (1..4)
+    for i in (1..4)                        
       assign collection_list = collection_list | append: ', '
     endfor
 
-    assign collection_list = collection_list | split: ','
+    assign collection_list = collection_list | split: ','   
   endif
 
   assign active_collection = collection_list | find: 'id', collection.id | default: collection_list.first
 %}
-
+                                                       
 <script
   src="{{ 'collection-links.js' | asset_url }}"
   type="module"
-  fetchpriority="low"
+  fetchpriority="low"        
 ></script>
 
 {% liquid
@@ -41,7 +40,7 @@
     alignment="{{ section.settings.alignment }}"
     {% if section.settings.image_position == 'left' %}
       reverse
-    {% endif %}
+    {% endif %}             
   >
     <div
       class="collection-links__container"
@@ -52,13 +51,13 @@
           assign current = false
 
           if collection.id == active_collection.id
-            assign current = true
+            assign current = true  
           endif
         %}
         {% content_for 'block',
           type: '_collection-link',
           id: 'link',
-          closest.collection: collection,
+          closest.collection: collection,  
           index: forloop.index0,
           current: current
         %}
@@ -72,10 +71,10 @@
           {% liquid
             assign current = false
 
-            if collection.id == active_collection.id
+            if collection.id == active_collection.id   
               assign current = true
             endif
-          %}
+          %}           
 
           {% capture slide %}
             {% content_for 'block',
@@ -86,7 +85,7 @@
               current: current,
               image_only: true
             %}
-          {% endcapture %}
+          {% endcapture %}    
 
           {% render 'slideshow-slide', children: slide, index: forloop.index0 %}
         {% endfor %}
@@ -122,8 +121,8 @@
       --template-column-ratio: 1.4fr;
     }
 
-    &[alignment='center'] {
-      --alignment: center;
+    &[alignment='center'] {  
+      --alignment: center;     
 
       .text-block {
         text-align: center;
