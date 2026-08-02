@@ -307,7 +307,7 @@
         }
       ],
       "default": "cover",
-      "visible_if": "{{ section.settings.background_media == 'image' }}"
+      "visible_if": "{{ section.settings.background_media == 'image' }}"                   
     },
     {
       "type": "checkbox",
@@ -320,14 +320,14 @@
       "label": "t:settings.overlay_color",
       "alpha": true,
       "default": "#00000026",
-      "visible_if": "{{ section.settings.toggle_overlay }}"
+      "visible_if": "{{ section.settings.toggle_overlay }}"                      
     },
     {
-      "type": "select",
+      "type": "select",              
       "id": "overlay_style",
       "label": "t:settings.overlay_style",
       "options": [
-        {
+        {                              
           "value": "solid",
           "label": "t:options.solid"
         },
